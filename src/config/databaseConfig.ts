@@ -1,21 +1,19 @@
-// import 'reflect-metadata';
-import { DataSource } from 'typeorm';
+import 'reflect-metadata';
+import { Sequelize } from 'sequelize-typescript';
 import appConfiguration from './config';
 
 const {
   DB: { port, name, password, host, user },
 } = appConfiguration;
 
-const AppDataSource = new DataSource({
-  type: 'postgres',
+const AppDataSource = new Sequelize({
+  dialect: 'postgres',
   host: host,
   port: port,
   username: user,
   password: password,
   database: name,
-
-  entities: [`${__dirname}/**/entities/*.{ts,js}`],
-  migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
+  models: [__dirname + '/**/*.model.ts'],
 });
 
 export default AppDataSource;

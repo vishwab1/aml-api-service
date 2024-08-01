@@ -5,7 +5,7 @@ import { appConfiguration, AppDataSource } from './config';
 import { loggerConfiguration } from './utils';
 import bodyParser from 'body-parser';
 
-const { ENV_PORT } = appConfiguration;
+const { envPort } = appConfiguration;
 
 const initializeServer = async (): Promise<void> => {
   try {
@@ -13,11 +13,11 @@ const initializeServer = async (): Promise<void> => {
     const app: Application = express();
 
     // Middleware for parsing JSON request body
-    app.use(bodyParser.json({ limit: '500mb' }));
+    app.use(bodyParser.json({ limit: '5mb' }));
 
-    app.use(bodyParser.urlencoded({ limit: '500mb', extended: true, parameterLimit: 50000 }));
+    app.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
 
-    app.use(express.json({ limit: '500mb' }));
+    app.use(express.json({ limit: '5mb' }));
 
     // Middleware for parsing urlencoded request body
     app.use(express.urlencoded({ extended: true }));
@@ -34,13 +34,13 @@ const initializeServer = async (): Promise<void> => {
     });
 
     //database connection
-    await AppDataSource.initialize()
-      .then(() => loggerConfiguration.info('database connection successfully'))
-      .catch((err) => loggerConfiguration.info(`error in database connection ${err}`));
+    await AppDataSource.authenticate()
+      .then(() => loggerConfiguration.info('database connected successfully'))
+      .catch((err: any) => loggerConfiguration.info(`error in database connection ${err}`));
 
     // Start the server
-    const server = app.listen(ENV_PORT, () => {
-      loggerConfiguration.info(`Listening on port ${ENV_PORT}...`);
+    const server = app.listen(envPort, () => {
+      loggerConfiguration.info(`Listening on port ${envPort}...`);
     });
 
     // Graceful server shutdown
