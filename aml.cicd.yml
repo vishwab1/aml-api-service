@@ -3,7 +3,7 @@ run-name: Workflow run for ${{ github.ref }}
 on:
   push:
     tags:
-      - "*"
+      - '*'
   workflow_dispatch:
     inputs:
       aws-deploy:
@@ -23,7 +23,7 @@ jobs:
       - name: Build docker image and push
         uses: docker/build-push-action@v5
         with:
-          file: ./api-service/Dockerfile  
+          file: ./api-service/Dockerfile
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/obsrv-api-service:${{ github.ref_name }}
 
@@ -41,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./command-service
-          platforms: linux/amd64  
+          platforms: linux/amd64
           push: true
           tags: ${{ vars.DOCKERHUB_USERNAME }}/flink-command-service:${{ github.ref_name }}
