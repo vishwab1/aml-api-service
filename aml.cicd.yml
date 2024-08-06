@@ -25,7 +25,7 @@ jobs:
         with:
           file: ./api-service/Dockerfile
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/obsrv-api-service:${{ github.ref_name }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/aml-api-service:${{ github.ref_name }}
 
   build-command-service-image:
     runs-on: ubuntu-latest
