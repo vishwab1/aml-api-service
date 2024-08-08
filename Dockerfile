@@ -1,7 +1,8 @@
 FROM --platform=linux/amd64 node:20-alpine
-RUN mkdir -p /opt/aml-api-service
-COPY ./aml-api-service  ./opt/aml-api-service
-WORKDIR /opt/aml-api-service
+RUN apk add --no-cache postgresql-client
+RUN mkdir -p /opt/api-service
+COPY . ./opt/api-service
+WORKDIR /opt/api-service
 RUN npm install
 COPY . .
 EXPOSE 3000
