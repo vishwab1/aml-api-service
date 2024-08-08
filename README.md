@@ -9,6 +9,12 @@ To use the AML API service, make sure you have the following dependencies instal
 - Express.js: version 5.0.0
 - npm: version 10.5.0
 
+## Prerequisites
+
+Make sure you have the following prerequisites installed:
+
+- **PostgreSQL:** Ensure that PostgreSQL is installed and running. You will need to configure the DB Properties settings in the environment.
+
 ## Getting Started
 
 To start the AML API service, follow these steps:
