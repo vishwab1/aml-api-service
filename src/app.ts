@@ -13,7 +13,7 @@ let server: ReturnType<typeof app.listen>;
 
 // Define the error handler
 const unexpectedErrorHandler = (error: Error): void => {
-  logger.error('An unexpected error occurred:', { error });
+  logger.error('An unexpected error occurred', { message: error.message, stack: error.stack });
   exitHandler();
 };
 
@@ -55,18 +55,18 @@ const initializeServer = async (): Promise<void> => {
     // Database connection
     await AppDataSource.sync()
       .then(() => logger.info('Database connection successful'))
-      .catch((err: any) => logger.error(`Error in database connection: ${err}`));
+      .catch((err: any) => logger.error('Error in database connection', { message: err.message }));
 
     // Start the server
-    app.listen(envPort, () => {
+    server = app.listen(envPort, () => {
       logger.info(`Listening on port ${envPort}.`);
     });
 
     // Handle uncaught exceptions and unhandled rejections
     process.on('uncaughtException', unexpectedErrorHandler);
     process.on('unhandledRejection', unexpectedErrorHandler);
-  } catch (error) {
-    logger.error('Failed to start server:', error);
+  } catch (error: any) {
+    logger.error('Failed to start server', { message: error.message });
     process.exit(1);
   }
 };
@@ -74,5 +74,5 @@ const initializeServer = async (): Promise<void> => {
 // Start the server
 void initializeServer();
 
-//export for testing
+// Export for testing
 export default app;
