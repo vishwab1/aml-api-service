@@ -58,8 +58,8 @@ const initializeServer = async (): Promise<void> => {
       .catch((err: any) => logger.error('Error in database connection', { message: err.message }));
 
     // Start the server
-    server = app.listen(envPort, () => {
-      logger.info(`Listening on port ${envPort}.`);
+    app.listen(envPort, () => {
+      logger.info(`Listening on port.`);
     });
 
     // Handle uncaught exceptions and unhandled rejections
