@@ -19,17 +19,6 @@ export const createTenant = async (req: Optional<any, string> | undefined): Prom
   }
 };
 
-//get Single tenant by name
-export const getTenantByName = async (tenant_name: string): Promise<any> => {
-  try {
-    const getTenant = await Tenant.findOne({ where: { tenant_name }, raw: true });
-    return { error: false, getTenant };
-  } catch (error: any) {
-    const errorMessage = error?.message || 'failed to get a record';
-    return { error: true, message: errorMessage };
-  }
-};
-
 //update single tenant
 export const updatetenant = async (id: number, req: UpdateTenant): Promise<any> => {
   try {

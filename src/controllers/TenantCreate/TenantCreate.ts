@@ -6,13 +6,13 @@ import { errorResponse, successResponse } from '../../utils/response';
 import httpStatus from 'http-status';
 import { createTenant } from '../../services/tenant';
 import { schemaValidation } from '../../services/validationService';
-import { v4 as uuidv4 } from 'uuid';
+import * as uuid from 'uuid';
+import { getBoardsByIds } from '../../services/board';
 
 export const apiId = 'api.tenant.create';
 
 const tenantCreate = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
-
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
   try {
@@ -21,12 +21,26 @@ const tenantCreate = async (req: Request, res: Response) => {
     if (!isRequestValid.isValid) {
       const code = 'TENANT_INVALID_INPUT';
       logger.error({ code, apiId, msgid, requestBody, message: isRequestValid.message });
-      return res.status(httpStatus.BAD_REQUEST).json(errorResponse(apiId, httpStatus.BAD_REQUEST, isRequestValid.message, code));
+      return res.status(httpStatus.BAD_REQUEST).json(errorResponse(apiId, msgid, httpStatus.BAD_REQUEST, isRequestValid.message, code));
+    }
+
+    if (dataBody.board_id && dataBody.board_id.length > 0) {
+      const { boards } = await getBoardsByIds(dataBody.board_id);
+
+      //handle databse error
+      if (boards.error) {
+        throw new Error(boards.message);
+      }
+      if (boards.length !== dataBody.board_id.length) {
+        const code = 'BOARD_NOT_FOUND';
+        logger.error({ code, apiId, msgid, requestBody, message: 'board IDs do not exist' });
+        return res.status(httpStatus.BAD_REQUEST).json(errorResponse(apiId, msgid, httpStatus.BAD_REQUEST, 'Board IDs do not exist', code));
+      }
     }
 
     const tenantInsertData = {
       ...dataBody,
-      identifier: uuidv4(),
+      identifier: uuid.v4(),
       status: 'live',
       created_by: 'system',
       is_active: true,
@@ -34,7 +48,7 @@ const tenantCreate = async (req: Request, res: Response) => {
 
     const createNewTenant = await createTenant(tenantInsertData);
 
-    return res.status(httpStatus.OK).json(successResponse(apiId, { message: 'Tenant Successfully Created', identifier: createNewTenant.id }));
+    return res.status(httpStatus.OK).json(successResponse(apiId, msgid, { message: 'Tenant Successfully Created', identifier: createNewTenant.identifier }));
   } catch (error: any) {
     const code = _.get(error, 'code') || 'TENANT_CREATE_FAILURE';
     let errorMessage = error;
@@ -43,7 +57,7 @@ const tenantCreate = async (req: Request, res: Response) => {
       errorMessage = { code, message: error.message };
     }
     logger.error({ error, apiId, code, errorMessage });
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResponse(apiId, statusCode, errorMessage, code));
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResponse(apiId, msgid, statusCode, errorMessage, code));
   }
 };
 

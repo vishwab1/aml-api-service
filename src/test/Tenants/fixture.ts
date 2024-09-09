@@ -1,6 +1,6 @@
-export const insert_tenant_request = {
+export const tenant_request = {
   tenantCreate: {
-    id: 'api.datasets.create',
+    id: 'api.tenant.create',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
     params: {
@@ -9,12 +9,12 @@ export const insert_tenant_request = {
     request: {
       name: 'mumbai',
       type: 'Government',
-      board_id: [1, 2, 3],
+      board_id: [1],
     },
   },
 
   invalidTenantRequest: {
-    id: 'api.datasets.create',
+    id: 'api.tenant.create',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
     params: {
@@ -22,12 +22,12 @@ export const insert_tenant_request = {
     },
     request: {
       type: 'Government',
-      board_id: [1, 2, 3],
+      board_id: [1],
     }, // Missing the `name` field
   },
 
   invalidTenantSchema: {
-    id: 'api.datasets.create',
+    id: 'api.tenant.create',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
     params: {
@@ -109,9 +109,8 @@ export const tenantSearch = {
     id: 'api.tenant.search',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
-
     request: {
-      filters: {},
+      filters: { name: 1 },
       limit: 10,
       offset: 0,
     },

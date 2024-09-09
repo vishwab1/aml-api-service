@@ -5,7 +5,8 @@ import chaiHttp from 'chai-http';
 import spies from 'chai-spies';
 import { describe, it } from 'mocha';
 import { AppDataSource } from '../../config';
-import { insert_tenant_request } from './fixture';
+import { tenant_request } from './fixture';
+import { boardMaster } from '../../models/boardMaster';
 
 chai.use(spies);
 chai.should();
@@ -31,6 +32,10 @@ describe('TENANT CREATE API', () => {
       return Promise.resolve([{ nextVal: 9 }]);
     });
 
+    chai.spy.on(boardMaster, 'findAll', () => {
+      return Promise.resolve([{ id: 1, name: 'Board 1', is_active: true }]);
+    });
+
     // Mocking Tenant.create to simulate tenant creation
     chai.spy.on(Tenant, 'create', () => {
       return Promise.resolve({ dataValues: { id: 1, name: 'tenant' } });
@@ -51,7 +56,7 @@ describe('TENANT CREATE API', () => {
     chai
       .request(app)
       .post(insertUrl)
-      .send(insert_tenant_request.tenantCreate)
+      .send(tenant_request.tenantCreate)
       .end((err, res) => {
         if (err) return done(err);
         res.should.have.status(200);
@@ -72,7 +77,7 @@ describe('TENANT CREATE API', () => {
     chai
       .request(app)
       .post(insertUrl)
-      .send(insert_tenant_request.tenantCreate)
+      .send(tenant_request.tenantCreate)
       .end((err, res) => {
         res.should.have.status(500);
         res.body.should.be.a('object');
@@ -87,7 +92,7 @@ describe('TENANT CREATE API', () => {
     chai
       .request(app)
       .post(insertUrl)
-      .send(insert_tenant_request.invalidTenantRequest)
+      .send(tenant_request.invalidTenantRequest)
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
@@ -104,7 +109,7 @@ describe('TENANT CREATE API', () => {
     chai
       .request(app)
       .post(insertUrl)
-      .send(insert_tenant_request.invalidTenantSchema)
+      .send(tenant_request.invalidTenantSchema)
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');

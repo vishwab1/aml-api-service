@@ -1,6 +1,6 @@
-import 'reflect-metadata';
 import { Sequelize } from 'sequelize-typescript';
 import appConfiguration from './config';
+import path from 'path';
 
 const {
   DB: { port, name, password, host, user },
@@ -13,7 +13,7 @@ const AppDataSource = new Sequelize({
   username: user,
   password: password,
   database: name,
-  models: [__dirname + '/models/*.ts'],
+  models: [path.join(__dirname, 'models', '*.ts')],
 });
 
 export const query = async (query: string) => {

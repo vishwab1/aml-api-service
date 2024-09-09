@@ -1,4 +1,3 @@
-// import dotenv from 'dotenv';
 import { get, isEqual } from 'lodash';
 import { IConfiguration } from './interfaces';
 
@@ -14,7 +13,7 @@ const appConfiguration: IConfiguration = {
   },
   envPort: get(envVars, 'AML_SERVICE_APPLICATION_PORT', '4000'),
   applicationEnv: get(envVars, 'AML_SERVICE_APPLICATION_ENV', 'development'),
-  appVersion: get(envVars, 'AML_SERVICE_APP_VERSION', '1.1'),
+  appVersion: get(envVars, 'AML_SERVICE_APP_VERSION', '1.0'),
   DB: {
     host: get(envVars, 'AML_SERVICE_DB_HOST', 'localhost'),
     port: Number(get(envVars, 'AML_SERVICE_DB_PORT')),

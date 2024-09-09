@@ -3,7 +3,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "enum": ["api.datasets.create"]
+      "enum": ["api.tenant.create"]
     },
     "ver": {
       "type": "string"

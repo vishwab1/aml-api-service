@@ -20,14 +20,14 @@ interface ResponseObject {
   };
 }
 
-const successResponse = (id: string, result: any): ResponseObject => {
+const successResponse = (id: string, msgid: string, result: any): ResponseObject => {
   return {
     id,
     ver: appVersion,
     ts: new Date().toISOString(),
     params: {
       resmsgid: uuid.v4(),
-      msgid: uuid.v4(),
+      msgid: msgid,
       status: 'successful',
     },
     responseCode: 'OK',
@@ -56,7 +56,7 @@ const generateErrorResponse = (id: string, err: string, errmsg: string, response
   },
 });
 
-const errorResponse = (id: string, responseCode: number, errmsg?: string, errCode?: string): ResponseObject => {
+const errorResponse = (id: string, msgid: string, responseCode: number, errmsg?: string, errCode?: string): ResponseObject => {
   let resObj: ResponseObject;
 
   switch (responseCode) {

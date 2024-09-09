@@ -23,6 +23,7 @@ describe('Tenant Search API', () => {
           id: 1,
           name: 'kerala',
           type: 'education',
+          board_id: [1],
           is_active: true,
           status: 'live',
           created_by: 'system',
@@ -67,7 +68,7 @@ describe('Tenant Search API', () => {
         res.should.have.status(400);
         res.body.should.be.a('object');
         res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('CLIENT_ERROR');
+        res.body.responseCode.should.be.eq('RESOURCE_NOT_FOUND');
         res.body.err.err.should.be.eq('TENANT_INVALID_INPUT');
         done();
       });

@@ -3,22 +3,36 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import { NOT_FOUND } from 'http-status';
 import { appConfiguration, AppDataSource } from './config';
 import logger from './utils/logger';
-import bodyParser from 'body-parser';
 import { router } from './routes/router';
 
 const { envPort } = appConfiguration;
 
 const app: Application = express();
 
+let server: ReturnType<typeof app.listen>;
+
+// Define the error handler
+const unexpectedErrorHandler = (error: Error): void => {
+  logger.error('An unexpected error occurred:', { error });
+  exitHandler();
+};
+
+// Graceful server shutdown
+const exitHandler = (): void => {
+  if (server) {
+    // Check if server is defined
+    server.close(() => {
+      logger.info('Server closed');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+};
+
 const initializeServer = async (): Promise<void> => {
   try {
-    // Create the Express application
-
     // Middleware for parsing JSON request body
-    app.use(bodyParser.json({ limit: '5mb' }));
-
-    app.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 50000 }));
-
     app.use(express.json({ limit: '5mb' }));
 
     // Middleware for parsing urlencoded request body
@@ -30,7 +44,7 @@ const initializeServer = async (): Promise<void> => {
     // Enable CORS preflight for all routes
     app.options('*', cors());
 
-    //router
+    // Router
     app.use('/api/v1', router);
 
     // 404 handler for unknown API requests
@@ -38,43 +52,21 @@ const initializeServer = async (): Promise<void> => {
       next({ statusCode: NOT_FOUND, message: 'Not found' });
     });
 
-    //database connection
+    // Database connection
     await AppDataSource.sync()
-      .then(() => logger.info('database connected successfully'))
-      .catch((err: any) => logger.info(`error in database connection ${err}`));
-
-    //database sync
-    // await AppDataSource.sync()
-    //   .then(() => logger.info('database sync successfully'))
-    //   .catch((err: any) => logger.info(`error in database sync ${err}`));
+      .then(() => logger.info('Database connection successful'))
+      .catch((err: any) => logger.error(`Error in database connection: ${err}`));
 
     // Start the server
-    const server = app.listen(envPort, () => {
-      logger.info(`Listening on port .`);
+    app.listen(envPort, () => {
+      logger.info(`Listening on port ${envPort}.`);
     });
 
-    // Graceful server shutdown
-    const exitHandler = (): void => {
-      server.close(() => {
-        logger.info('Server closed');
-
-        process.exit(0);
-      });
-    };
-
     // Handle uncaught exceptions and unhandled rejections
-    const unexpectedErrorHandler = (error: Error): void => {
-      logger.error('error', error);
-
-      exitHandler();
-    };
-
     process.on('uncaughtException', unexpectedErrorHandler);
-
     process.on('unhandledRejection', unexpectedErrorHandler);
   } catch (error) {
     logger.error('Failed to start server:', error);
-
     process.exit(1);
   }
 };

@@ -9,6 +9,7 @@ export const apiId = 'api.tenant.read';
 
 const ReadSingleTenant = async (req: Request, res: Response) => {
   const tenant_id = parseInt(_.get(req, 'params.tenant_id'));
+  const msgid = _.get(req, ['body', 'params', 'msgid']);
 
   try {
     const getTenantInfo = await getTenant(tenant_id);
@@ -18,17 +19,17 @@ const ReadSingleTenant = async (req: Request, res: Response) => {
       throw new Error(getTenantInfo.message);
     }
 
-    const TENANT = getTenantInfo.tenant;
+    const tenantDetails = getTenantInfo.tenant;
 
     //validating tenant is exist
-    if (_.isEmpty(TENANT)) {
+    if (_.isEmpty(tenantDetails)) {
       const code = 'TENANT_NOT_EXISTS';
       logger.error({ code, apiId, message: `Tenant not exists` });
-      return res.status(httpStatus.NOT_FOUND).json(errorResponse(apiId, httpStatus.NOT_FOUND, `tenant does not exists `, code));
+      return res.status(httpStatus.NOT_FOUND).json(errorResponse(apiId, msgid, httpStatus.NOT_FOUND, `Tenant does not exists `, code));
     }
 
-    logger.info({ apiId, message: `Tenant read Successfully` });
-    res.status(httpStatus.OK).json(successResponse(apiId, TENANT));
+    logger.info({ apiId, message: `Tenant Read Successfully` });
+    res.status(httpStatus.OK).json(successResponse(apiId, msgid, tenantDetails));
   } catch (error: any) {
     const code = _.get(error, 'code') || 'TENANT_READ_FAILURE';
     let errorMessage = error;
@@ -37,7 +38,7 @@ const ReadSingleTenant = async (req: Request, res: Response) => {
       errorMessage = { code, message: error.message };
     }
     logger.error({ error, apiId, code, tenant_id });
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResponse(apiId, statusCode, errorMessage, code));
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json(errorResponse(apiId, msgid, statusCode, errorMessage, code));
   }
 };
 
