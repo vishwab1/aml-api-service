@@ -27,11 +27,6 @@ describe('TENANT CREATE API', () => {
       return Promise.resolve(null);
     });
 
-    // Mocking AppDataSource.query to return a simulated next value
-    chai.spy.on(AppDataSource, 'query', () => {
-      return Promise.resolve([{ nextVal: 9 }]);
-    });
-
     chai.spy.on(boardMaster, 'findAll', () => {
       return Promise.resolve([{ id: 1, name: 'Board 1', is_active: true }]);
     });
@@ -39,17 +34,6 @@ describe('TENANT CREATE API', () => {
     // Mocking Tenant.create to simulate tenant creation
     chai.spy.on(Tenant, 'create', () => {
       return Promise.resolve({ dataValues: { id: 1, name: 'tenant' } });
-    });
-
-    // Mocking transaction methods
-    const transactionMock = {
-      commit: chai.spy(() => Promise.resolve({})),
-      rollback: chai.spy(() => Promise.resolve({})),
-    };
-
-    // Mocking AppDataSource.transaction to return our transaction mock
-    chai.spy.on(AppDataSource, 'transaction', () => {
-      return Promise.resolve(transactionMock);
     });
 
     // Sending request to the API

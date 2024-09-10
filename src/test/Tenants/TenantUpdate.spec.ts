@@ -4,7 +4,7 @@ import chaiSpies from 'chai-spies';
 import app from '../../app';
 import { Tenant } from '../../models/tenant';
 import { updateTenatTenantBoard } from './fixture';
-import { AppDataSource } from '../../config';
+import { boardMaster } from '../../models/boardMaster';
 
 chai.use(chaiHttp);
 chai.use(chaiSpies);
@@ -20,17 +20,13 @@ describe('Tenant update API', () => {
     chai.spy.on(Tenant, 'findOne', () => {
       return Promise.resolve({ id: 1, is_active: true });
     });
-    chai.spy.on(Tenant, 'update', () => {
-      return Promise.resolve({ tenant_name: 'Mumbai' });
+
+    chai.spy.on(boardMaster, 'findAll', () => {
+      return Promise.resolve([{ id: 1, name: 'Board 1', is_active: true }]);
     });
 
-    const transactionMock = {
-      commit: chai.spy(() => Promise.resolve({})),
-      rollback: chai.spy(() => Promise.resolve({})),
-    };
-
-    chai.spy.on(AppDataSource, 'transaction', () => {
-      return Promise.resolve(transactionMock);
+    chai.spy.on(Tenant, 'update', () => {
+      return Promise.resolve({ name: 'Mumbai' });
     });
 
     chai

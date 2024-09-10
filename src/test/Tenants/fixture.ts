@@ -51,10 +51,8 @@ export const updateTenatTenantBoard = {
       msgid: '123e4567-e89b-12d3-a456-426614174000',
     },
     request: {
-      name: 'name',
-      type: 'updated_type',
-      // Ensure this field is excluded if not in the model
-      // board_id: [1, 2, 3],
+      name: 'Mumbai',
+      board_id: [1],
     },
   },
 
@@ -106,6 +104,17 @@ export const tenantSearch = {
   },
 
   invalidSchemaSearchRequest: {
+    id: 'api.tenant.search',
+    ver: '1.0',
+    ts: '2024-09-03T12:34:56Z',
+    request: {
+      filters: { name: 1 },
+      limit: 10,
+      offset: 0,
+    },
+  },
+
+  invalidfilterSearchRequest: {
     id: 'api.tenant.search',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',

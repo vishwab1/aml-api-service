@@ -26,7 +26,22 @@
       "properties": {
         "filters": {
           "type": "object",
-          "description": "Object containing search criteria. Can include any fields defined in the Tenant model."
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the tenant"
+            },
+            "is_active": {
+              "type": "boolean",
+              "description": "Status of the tenant"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["draft", "live"],
+              "description": "Current status of the tenant"
+            }
+          },
+          "additionalProperties": true
         },
         "limit": {
           "type": "number",

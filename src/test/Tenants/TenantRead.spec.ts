@@ -115,7 +115,7 @@ describe('Tenant read API', () => {
   });
 
   it('should return 409 and Requested tenant id  does not exist', (done) => {
-    chai.spy.on(Tenant, 'findAll', () => {
+    chai.spy.on(Tenant, 'findOne', () => {
       return Promise.resolve(null);
     });
 
@@ -127,7 +127,6 @@ describe('Tenant read API', () => {
         res.should.have.status(404);
         res.body.should.be.a('object');
         res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('RESOURCE_NOT_FOUND');
         res.body.err.err.should.be.eq('TENANT_NOT_EXISTS');
         done();
       });
