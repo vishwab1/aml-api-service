@@ -1,0 +1,128 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.master.create"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "boardData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "class_id": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": ["name", "description", "class_id"],
+            "additionalProperties": false
+          }
+        },
+        "classData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "prerequisites": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "tenant_id": {
+                "type": "number"
+              }
+            },
+            "required": ["name", "prerequisites", "description", "tenant_id"],
+            "additionalProperties": false
+          }
+        },
+        "skillData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "description"],
+            "additionalProperties": false
+          }
+        },
+        "subskillData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "description"],
+            "additionalProperties": false
+          }
+        },
+        "roleData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": ["name", "description"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["boardData", "classData", "skillData", "subskillData", "roleData"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
