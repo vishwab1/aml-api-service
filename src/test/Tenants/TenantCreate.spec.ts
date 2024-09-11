@@ -4,7 +4,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import spies from 'chai-spies';
 import { describe, it } from 'mocha';
-import { AppDataSource } from '../../config';
 import { tenant_request } from './fixture';
 import { boardMaster } from '../../models/boardMaster';
 
@@ -53,11 +52,10 @@ describe('TENANT CREATE API', () => {
   // Test case: Database connection failure
   it('Should not insert record into the database when transaction fails', (done) => {
     // Mocking transaction to simulate a failure
-    chai.spy.on(AppDataSource, 'transaction', () => {
-      return Promise.reject(new Error('error occurred while connecting to the database'));
+    chai.spy.on(Tenant, 'create', () => {
+      return Promise.reject(new Error('Database Connection Error'));
     });
 
-    // Sending request to the API
     chai
       .request(app)
       .post(insertUrl)

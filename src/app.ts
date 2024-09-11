@@ -24,53 +24,52 @@ const exitHandler = (): void => {
     // Check if server is defined
     server.close(() => {
       logger.info('Server closed');
-      process.exit(1);
+      process.exit(0);
     });
   } else {
-    process.exit(1);
+    process.exit(0);
   }
 };
 
 const initializeServer = async (): Promise<void> => {
-  // Middleware for parsing JSON request body
-  app.use(express.json({ limit: '5mb' }));
+  try {
+    // Middleware for parsing JSON request body
+    app.use(express.json({ limit: '5mb' }));
 
-  // Middleware for parsing urlencoded request body
-  app.use(express.urlencoded({ extended: true }));
+    // Middleware for parsing urlencoded request body
+    app.use(express.urlencoded({ extended: true }));
 
-  // Middleware to enable CORS
-  app.use(cors());
+    // Middleware to enable CORS
+    app.use(cors());
 
-  // Enable CORS preflight for all routes
-  app.options('*', cors());
+    // Enable CORS preflight for all routes
+    app.options('*', cors());
 
-  // Router
-  app.use('/api/v1', router);
+    // Router
+    app.use('/api/v1', router);
 
-  app.use(amlErrorHandler);
+    app.use(amlErrorHandler);
 
-  // 404 handler for unknown API requests
-  app.use((req: Request, res: Response, next: NextFunction) => {
-    next({ statusCode: NOT_FOUND, message: 'Not found' });
-  });
-
-  //Db sync
-  await AppDataSource.sync()
-    .then(() => {
-      logger.info('Database connection established successfully.');
-    })
-    .catch((err: any) => {
-      logger.error('Unable to connect to the database:', { message: err.message });
+    // 404 handler for unknown API requests
+    app.use((req: Request, res: Response, next: NextFunction) => {
+      next({ statusCode: NOT_FOUND, message: 'Not found' });
     });
 
-  // Start the server
-  app.listen(envPort, () => {
-    logger.info(`Listening on port.`);
-  });
+    // Database connection
+    await AppDataSource.sync();
 
-  // Handle uncaught exceptions and unhandled rejections
-  process.on('uncaughtException', unexpectedErrorHandler);
-  process.on('unhandledRejection', unexpectedErrorHandler);
+    // Start the server
+    app.listen(envPort, () => {
+      logger.info(`Listening on port.`);
+    });
+
+    // Handle uncaught exceptions and unhandled rejections
+    process.on('uncaughtException', unexpectedErrorHandler);
+    process.on('unhandledRejection', unexpectedErrorHandler);
+  } catch (error: any) {
+    logger.error('Failed to start server', { message: error.message });
+    process.exit(1);
+  }
 };
 
 // Start the server
