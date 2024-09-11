@@ -21,6 +21,7 @@ const appConfiguration: IConfiguration = {
     name: get(envVars, 'AML_SERVICE_DB_NAME', 'postgres'),
     user: get(envVars, 'AML_SERVICE_DB_USER', 'postgres'),
   },
+  bucketName: get(envVars, 'BUCKET_NAME', ''),
 };
 
 export default appConfiguration;

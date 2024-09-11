@@ -34,7 +34,9 @@
     "sequelize-typescript": "^2.1.6",
     "uuid": "^9.0.1",
     "winston": "^3.13.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "winston-daily-rotate-file": "^5.0.0",
+    "@aws-sdk/client-s3": "^3.637.0",
+    "@aws-sdk/s3-request-presigner": "^3.637.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
