@@ -24,10 +24,10 @@ const exitHandler = (): void => {
     // Check if server is defined
     server.close(() => {
       logger.info('Server closed');
-      process.exit(0);
+      process.exit(1);
     });
   } else {
-    process.exit(0);
+    process.exit(1);
   }
 };
 
@@ -55,6 +55,9 @@ const initializeServer = async (): Promise<void> => {
   });
 
   // Database connection
+  await AppDataSource.authenticate();
+
+  //Db sync
   await AppDataSource.sync();
 
   // Start the server
