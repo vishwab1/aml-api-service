@@ -54,11 +54,14 @@ const initializeServer = async (): Promise<void> => {
     next({ statusCode: NOT_FOUND, message: 'Not found' });
   });
 
-  // Database connection
-  await AppDataSource.authenticate();
-
   //Db sync
-  await AppDataSource.sync();
+  await AppDataSource.sync()
+    .then(() => {
+      logger.info('Database connection established successfully.');
+    })
+    .catch((err: any) => {
+      logger.error('Unable to connect to the database:', { message: err.message });
+    });
 
   // Start the server
   app.listen(envPort, () => {
