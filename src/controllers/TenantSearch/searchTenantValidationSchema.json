@@ -28,20 +28,32 @@
           "type": "object",
           "properties": {
             "name": {
-              "type": "string",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of the tenant"
+              },
               "description": "Name of the tenant"
             },
             "is_active": {
-              "type": "boolean",
+              "type": "array",
+              "items": {
+                "type": "boolean",
+                "description": "Name of the tenant"
+              },
               "description": "Status of the tenant"
             },
             "status": {
-              "type": "string",
-              "enum": ["draft", "live"],
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of the tenant",
+                "enum": ["draft", "live"]
+              },
               "description": "Current status of the tenant"
             }
           },
-          "additionalProperties": true
+          "additionalProperties": false
         },
         "limit": {
           "type": "number",
@@ -53,7 +65,7 @@
           "minimum": 0
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     }
   },
   "required": ["id", "ver", "ts", "params", "request"],

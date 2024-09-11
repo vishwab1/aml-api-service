@@ -45,7 +45,7 @@ describe('TENANT CREATE API', () => {
         if (err) return done(err);
         res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('successful');
+        res.body.params.status.should.be.eq('SUCCESS');
         done();
       });
   });
@@ -65,7 +65,8 @@ describe('TENANT CREATE API', () => {
       .end((err, res) => {
         res.should.have.status(500);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('INTERNAL_SERVER_ERROR');
         done();
       });
   });
@@ -80,9 +81,8 @@ describe('TENANT CREATE API', () => {
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('CLIENT_ERROR');
-        res.body.err.err.should.be.eq('TENANT_INVALID_INPUT');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_INVALID_INPUT');
         done();
       });
   });
@@ -97,9 +97,8 @@ describe('TENANT CREATE API', () => {
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('CLIENT_ERROR');
-        res.body.err.err.should.be.eq('TENANT_INVALID_INPUT');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_INVALID_INPUT');
         done();
       });
   });

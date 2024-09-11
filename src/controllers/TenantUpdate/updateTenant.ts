@@ -4,61 +4,48 @@ import httpStatus from 'http-status';
 import { getTenant, updateTenant } from '../../services/tenant';
 import { schemaValidation } from '../../services/validationService';
 import logger from '../../utils/logger';
-import { errorResponse, successResponse } from '../../utils/response';
 import tenantUpdateJson from './updateTenatValidationSchema.json';
-import * as uuid from 'uuid';
 import { getBoards } from '../../services/board';
+import { ResponseHandler } from '../../utils/responseHandler';
+import { amlError } from '../../types/AmlError';
 
 export const apiId = 'api.tenant.update';
 
-const tenantUpdate = (req: Request, res: Response) => {
+const tenantUpdate = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
-  const msgid = _.get(req, ['body', 'params', 'msgid'], uuid.v4());
-  const resmsgid = _.get(res, 'resmsgid', uuid.v4());
+  const msgid = _.get(req, ['body', 'params', 'msgid']);
+  const resmsgid = _.get(res, 'resmsgid');
   const tenant_id = _.get(req, 'params.tenant_id');
   const dataBody = _.get(req, 'body.request');
 
-  // Validate the update schema
   const isRequestValid = schemaValidation(requestBody, tenantUpdateJson);
   if (!isRequestValid.isValid) {
     const code = 'TENANT_INVALID_INPUT';
-    logger.error({ code, apiId, requestBody, message: isRequestValid.message });
-    return res.status(httpStatus.BAD_REQUEST).json(errorResponse(apiId, msgid, resmsgid, httpStatus.BAD_REQUEST, isRequestValid.message, code));
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
+    throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 
   // Validate tenant existence
-  return getTenant(tenant_id)
-    .then(({ tenant }) => {
-      if (_.isEmpty(tenant)) {
-        const code = 'TENANT_NOT_EXISTS';
-        logger.error({ code, apiId, message: 'Tenant does not exist' });
-        return Promise.reject({ code, message: 'Tenant does not exist', statusCode: httpStatus.NOT_FOUND });
-      }
+  const { tenant } = await getTenant(tenant_id);
+  if (_.isEmpty(tenant)) {
+    const code = 'TENANT_NOT_EXISTS';
+    logger.error({ code, apiId, msgid, resmsgid, message: 'Tenant does not exist' });
+    throw amlError(code, 'Tenant does not exists', 'NOT_FOUND', 404);
+  }
 
-      // Validate boards
-      return getBoards(dataBody.board_id).then(({ boards }) => {
-        if (boards.length !== dataBody.board_id.length) {
-          const code = 'BOARD_NOT_FOUND';
-          logger.error({ code, apiId, msgid, requestBody, message: 'Some boards do not exist' });
-          return Promise.reject({ code, message: 'Some boards do not exist' });
-        }
+  // Validate boards
+  const { boards } = await getBoards(dataBody.board_id);
 
-        // Update the tenant
-        return updateTenant(tenant_id, dataBody).then(() => {
-          return res.status(httpStatus.OK).json(successResponse(apiId, msgid, resmsgid, { message: 'Tenant Successfully Updated' }));
-        });
-      });
-    })
-    .catch((error: any) => {
-      const code = _.get(error, 'code', 'TENANT_UPDATE_FAILURE');
-      const statusCode = _.get(error, 'statusCode', httpStatus.INTERNAL_SERVER_ERROR);
-      const errorMessage = statusCode === httpStatus.INTERNAL_SERVER_ERROR ? { code, message: error.message } : error;
+  if (boards.length !== dataBody.board_id.length) {
+    const code = 'BOARD_NOT_EXISTS';
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: 'Some boards does not exist' });
+    throw amlError(code, 'Board do not exists', 'NOT_FOUND', 404);
+  }
 
-      logger.error({ error, code, apiId, requestBody });
-      if (!res.headersSent) {
-        return res.status(statusCode).json(errorResponse(apiId, msgid, resmsgid, statusCode, errorMessage, code));
-      }
-    });
+  // Update the tenant
+  await updateTenant(tenant_id, dataBody);
+
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Tenant Successfully Updated' } });
 };
 
 export default tenantUpdate;

@@ -37,7 +37,7 @@ describe('Tenant update API', () => {
         if (err) return done(err);
         res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('successful');
+        res.body.params.status.should.be.eq('SUCCESS');
         done();
       });
   });
@@ -48,17 +48,15 @@ describe('Tenant update API', () => {
       .post(`${updateUrl}/1`)
       .send(updateTenatTenantBoard.invalidTenantUpdateRequest)
       .end((err, res) => {
-        if (err) return done(err);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('CLIENT_ERROR');
-        res.body.err.err.should.be.eq('TENANT_INVALID_INPUT');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_INVALID_INPUT');
         done();
       });
   });
 
-  it('should return 409 if the tenant does not exist', (done) => {
+  it('should return 404 if the tenant does not exist', (done) => {
     chai.spy.on(Tenant, 'findOne', () => {
       return Promise.resolve(null);
     });
@@ -67,12 +65,10 @@ describe('Tenant update API', () => {
       .post(`${updateUrl}/10`)
       .send(updateTenatTenantBoard.tenantNotExistsRequest)
       .end((err, res) => {
-        if (err) return done(err);
         res.should.have.status(404);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('RESOURCE_NOT_FOUND');
-        res.body.err.err.should.be.eq('TENANT_NOT_EXISTS');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_NOT_EXISTS');
         done();
       });
   });
@@ -87,12 +83,10 @@ describe('Tenant update API', () => {
       .post(`${updateUrl}/1`)
       .send(updateTenatTenantBoard.validTenantUpdateRequest)
       .end((err, res) => {
-        if (err) return done(err);
         res.should.have.status(500);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('INTERNAL_SERVER_ERROR');
-        res.body.err.err.should.be.eq('TENANT_UPDATE_FAILURE');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('INTERNAL_SERVER_ERROR');
         done();
       });
   });

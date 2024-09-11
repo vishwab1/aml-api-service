@@ -21,6 +21,7 @@ describe('Tenant read API', () => {
           id: 3,
           tenant_name: 'karnataka',
           tenant_type: 'government',
+          board_id: [1, 2],
           is_active: true,
           status: 'draft',
           created_by: 1,
@@ -28,73 +29,6 @@ describe('Tenant read API', () => {
           created_at: '2024-08-23T04:11:30.062Z',
           updated_at: '2024-08-23T04:11:30.062Z',
         },
-        _previousDataValues: {
-          id: 3,
-          tenant_name: 'karnataka',
-          tenant_type: 'government',
-          is_active: true,
-          status: 'draft',
-          created_by: 1,
-          updated_by: null,
-          created_at: '2024-08-23T04:11:30.062Z',
-          updated_at: '2024-08-23T04:11:30.062Z',
-        },
-        uniqno: 1,
-        _changed: new Set(),
-        _options: {
-          isNewRecord: false,
-          _schema: null,
-          _schemaDelimiter: '',
-          include: undefined,
-          includeNames: undefined,
-          includeMap: undefined,
-          includeValidated: true,
-          raw: true,
-          attributes: undefined,
-        },
-        isNewRecord: false,
-        tenant_boards: [
-          {
-            dataValues: {
-              id: 15,
-              tenant_id: 3,
-              name: 'cbse',
-              status: 'draft',
-              class_id: null,
-              is_active: true,
-              created_by: 1,
-              updated_by: null,
-              created_at: '2024-08-23T04:11:30.080Z',
-              updated_at: '2024-08-23T04:11:30.080Z',
-            },
-            _previousDataValues: {
-              id: 15,
-              tenant_id: 3,
-              name: 'cbse',
-              status: 'draft',
-              class_id: null,
-              is_active: true,
-              created_by: 1,
-              updated_by: null,
-              created_at: '2024-08-23T04:11:30.080Z',
-              updated_at: '2024-08-23T04:11:30.080Z',
-            },
-            uniqno: 1,
-            _changed: new Set(),
-            _options: {
-              isNewRecord: false,
-              _schema: null,
-              _schemaDelimiter: '',
-              include: undefined,
-              includeNames: undefined,
-              includeMap: undefined,
-              includeValidated: true,
-              raw: true,
-              attributes: undefined,
-            },
-            isNewRecord: false,
-          },
-        ],
       },
     ];
 
@@ -109,12 +43,12 @@ describe('Tenant read API', () => {
         if (err) return done(err);
         res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('successful');
+        res.body.params.status.should.be.eq('SUCCESS');
         done();
       });
   });
 
-  it('should return 409 and Requested tenant id  does not exist', (done) => {
+  it('should return 404 and Requested tenant id  does not exist', (done) => {
     chai.spy.on(Tenant, 'findOne', () => {
       return Promise.resolve(null);
     });
@@ -126,8 +60,8 @@ describe('Tenant read API', () => {
         if (err) return done(err);
         res.should.have.status(404);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.err.err.should.be.eq('TENANT_NOT_EXISTS');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_NOT_EXISTS');
         done();
       });
   });
@@ -144,9 +78,8 @@ describe('Tenant read API', () => {
         if (err) return done(err);
         res.should.have.status(500);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('INTERNAL_SERVER_ERROR');
-        res.body.err.err.should.be.eq('TENANT_READ_FAILURE');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('INTERNAL_SERVER_ERROR');
         done();
       });
   });

@@ -50,7 +50,7 @@ describe('Tenant Search API', () => {
         if (err) return done(err);
         res.should.have.status(200);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('successful');
+        res.body.params.status.should.be.eq('SUCCESS');
         res.body.responseCode.should.be.eq('OK');
         res.body.result.should.be.a('array').that.has.lengthOf(1);
         res.body.result[0].should.include({ name: 'kerala' });
@@ -67,9 +67,8 @@ describe('Tenant Search API', () => {
         if (err) return done(err);
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('CLIENT_ERROR');
-        res.body.err.err.should.be.eq('TENANT_INVALID_INPUT');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('TENANT_INVALID_INPUT');
         done();
       });
   });
@@ -88,9 +87,8 @@ describe('Tenant Search API', () => {
         if (err) return done(err);
         res.should.have.status(500);
         res.body.should.be.a('object');
-        res.body.params.status.should.be.eq('failed');
-        res.body.responseCode.should.be.eq('INTERNAL_SERVER_ERROR');
-        res.body.err.err.should.be.eq('TENANT_SEARCH_FAILURE');
+        res.body.params.status.should.be.eq('FAILED');
+        res.body.error.code.should.be.eq('INTERNAL_SERVER_ERROR');
         done();
       });
   });

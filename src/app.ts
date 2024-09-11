@@ -4,6 +4,7 @@ import { NOT_FOUND } from 'http-status';
 import { appConfiguration, AppDataSource } from './config';
 import logger from './utils/logger';
 import { router } from './routes/router';
+import { amlErrorHandler } from './middlewares/errorhandler';
 
 const { envPort } = appConfiguration;
 
@@ -46,6 +47,8 @@ const initializeServer = async (): Promise<void> => {
 
     // Router
     app.use('/api/v1', router);
+
+    app.use(amlErrorHandler);
 
     // 404 handler for unknown API requests
     app.use((req: Request, res: Response, next: NextFunction) => {

@@ -97,7 +97,7 @@ export const tenantSearch = {
       msgid: '123e4567-e89b-12d3-a456-426614174000',
     },
     request: {
-      filters: { name: 'kerala' },
+      filters: { name: ['kerala'] },
       limit: 10,
       offset: 0,
     },
@@ -108,7 +108,7 @@ export const tenantSearch = {
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
     request: {
-      filters: { name: 1 },
+      filters: { name: [1] },
       limit: 10,
       offset: 0,
     },
@@ -119,7 +119,7 @@ export const tenantSearch = {
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',
     request: {
-      filters: { name: 1 },
+      filters: { live: [1] },
       limit: 10,
       offset: 0,
     },
