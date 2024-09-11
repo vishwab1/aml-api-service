@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.tenant.search"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of the tenant"
+              },
+              "description": "Name of the tenant"
+            },
+            "is_active": {
+              "type": "array",
+              "items": {
+                "type": "boolean",
+                "description": "Name of the tenant"
+              },
+              "description": "Status of the tenant"
+            },
+            "status": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Name of the tenant",
+                "enum": ["draft", "live"]
+              },
+              "description": "Current status of the tenant"
+            }
+          },
+          "additionalProperties": false
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
