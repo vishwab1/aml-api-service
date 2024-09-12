@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { NOT_FOUND } from 'http-status';
-import { appConfiguration, AppDataSource } from './config';
+import { appConfiguration } from './config';
 import logger from './utils/logger';
 import { router } from './routes/router';
 import { amlErrorHandler } from './middlewares/errorhandler';
@@ -31,7 +31,7 @@ const exitHandler = (): void => {
   }
 };
 
-const initializeServer = async (): Promise<void> => {
+const initializeServer = (): void => {
   try {
     // Middleware for parsing JSON request body
     app.use(express.json({ limit: '5mb' }));
@@ -54,9 +54,6 @@ const initializeServer = async (): Promise<void> => {
     app.use((req: Request, res: Response, next: NextFunction) => {
       next({ statusCode: NOT_FOUND, message: 'Not found' });
     });
-
-    // Database connection
-    await AppDataSource.sync();
 
     // Start the server
     app.listen(envPort, () => {
