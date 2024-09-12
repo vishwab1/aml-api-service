@@ -11,15 +11,13 @@ export const subSkillMaster = AppDataSource.define(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,
       allowNull: true,
-    },
-    sequence_num: {
-      type: DataTypes.INTEGER,
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),

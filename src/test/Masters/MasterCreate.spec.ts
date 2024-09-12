@@ -1,7 +1,6 @@
 import app from '../../app';
 import { boardMaster } from '../../models/boardMaster';
 import { classMaster } from '../../models/classMaster';
-import { skillMaster } from '../../models/skillMaster';
 import { subSkillMaster } from '../../models/subSkillMaster';
 import { roleMaster } from '../../models/roleMaster';
 import chai from 'chai';
@@ -26,14 +25,12 @@ describe('Master Insert API', () => {
     // Mocking findOne to simulate no entities found
     chai.spy.on(boardMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(classMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(skillMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(subSkillMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(roleMaster, 'findOne', () => Promise.resolve(null));
 
     // Mocking create to simulate entity creation
     chai.spy.on(boardMaster, 'create', () => Promise.resolve({ id: 1, name: 'Board1' }));
     chai.spy.on(classMaster, 'create', () => Promise.resolve({ id: 1, name: 'Class1' }));
-    chai.spy.on(skillMaster, 'create', () => Promise.resolve({ id: 1, name: 'Skill1' }));
     chai.spy.on(subSkillMaster, 'create', () => Promise.resolve({ id: 1, name: 'SubSkill1' }));
     chai.spy.on(roleMaster, 'create', () => Promise.resolve({ id: 1, name: 'Role1' }));
 
@@ -71,14 +68,12 @@ describe('Master Insert API', () => {
     // Mocking create to simulate a failure
     chai.spy.on(boardMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(classMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(skillMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(subSkillMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(roleMaster, 'findOne', () => Promise.resolve(null));
 
     // Mocking create to simulate an error during creation
     chai.spy.on(boardMaster, 'create', () => Promise.reject(new Error('Database error')));
     chai.spy.on(classMaster, 'create', () => Promise.reject(new Error('Database error')));
-    chai.spy.on(skillMaster, 'create', () => Promise.reject(new Error('Database error')));
     chai.spy.on(subSkillMaster, 'create', () => Promise.reject(new Error('Database error')));
     chai.spy.on(roleMaster, 'create', () => Promise.reject(new Error('Database error')));
 

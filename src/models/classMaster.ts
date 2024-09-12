@@ -10,19 +10,15 @@ export const classMaster = AppDataSource.define(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     prerequisites: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    tenant_id: {
-      type: DataTypes.INTEGER,
       allowNull: true,
     },
     status: {

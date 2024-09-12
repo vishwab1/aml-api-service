@@ -26,35 +26,16 @@
       "properties": {
         "entityType": {
           "type": "string",
-          "enum": ["skill", "subskill", "role", "class", "board"]
+          "enum": ["subSkill", "role", "class", "board"]
         },
         "filters": {
           "type": "object",
           "properties": {
             "name": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "description": "Name of the entity"
-              },
-              "description": "Name of the entity"
-            },
-            "is_active": {
-              "type": "array",
-              "items": {
-                "type": "boolean",
-                "description": "status of the entity"
-              },
-              "description": "Status of the entity"
-            },
-            "status": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "description": "status of the entity",
-                "enum": ["draft", "live"]
-              },
-              "description": "Current status of the entity"
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
             }
           },
           "additionalProperties": false

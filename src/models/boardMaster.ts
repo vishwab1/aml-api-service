@@ -10,7 +10,7 @@ export const boardMaster = AppDataSource.define(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     description: {

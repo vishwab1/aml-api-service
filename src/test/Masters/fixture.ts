@@ -9,28 +9,27 @@ export const insert_master_request = {
     request: {
       boardData: [
         {
-          name: 'board 1',
-          description: 'Description for Board 6',
+          name: {
+            en: 'Board 8',
+          },
+          description: 'Description for Board 8',
           class_id: [1, 2],
         },
       ],
       classData: [
         {
-          name: 'Class 1',
-          prerequisites: 'Some prerequisites for Class 1',
+          name: {
+            en: 'Class 1',
+          },
+          prerequisites: ['Some prerequisites for Class 1'],
           description: 'Description for Class 1',
-          tenant_id: 1,
-        },
-      ],
-      skillData: [
-        {
-          name: 'Skill 1',
-          description: 'Description for Skill 1',
         },
       ],
       subskillData: [
         {
-          name: 'SubSkill 1',
+          name: {
+            en: 'x+0',
+          },
           description: 'Description for SubSkill 1',
         },
       ],
@@ -70,10 +69,9 @@ export const masterSearch = {
     ts: new Date().toISOString(),
     params: { msgid: 'test-msg-id' },
     request: {
-      entityType: 'skill',
+      entityType: 'subSkill',
       filters: {
-        is_active: [true],
-        status: ['live'],
+        name: { en: 'x+0' },
       },
       limit: 10,
       offset: 0,

@@ -18,9 +18,6 @@ export const roleMaster = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    sequence_num: {
-      type: DataTypes.INTEGER,
-    },
     status: {
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
