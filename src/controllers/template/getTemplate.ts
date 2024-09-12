@@ -28,6 +28,11 @@ const getTemplate = async (req: Request, res: Response) => {
 
   //signed url for downlaod template
   const getSignedUrl = await getTemplateSignedUrl(folderName, fileName, expiryTime);
+
+  if (!getSignedUrl) {
+    throw new Error(getSignedUrl);
+  }
+
   const { url } = getSignedUrl;
 
   logger.info({ apiId, requestBody, message: `signed url created successfully ` });

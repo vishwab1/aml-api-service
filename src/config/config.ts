@@ -11,7 +11,7 @@ const appConfiguration: IConfiguration = {
     size: get(envVars, 'LOG_FILE_SIZE', '20m'),
     zippedArchive: isEqual(get(envVars, 'LOG_FILE_ZIP_ARCHIVE', 'false'), 'true'),
   },
-  envPort: get(envVars, 'AML_SERVICE_APPLICATION_PORT', '4000'),
+  envPort: get(envVars, 'AML_SERVICE_APPLICATION_PORT', 4000) as number,
   applicationEnv: get(envVars, 'AML_SERVICE_APPLICATION_ENV', 'development'),
   appVersion: get(envVars, 'AML_SERVICE_APP_VERSION', '1.0'),
   DB: {
@@ -21,7 +21,7 @@ const appConfiguration: IConfiguration = {
     name: get(envVars, 'AML_SERVICE_DB_NAME', 'postgres'),
     user: get(envVars, 'AML_SERVICE_DB_USER', 'postgres'),
   },
-  bucketName: get(envVars, 'BUCKET_NAME', ''),
+  bucketName: get(envVars, 'BUCKET_NAME', 'dummy bucket'),
 };
 
 export default appConfiguration;

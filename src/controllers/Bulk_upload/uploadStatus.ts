@@ -20,7 +20,6 @@ const uploadStatus = async (req: Request, res: Response) => {
     getProcess: { fileName, status, error_message, error_status, name },
   } = getProcessinfo;
 
-  //handle databse error
   if (getProcessinfo.error) {
     throw new Error(getProcessinfo.message);
   }
@@ -35,8 +34,12 @@ const uploadStatus = async (req: Request, res: Response) => {
   //signed url for upload question
   const folderpath = `upload/${process_id}`;
   const getSignedUrl = await getQuestionSignedUrl(folderpath, fileName, 5);
-  const { url } = getSignedUrl;
 
+  if (!getSignedUrl) {
+    throw new Error(getSignedUrl);
+  }
+
+  const { url } = getSignedUrl;
   logger.info({ apiId, msgid, resmsgid, message: `signed url created successfully` });
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, status, error_message, error_status, fileName, name } });
 };

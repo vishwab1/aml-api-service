@@ -32,25 +32,24 @@ const uploadQuestion = async (req: Request, res: Response) => {
 
   //signed url for upload question
   const getSignedUrl = await uploadSignedUrl(folderName, process_id, fileName, expiryTime);
-  const { error, message, url } = getSignedUrl;
 
-  if (!error) {
-    const insertProcess = await createProcess({
-      process_id: process_id,
-      folderName: folderName,
-      fileName: fileName,
-      status: 'open',
-      description,
-      is_active: true,
-      created_by: 1,
-    });
-    if (insertProcess.error) {
-      throw new Error(insertProcess.message);
-    }
-    logger.info({ apiId, requestBody, message: `signed url created successfully ` });
-    ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
+  if (!getSignedUrl) {
+    throw new Error(getSignedUrl);
   }
-  throw new Error(message);
+  const insertProcess = await createProcess({
+    process_id: process_id,
+    fileName: fileName,
+    status: 'open',
+    description,
+    is_active: true,
+    created_by: 1,
+  });
+  if (!insertProcess) {
+    throw new Error(insertProcess);
+  }
+  const { message, url } = getSignedUrl;
+  logger.info({ apiId, requestBody, message: `signed url created successfully ` });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
 };
 
 export default uploadQuestion;
