@@ -34,20 +34,20 @@ const insertBoards = async (boardData: any[]) => {
   await Promise.all(boardData.map((eachBoard) => insertOrUpdateEntity(boardMaster, eachBoard, 'name.en')));
 };
 
-//Skill Data Creation
-const insertSubSkills = async (boardData: any[]) => {
-  await Promise.all(boardData.map((eachSubSkill) => insertOrUpdateEntity(SubSkillMaster, eachSubSkill, 'name.en')));
+// Sub Skill Data Creation
+const insertSubSkills = async (subskillData: any[]) => {
+  await Promise.all(subskillData.map((eachSubSkill) => insertOrUpdateEntity(SubSkillMaster, eachSubSkill, 'name.en')));
 };
 
 // Main function to handle the entire insertion process
 export const insertEntities = async (data: any) => {
-  // Insert classes and store the mapping of class names to their IDs
+  // Insert classes
   await insertClasses(_.get(data, 'classData', []));
 
-  // Insert boards with the resolved class IDs
+  // Insert boards
   await insertBoards(_.get(data, 'boardData', []));
 
-  // Insert boards with the resolved class IDs
+  // Insert boards
   await insertSubSkills(_.get(data, 'subskillData', []));
 };
 
