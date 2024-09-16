@@ -14,7 +14,6 @@ const insertOrUpdateEntity = async (model: any, entity: any, uniqueKey: string) 
   });
 
   if (_.isNil(existingEntity)) {
-    // Insert new entity if it doesn't exist
     await model.create({
       ...entity,
       identifier: uuid.v4(),
@@ -26,85 +25,30 @@ const insertOrUpdateEntity = async (model: any, entity: any, uniqueKey: string) 
 };
 
 //Class Data Creation
-const handleClassInsertion = async (classData: any[]) => {
-  if (_.isEmpty(classData)) return [];
-
-  // Insert or update class data
-  await Promise.all(classData.map((cls) => insertOrUpdateEntity(classMaster, cls, 'name.en')));
-
-  // Retrieve only the 'name' field from the inserted class data
-  const classRecords = await classMaster.findAll({
-    attributes: ['name'], // Select only the 'name' field
-    raw: true,
-  });
-
-  return classRecords;
+const insertClasses = async (classData: any[]) => {
+  await Promise.all(classData.map((eachClass) => insertOrUpdateEntity(classMaster, eachClass, 'name.en')));
 };
 
-//Board Creation
-const handleBoardInsertion = async (boardData: any[], classMap: any[]) => {
-  if (_.isEmpty(boardData)) return;
-
-  // Create a lookup map for class names to IDs from classMap
-  const classLookup = _.reduce(
-    classMap,
-    (acc, { name }) => {
-      _.forEach(_.values(name), (value) => {
-        if (value) acc[value] = name;
-      });
-      return acc;
-    },
-    {} as Record<string, any>,
-  );
-
-  await Promise.all(
-    _.map(boardData, async (board) => {
-      const classNames = _.get(board, 'class_names', []);
-      const classIds = _.compact(
-        _.map(classNames, (classObj) => {
-          const name = _.find(_.values(classObj), (name) => classLookup[name]);
-          return name || null; // Return the class name, not ID
-        }),
-      );
-
-      // Check if all class names are found
-      if (classIds.length !== classNames.length) {
-        throw new Error(`One or more classes not found for board`);
-      }
-
-      // Insert or update the board data
-      await insertOrUpdateEntity(boardMaster, board, 'name.en');
-    }),
-  );
+//Board Data Creation
+const insertBoards = async (boardData: any[]) => {
+  await Promise.all(boardData.map((eachBoard) => insertOrUpdateEntity(boardMaster, eachBoard, 'name.en')));
 };
 
-// Function to handle insertion of other entities (subskills, roles)
-const handleOtherEntitiesInsertion = async (entityMappings: any[]) => {
-  await Promise.all(
-    _.map(entityMappings, async ({ model, data, uniqueKey }) => {
-      if (!_.isEmpty(data)) {
-        await Promise.all(
-          _.map(data, async (entity) => {
-            await insertOrUpdateEntity(model, entity, uniqueKey);
-          }),
-        );
-      }
-    }),
-  );
+//Skill Data Creation
+const insertSubSkills = async (boardData: any[]) => {
+  await Promise.all(boardData.map((eachSubSkill) => insertOrUpdateEntity(SubSkillMaster, eachSubSkill, 'name.en')));
 };
 
 // Main function to handle the entire insertion process
 export const insertEntities = async (data: any) => {
   // Insert classes and store the mapping of class names to their IDs
-  const classMap = await handleClassInsertion(_.get(data, 'classData', []));
+  await insertClasses(_.get(data, 'classData', []));
 
   // Insert boards with the resolved class IDs
-  await handleBoardInsertion(_.get(data, 'boardData', []), classMap);
+  await insertBoards(_.get(data, 'boardData', []));
 
-  // Insert other entities (subskills, roles)
-  const entityMappings = [{ model: SubSkillMaster, data: _.get(data, 'subskillData', []), uniqueKey: 'name' }];
-
-  await handleOtherEntitiesInsertion(entityMappings);
+  // Insert boards with the resolved class IDs
+  await insertSubSkills(_.get(data, 'subskillData', []));
 };
 
 export const getEntitySearch = async (req: Record<string, any>) => {

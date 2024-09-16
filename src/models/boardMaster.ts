@@ -25,10 +25,6 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
     },
-    class_names: {
-      type: DataTypes.JSONB,
-      allowNull: false,
-    },
     is_active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

@@ -40,20 +40,9 @@
                 "additionalProperties": {
                   "type": "string"
                 }
-              },
-              "class_names": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "additionalProperties": {
-                    "type": "string"
-                  }
-                },
-                "minItems": 1,
-                "uniqueItems": true
               }
             },
-            "required": ["name", "description", "class_names"],
+            "required": ["name", "description"],
             "additionalProperties": false
           }
         },

@@ -11,7 +11,6 @@ export const insert_master_request = {
         {
           name: { en: 'Board 9', ka: 'ಬೋರ್ಡ್ 9' },
           description: { en: 'Description for 9' },
-          class_names: [{ en: 'Class One' }, { en: 'Class Two' }],
         },
       ],
       classData: [
