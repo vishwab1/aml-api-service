@@ -36,18 +36,24 @@
                 }
               },
               "description": {
-                "type": "string"
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
               },
-              "class_id": {
+              "class_names": {
                 "type": "array",
                 "items": {
-                  "type": "integer"
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
                 },
                 "minItems": 1,
                 "uniqueItems": true
               }
             },
-            "required": ["name", "description", "class_id"],
+            "required": ["name", "description", "class_names"],
             "additionalProperties": false
           }
         },
@@ -66,13 +72,18 @@
                 "type": "array",
                 "items": {
                   "type": "string"
-                }
+                },
+                "minItems": 0,
+                "uniqueItems": true
               },
               "description": {
-                "type": "string"
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
               }
             },
-            "required": ["name", "prerequisites", "description"],
+            "required": ["name"],
             "additionalProperties": false
           }
         },
@@ -88,31 +99,18 @@
                 }
               },
               "description": {
-                "type": "string"
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
               }
             },
-            "required": ["name", "description"],
-            "additionalProperties": false
-          }
-        },
-        "roleData": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string"
-              }
-            },
-            "required": ["name", "description"],
+            "required": ["name"],
             "additionalProperties": false
           }
         }
       },
-      "required": ["boardData", "classData", "subskillData", "roleData"],
+      "required": ["boardData", "classData", "subskillData"],
       "additionalProperties": false
     }
   },

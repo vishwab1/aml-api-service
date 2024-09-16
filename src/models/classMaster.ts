@@ -9,6 +9,10 @@ export const classMaster = AppDataSource.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
@@ -18,7 +22,7 @@ export const classMaster = AppDataSource.define(
       allowNull: true,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: true,
     },
     status: {

@@ -1,5 +1,5 @@
 export const insert_master_request = {
-  masterCreate: {
+  validRequest: {
     id: 'api.master.create',
     ver: '1.0',
     ts: '2024-09-05T01:51:36Z',
@@ -9,40 +9,33 @@ export const insert_master_request = {
     request: {
       boardData: [
         {
-          name: {
-            en: 'Board 8',
-          },
-          description: 'Description for Board 8',
-          class_id: [1, 2],
+          name: { en: 'Board 9', ka: 'ಬೋರ್ಡ್ 9' },
+          description: { en: 'Description for 9' },
+          class_names: [{ en: 'Class One' }, { en: 'Class Two' }],
         },
       ],
       classData: [
         {
-          name: {
-            en: 'Class 1',
-          },
-          prerequisites: ['Some prerequisites for Class 1'],
-          description: 'Description for Class 1',
+          name: { en: 'Class One' },
+          description: { en: 'Description for Class One' },
+          prerequisites: ['Class Zero'],
+        },
+        {
+          name: { en: 'Class Two', ka: 'ವರ್ಗ ಎರಡು' },
+          description: { en: 'Description for Class Two' },
+          prerequisites: ['Class One'],
         },
       ],
       subskillData: [
         {
-          name: {
-            en: 'x+0',
-          },
-          description: 'Description for SubSkill 1',
-        },
-      ],
-      roleData: [
-        {
-          name: 'Role 1',
-          description: 'Description for Role 1',
+          name: { en: 'x+0' },
+          description: { en: 'Description for X+)' },
         },
       ],
     },
   },
 
-  invalidMasterSchema: {
+  invalidSchema: {
     id: 'api.master.create',
     ver: '1.0',
     ts: '2024-09-05T01:51:36Z',
@@ -62,8 +55,8 @@ export const insert_master_request = {
   },
 };
 
-export const masterSearch = {
-  validSearchRequest: {
+export const search_master_request = {
+  validequest: {
     id: 'api.master.search',
     ver: '1.0',
     ts: new Date().toISOString(),
@@ -78,7 +71,7 @@ export const masterSearch = {
     },
   },
 
-  invalidSchemaSearchRequest: {
+  invalidSchemaRequest: {
     id: 'api.master.search',
     ver: '1.0',
     ts: '2024-09-03T12:34:56Z',

@@ -5,7 +5,7 @@ import spies from 'chai-spies';
 import { describe, it } from 'mocha';
 import { schemaValidation } from '../../services/validationService';
 import { getEntitySearch } from '../../services/master';
-import { masterSearch } from './fixture';
+import { search_master_request } from './fixture';
 
 chai.use(spies);
 chai.should();
@@ -29,10 +29,17 @@ describe('Bulk Search API', () => {
       return Promise.resolve([
         {
           id: 1,
-          name: 'Skill 1',
-          description: 'Description for Skill 1',
+          identifier: '2cdc899c-713f-4a48-995c-c66fe738ad81',
+          name: {
+            en: 'x+0',
+          },
+          description: 'Description for SubSkill 1',
           status: 'live',
           is_active: true,
+          created_by: 'manual',
+          updated_by: null,
+          created_at: '2024-09-12T14:42:53.221Z',
+          updated_at: '2024-09-12T14:42:53.221Z',
         },
       ]);
     });
@@ -40,7 +47,7 @@ describe('Bulk Search API', () => {
     chai
       .request(app)
       .post(searchUrl)
-      .send(masterSearch.validSearchRequest)
+      .send(search_master_request.validequest)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('object');
@@ -60,18 +67,7 @@ describe('Bulk Search API', () => {
     chai
       .request(app)
       .post(searchUrl)
-      .send({
-        id: 'api.bulk.search',
-        ver: '1.0',
-        ts: new Date().toISOString(),
-        params: { msgid: 'test-msg-id' },
-        request: {
-          entityType: 'invalidEntityType',
-          filters: {},
-          limit: 10,
-          offset: 0,
-        },
-      })
+      .send(search_master_request.invalidSchemaRequest)
       .end((err, res) => {
         if (err) return done(err);
         res.should.have.status(400);

@@ -1,8 +1,7 @@
 import app from '../../app';
 import { boardMaster } from '../../models/boardMaster';
 import { classMaster } from '../../models/classMaster';
-import { subSkillMaster } from '../../models/subSkillMaster';
-import { roleMaster } from '../../models/roleMaster';
+import { SubSkillMaster } from '../../models/subSkillMaster';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import spies from 'chai-spies';
@@ -25,20 +24,18 @@ describe('Master Insert API', () => {
     // Mocking findOne to simulate no entities found
     chai.spy.on(boardMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(classMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(subSkillMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(roleMaster, 'findOne', () => Promise.resolve(null));
+    chai.spy.on(SubSkillMaster, 'findOne', () => Promise.resolve(null));
 
     // Mocking create to simulate entity creation
     chai.spy.on(boardMaster, 'create', () => Promise.resolve({ id: 1, name: 'Board1' }));
     chai.spy.on(classMaster, 'create', () => Promise.resolve({ id: 1, name: 'Class1' }));
-    chai.spy.on(subSkillMaster, 'create', () => Promise.resolve({ id: 1, name: 'SubSkill1' }));
-    chai.spy.on(roleMaster, 'create', () => Promise.resolve({ id: 1, name: 'Role1' }));
+    chai.spy.on(SubSkillMaster, 'create', () => Promise.resolve({ id: 1, name: 'SubSkill1' }));
 
     // Sending request to the API
     chai
       .request(app)
       .post(masterInsertUrl)
-      .send(insert_master_request.masterCreate) // Assuming validBulkInsert is defined
+      .send(insert_master_request.validRequest) // Assuming valid data is provided here
       .end((err, res) => {
         if (err) return done(err);
         res.should.have.status(200);
@@ -53,7 +50,7 @@ describe('Master Insert API', () => {
     chai
       .request(app)
       .post(masterInsertUrl)
-      .send(insert_master_request.invalidMasterSchema)
+      .send(insert_master_request.invalidSchema)
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
@@ -68,19 +65,17 @@ describe('Master Insert API', () => {
     // Mocking create to simulate a failure
     chai.spy.on(boardMaster, 'findOne', () => Promise.resolve(null));
     chai.spy.on(classMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(subSkillMaster, 'findOne', () => Promise.resolve(null));
-    chai.spy.on(roleMaster, 'findOne', () => Promise.resolve(null));
+    chai.spy.on(SubSkillMaster, 'findOne', () => Promise.resolve(null));
 
     // Mocking create to simulate an error during creation
     chai.spy.on(boardMaster, 'create', () => Promise.reject(new Error('Database error')));
     chai.spy.on(classMaster, 'create', () => Promise.reject(new Error('Database error')));
-    chai.spy.on(subSkillMaster, 'create', () => Promise.reject(new Error('Database error')));
-    chai.spy.on(roleMaster, 'create', () => Promise.reject(new Error('Database error')));
+    chai.spy.on(SubSkillMaster, 'create', () => Promise.reject(new Error('Database error')));
 
     chai
       .request(app)
       .post(masterInsertUrl)
-      .send(insert_master_request.masterCreate)
+      .send(insert_master_request.validRequest)
       .end((err, res) => {
         res.should.have.status(500);
         res.body.should.be.a('object');

@@ -9,21 +9,25 @@ export const boardMaster = AppDataSource.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: true,
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
     },
-    class_id: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
-      allowNull: true,
+    class_names: {
+      type: DataTypes.JSONB,
+      allowNull: false,
     },
     is_active: {
       type: DataTypes.BOOLEAN,

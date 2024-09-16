@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { AppDataSource } from '../config';
 
 // Define the subskillMaster model
-export const subSkillMaster = AppDataSource.define(
+export const SubSkillMaster = AppDataSource.define(
   'sub_skill_master',
   {
     id: {
@@ -10,13 +10,17 @@ export const subSkillMaster = AppDataSource.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
       unique: true,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: true,
     },
     status: {
