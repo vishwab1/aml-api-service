@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const boardMaster = AppDataSource.define(
-  'board_master',
+export const classMaster = AppDataSource.define(
+  'class_master',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -16,6 +16,10 @@ export const boardMaster = AppDataSource.define(
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
+    },
+    prerequisites: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
     },
     description: {
       type: DataTypes.JSONB,
@@ -39,7 +43,7 @@ export const boardMaster = AppDataSource.define(
     },
   },
   {
-    tableName: 'board_master',
+    tableName: 'class_master',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
