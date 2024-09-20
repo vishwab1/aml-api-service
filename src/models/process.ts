@@ -22,7 +22,7 @@ export const Process = AppDataSource.define(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('open', 'in_progres', 'is_completed', 'is_failed'),
+      type: DataTypes.ENUM('open', 'progress', 'completed', 'failed', 'errored', 'reopen'),
       allowNull: false,
     },
     error_status: {

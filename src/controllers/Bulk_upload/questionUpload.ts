@@ -7,17 +7,16 @@ import { amlError } from '../../types/AmlError';
 import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
 import templateSchema from './questionUploadSchema.json';
-import { uploadSignedUrl } from '../../services/awsService';
+import { uploadUrl } from '../../services/awsService';
 import { createProcess } from '../../services/process';
 
-export const apiId = 'api.upload.question';
+export const apiId = 'api.upload.zip';
 
-const uploadQuestion = async (req: Request, res: Response) => {
+const getUrlQuestionUpload = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
-  const dataBody = _.get(req, 'body.request');
+  const fileName = _.get(req, 'body.request');
   const resmsgid = _.get(res, 'resmsgid');
-  const { folderName, fileName, description, expiryTime } = dataBody;
 
   //validating the schema
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, templateSchema);
@@ -31,7 +30,7 @@ const uploadQuestion = async (req: Request, res: Response) => {
   const process_id = uuid.v4();
 
   //signed url for upload question
-  const getSignedUrl = await uploadSignedUrl(folderName, process_id, fileName, expiryTime);
+  const getSignedUrl = await uploadUrl(process_id, fileName);
 
   if (!getSignedUrl) {
     throw new Error(getSignedUrl);
@@ -40,7 +39,6 @@ const uploadQuestion = async (req: Request, res: Response) => {
     process_id: process_id,
     fileName: fileName,
     status: 'open',
-    description,
     is_active: true,
     created_by: 1,
   });
@@ -52,4 +50,4 @@ const uploadQuestion = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
 };
 
-export default uploadQuestion;
+export default getUrlQuestionUpload;

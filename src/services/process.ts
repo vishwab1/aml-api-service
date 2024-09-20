@@ -1,11 +1,9 @@
 import { Process } from '../models/process';
-import { AppDataSource } from '../config';
 import { Optional } from 'sequelize';
 
 //create service for Process
 export const createProcess = async (req: Optional<any, string>): Promise<any> => {
-  const transact = await AppDataSource.transaction();
-  const insertProcess = await Process.create(req, { transaction: transact });
+  const insertProcess = await Process.create(req);
   const { dataValues } = insertProcess;
   return { dataValues };
 };

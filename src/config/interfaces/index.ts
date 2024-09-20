@@ -18,4 +18,7 @@ export interface IConfiguration {
     name: string;
   };
   bucketName: string;
+  awsExpiryTime: number;
+  bulkUploadFolder: string;
+  templateFolder: string;
 }

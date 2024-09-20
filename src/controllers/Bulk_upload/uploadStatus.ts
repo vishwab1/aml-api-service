@@ -14,26 +14,25 @@ const uploadStatus = async (req: Request, res: Response) => {
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
 
-  const getProcessinfo = await getProcessById(process_id);
+  const process = await getProcessById(process_id);
 
   const {
-    getProcess: { fileName, status, error_message, error_status, name },
-  } = getProcessinfo;
+    getProcess: { fileName, status, error_message, error_status },
+  } = process;
 
-  if (getProcessinfo.error) {
-    throw new Error(getProcessinfo.message);
+  if (process.error) {
+    throw new Error(process.message);
   }
 
   //validating process is exist
-  if (_.isEmpty(getProcessinfo.getProcess)) {
+  if (_.isEmpty(process.getProcess)) {
     const code = 'PROCESS_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: `process not exists` });
     throw amlError(code, 'Tenant not exists', 'NOT_FOUND', 404);
   }
 
   //signed url for upload question
-  const folderpath = `upload/${process_id}`;
-  const getSignedUrl = await getQuestionSignedUrl(folderpath, fileName, 5);
+  const getSignedUrl = await getQuestionSignedUrl(`upload/${process_id}/${fileName}`);
 
   if (!getSignedUrl) {
     throw new Error(getSignedUrl);
@@ -41,7 +40,7 @@ const uploadStatus = async (req: Request, res: Response) => {
 
   const { url } = getSignedUrl;
   logger.info({ apiId, msgid, resmsgid, message: `signed url created successfully` });
-  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, status, error_message, error_status, fileName, name } });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, status, error_message, error_status, fileName } });
 };
 
 export default uploadStatus;
