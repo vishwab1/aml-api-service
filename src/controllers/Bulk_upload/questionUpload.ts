@@ -12,7 +12,7 @@ import { createProcess } from '../../services/process';
 
 export const apiId = 'api.upload.zip';
 
-const getUrlQuestionUpload = async (req: Request, res: Response) => {
+const getUploadQuestionUrl = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const fileName = _.get(req, 'body.request');
@@ -26,12 +26,9 @@ const getUrlQuestionUpload = async (req: Request, res: Response) => {
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 
-  //creating process id
   const process_id = uuid.v4();
 
-  //signed url for upload question
   const getSignedUrl = await uploadUrl(process_id, fileName);
-
   if (!getSignedUrl) {
     throw new Error(getSignedUrl);
   }
@@ -46,8 +43,8 @@ const getUrlQuestionUpload = async (req: Request, res: Response) => {
     throw new Error(insertProcess);
   }
   const { message, url } = getSignedUrl;
-  logger.info({ apiId, requestBody, message: `signed url created successfully ` });
+  logger.info({ apiId, requestBody, message: `signed url for upload question created successfully ` });
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
 };
 
-export default getUrlQuestionUpload;
+export default getUploadQuestionUrl;

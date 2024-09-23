@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import logger from '../../utils/logger';
 import * as _ from 'lodash';
-// import * as uuid from 'uuid';
 import { ResponseHandler } from '../../utils/responseHandler';
 import httpStatus from 'http-status';
 import { templateUrl } from '../../services/awsService';
@@ -9,7 +8,7 @@ import { templateUrl } from '../../services/awsService';
 export const apiId = 'api.get.template';
 
 const getTemplate = async (req: Request, res: Response) => {
-  const fileName = _.get(req, 'params');
+  const fileName = _.get(req, 'params.fileName');
   const getTemplatefile = await templateUrl(fileName);
   if (!getTemplatefile) {
     throw new Error(getTemplatefile);

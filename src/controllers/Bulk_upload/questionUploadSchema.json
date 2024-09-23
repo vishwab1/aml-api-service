@@ -28,7 +28,7 @@
       "properties": {
         "fileName": {
           "type": "string",
-          "description": "An array of file names"
+          "description": "Name of the file"
         }
       }
     }

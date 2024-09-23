@@ -9,7 +9,7 @@ import { getProcessById } from '../../services/process';
 
 export const apiId = 'api.upload.status';
 
-const uploadStatus = async (req: Request, res: Response) => {
+const bulkUploadStatus = async (req: Request, res: Response) => {
   const process_id = _.get(req, 'params.process_id');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -28,10 +28,9 @@ const uploadStatus = async (req: Request, res: Response) => {
   if (_.isEmpty(process.getProcess)) {
     const code = 'PROCESS_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: `process not exists` });
-    throw amlError(code, 'Tenant not exists', 'NOT_FOUND', 404);
+    throw amlError(code, 'process not exists', 'NOT_FOUND', 404);
   }
 
-  //signed url for upload question
   const getSignedUrl = await getQuestionSignedUrl(`upload/${process_id}/${fileName}`);
 
   if (!getSignedUrl) {
@@ -43,4 +42,4 @@ const uploadStatus = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, status, error_message, error_status, fileName } });
 };
 
-export default uploadStatus;
+export default bulkUploadStatus;

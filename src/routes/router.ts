@@ -4,7 +4,7 @@ import TenantCreate from '../controllers/TenantCreate/TenantCreate';
 import tenantUpdate from '../controllers/TenantUpdate/updateTenant';
 import ReadSingleTenant from '../controllers/TenantRead/GetSingleTenant';
 import tenantSearch from '../controllers/TenantSearch/TenantSearch';
-import getUrlQuestionUpload from '../controllers/Bulk_upload/questionUpload';
+import getUploadQuestionUrl from '../controllers/Bulk_upload/questionUpload';
 import uploadStatus from '../controllers/Bulk_upload/uploadStatus';
 import getTemplate from '../controllers/template/getTemplate';
 
@@ -20,6 +20,6 @@ router.post('/tenant/search', setDataToRequestObject('api.tenant.search'), tenan
 
 router.get('/read/template/:fileName', setDataToRequestObject('api.get.template'), getTemplate);
 
-router.post('/bulk/upload/zip', setDataToRequestObject('api.upload.zip'), getUrlQuestionUpload);
+router.post('/bulk/upload/zip', setDataToRequestObject('api.upload.zip'), getUploadQuestionUrl);
 
 router.get('/upload/status/:process_id', setDataToRequestObject('api.upload.status'), uploadStatus);
