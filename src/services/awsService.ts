@@ -50,18 +50,3 @@ export const getQuestionSignedUrl = async (fileName: string) => {
     message: url ? 'success' : undefined,
   };
 };
-
-export const mediaUploadUrl = async (fileName: string) => {
-  const command = new PutObjectCommand({
-    Bucket: bucketName,
-    Key: `media/${fileName}`,
-  });
-  const url = await getSignedUrl(s3Client, command, {
-    expiresIn: presignedUrlExpiry,
-  });
-  return {
-    error: !url,
-    url,
-    message: url ? 'success' : undefined,
-  };
-};
