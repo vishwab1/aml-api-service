@@ -6,13 +6,13 @@ import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
-import bulkUploadSchema from './questionUploadSchema.json';
+import bulkUploadSchema from './bulkUploadSchema.json';
 import { uploadUrl } from '../../services/awsService';
 import { createProcess } from '../../services/process';
 
 export const apiId = 'api.bulk.upload';
 
-const getUploadQuestionUrl = async (req: Request, res: Response) => {
+const getBulkUploadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const fileName = _.get(req, 'body.request');
@@ -52,4 +52,4 @@ const getUploadQuestionUrl = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
 };
 
-export default getUploadQuestionUrl;
+export default getBulkUploadURL;
