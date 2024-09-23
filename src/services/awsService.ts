@@ -36,7 +36,7 @@ export const uploadUrl = async (process_id: string, fileName: string) => {
   };
 };
 
-export const getUploadSignedUrl = async (fileName: string) => {
+export const bulkUploadUrl = async (fileName: string) => {
   const command = new GetObjectCommand({
     Bucket: bucketName,
     Key: `${bulkUploadFolder}/${fileName}`,
