@@ -15,7 +15,7 @@ export const apiId = 'api.bulk.url';
 const getBulkUploadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
-  const fileName = _.get(req, 'body.request');
+  const fileName = _.get(req, 'body.request.fileName');
   const resmsgid = _.get(res, 'resmsgid');
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, bulkUploadSchema);
@@ -28,9 +28,9 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
   const process_id = uuid.v4();
 
   const getSignedUrl = await uploadUrl(process_id, fileName);
-  if (getSignedUrl) {
+  if (getSignedUrl.error) {
     const code = 'SERVER_ERROR';
-    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: getSignedUrl });
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: getSignedUrl.message });
     throw amlError(code, 'Error while generating presigned url', 'INTERNAL_SERVER_ERROR', 500);
   }
 
@@ -41,7 +41,7 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
     is_active: true,
     created_by: 1,
   });
-  if (!insertProcess) {
+  if (insertProcess.errors) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: insertProcess });
     throw amlError(code, insertProcess, 'INTERNAL_SERVER_ERROR', 500);

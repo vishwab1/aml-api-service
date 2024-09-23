@@ -11,7 +11,7 @@ export const Process = AppDataSource.define(
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     process_id: {
       type: DataTypes.UUID,

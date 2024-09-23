@@ -3,8 +3,7 @@ import { Process } from '../models/process';
 //create service for Process
 export const createProcess = async (insertData: Record<string, unknown>): Promise<any> => {
   const insertProcess = await Process.create(insertData);
-  const { dataValues } = insertProcess;
-  return { dataValues };
+  return { insertProcess };
 };
 
 //get Single Process by id

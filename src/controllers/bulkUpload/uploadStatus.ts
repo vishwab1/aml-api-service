@@ -22,7 +22,7 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
     getProcess: { fileName, status, error_message, error_status },
   } = process;
 
-  if (!process) {
+  if (process.errors) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, message: process });
     throw amlError(code, process, 'INTERNAL_SERVER_ERROR', 500);
@@ -35,10 +35,10 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
   }
 
   const getSignedUrl = await getPresignedUrl(`${bulkUploadFolder}/${process_id}/${fileName}`);
-  if (!getSignedUrl) {
+  if (getSignedUrl.error) {
     const code = 'SERVER_ERROR';
-    logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl });
-    throw amlError(code, getSignedUrl, 'INTERNAL_SERVER_ERROR', 500);
+    logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl.message });
+    throw amlError(code, getSignedUrl.message, 'INTERNAL_SERVER_ERROR', 500);
   }
 
   const { url } = getSignedUrl;

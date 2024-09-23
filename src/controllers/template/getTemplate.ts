@@ -9,15 +9,15 @@ import { appConfiguration } from '../../config';
 
 const { templateFolder } = appConfiguration;
 
-export const apiId = 'api.bulk.url';
+export const apiId = 'api.bulk.template';
 
 const getTemplate = async (req: Request, res: Response) => {
   const fileName = _.get(req, 'params.fileName');
   const getTemplatefile = await getPresignedUrl(`${templateFolder}/${fileName}`);
-  if (!getTemplatefile) {
+  if (getTemplatefile.error) {
     const code = 'SERVER_ERROR';
-    logger.error({ code, apiId, message: getTemplatefile });
-    throw amlError(code, getTemplatefile, 'INTERNAL_SERVER_ERROR', 500);
+    logger.error({ code, apiId, message: getTemplatefile.message });
+    throw amlError(code, getTemplatefile.message, 'INTERNAL_SERVER_ERROR', 500);
   }
 
   const { url } = getTemplatefile;
