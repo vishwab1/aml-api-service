@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
 import httpStatus from 'http-status';
 import { templateUrl } from '../../services/awsService';
+import { amlError } from '../../types/AmlError';
 
 export const apiId = 'api.get.template';
 
@@ -11,8 +12,11 @@ const getTemplate = async (req: Request, res: Response) => {
   const fileName = _.get(req, 'params.fileName');
   const getTemplatefile = await templateUrl(fileName);
   if (!getTemplatefile) {
-    throw new Error(getTemplatefile);
+    const code = 'SERVER_ERROR';
+    logger.error({ code, apiId, message: getTemplatefile });
+    throw amlError(code, getTemplatefile, 'INTERNAL_SERVER_ERROR', 500);
   }
+
   const { url } = getTemplatefile;
   logger.info({ apiId, fileName, message: `signed url created successfully ` });
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, fileName } });

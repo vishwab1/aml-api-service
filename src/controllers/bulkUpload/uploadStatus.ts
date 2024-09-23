@@ -20,11 +20,12 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
     getProcess: { fileName, status, error_message, error_status },
   } = process;
 
-  if (process.error) {
-    throw new Error(process.message);
+  if (!process) {
+    const code = 'SERVER_ERROR';
+    logger.error({ code, apiId, msgid, resmsgid, message: process.message });
+    throw amlError(code, process.message, 'INTERNAL_SERVER_ERROR', 500);
   }
 
-  //validating process is exist
   if (_.isEmpty(process.getProcess)) {
     const code = 'PROCESS_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: `process not exists` });
@@ -34,7 +35,9 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
   const getSignedUrl = await getQuestionSignedUrl(`upload/${process_id}/${fileName}`);
 
   if (!getSignedUrl) {
-    throw new Error(getSignedUrl);
+    const code = 'SERVER_ERROR';
+    logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl });
+    throw amlError(code, getSignedUrl, 'INTERNAL_SERVER_ERROR', 500);
   }
 
   const { url } = getSignedUrl;

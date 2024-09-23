@@ -6,11 +6,11 @@ import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
-import templateSchema from './questionUploadSchema.json';
+import bulkUploadSchema from './questionUploadSchema.json';
 import { uploadUrl } from '../../services/awsService';
 import { createProcess } from '../../services/process';
 
-export const apiId = 'api.upload.zip';
+export const apiId = 'api.bulk.upload';
 
 const getUploadQuestionUrl = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
@@ -18,8 +18,7 @@ const getUploadQuestionUrl = async (req: Request, res: Response) => {
   const fileName = _.get(req, 'body.request');
   const resmsgid = _.get(res, 'resmsgid');
 
-  //validating the schema
-  const isRequestValid: Record<string, any> = schemaValidation(requestBody, templateSchema);
+  const isRequestValid: Record<string, any> = schemaValidation(requestBody, bulkUploadSchema);
   if (!isRequestValid.isValid) {
     const code = 'UPLOAD_INVALID_INPUT';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
@@ -30,8 +29,11 @@ const getUploadQuestionUrl = async (req: Request, res: Response) => {
 
   const getSignedUrl = await uploadUrl(process_id, fileName);
   if (!getSignedUrl) {
-    throw new Error(getSignedUrl);
+    const code = 'SERVER_ERROR';
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: getSignedUrl });
+    throw amlError(code, getSignedUrl, 'INTERNAL_SERVER_ERROR', 500);
   }
+
   const insertProcess = await createProcess({
     process_id: process_id,
     fileName: fileName,
@@ -40,8 +42,11 @@ const getUploadQuestionUrl = async (req: Request, res: Response) => {
     created_by: 1,
   });
   if (!insertProcess) {
-    throw new Error(insertProcess);
+    const code = 'SERVER_ERROR';
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: insertProcess });
+    throw amlError(code, insertProcess, 'INTERNAL_SERVER_ERROR', 500);
   }
+
   const { message, url } = getSignedUrl;
   logger.info({ apiId, requestBody, message: `signed url for upload question created successfully ` });
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });

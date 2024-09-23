@@ -4,8 +4,8 @@ import TenantCreate from '../controllers/TenantCreate/TenantCreate';
 import tenantUpdate from '../controllers/TenantUpdate/updateTenant';
 import ReadSingleTenant from '../controllers/TenantRead/GetSingleTenant';
 import tenantSearch from '../controllers/TenantSearch/TenantSearch';
-import getUploadQuestionUrl from '../controllers/Bulk_upload/questionUpload';
-import uploadStatus from '../controllers/Bulk_upload/uploadStatus';
+import getUploadQuestionUrl from '../controllers/bulkUpload/questionUpload';
+import uploadStatus from '../controllers/bulkUpload/uploadStatus';
 import getTemplate from '../controllers/template/getTemplate';
 
 export const router = express.Router();
@@ -18,8 +18,8 @@ router.get('/tenant/read/:tenant_id', setDataToRequestObject('api.tenant.read'),
 
 router.post('/tenant/search', setDataToRequestObject('api.tenant.search'), tenantSearch);
 
-router.get('/read/template/:fileName', setDataToRequestObject('api.get.template'), getTemplate);
+router.post('/bulk/upload', setDataToRequestObject('api.bulk.upload'), getUploadQuestionUrl);
 
-router.post('/bulk/upload/zip', setDataToRequestObject('api.upload.zip'), getUploadQuestionUrl);
+router.get('/template/read/:fileName', setDataToRequestObject('api.get.template'), getTemplate);
 
-router.get('/upload/status/:process_id', setDataToRequestObject('api.upload.status'), uploadStatus);
+router.get('status/bulk/upload/:process_id', setDataToRequestObject('api.upload.status'), uploadStatus);

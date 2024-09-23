@@ -3,7 +3,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "enum": ["api.upload.question"]
+      "enum": ["api.bulk.upload"]
     },
     "ver": {
       "type": "string"

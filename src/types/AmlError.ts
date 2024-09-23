@@ -3,8 +3,8 @@ export class AmlError {
   message: string;
   errCode: string;
   statusCode: number;
-  data: undefined;
-  err: Error | undefined;
+  data?: undefined;
+  err?: Error | undefined;
 
   constructor(code: string, message: string, errorCode: string, statusCode: number, data?: any, err?: Error) {
     this.code = code;

@@ -2,7 +2,7 @@ import { S3Client, GetObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { appConfiguration } from '../config';
 
-const { bucketName, templateFolder, bulkUploadFolder, awsExpiryTime } = appConfiguration;
+const { bucketName, templateFolder, bulkUploadFolder, presignedUrlExpiry } = appConfiguration;
 
 const s3Client = new S3Client();
 
@@ -12,7 +12,7 @@ export const templateUrl = async (fileName: string) => {
     Key: `${templateFolder}/${fileName}`,
   });
   const url = await getSignedUrl(s3Client, command, {
-    expiresIn: awsExpiryTime,
+    expiresIn: presignedUrlExpiry,
   });
   return {
     error: !url,
@@ -27,7 +27,7 @@ export const uploadUrl = async (process_id: string, fileName: string) => {
     Key: `${bulkUploadFolder}/${process_id}/${fileName}`,
   });
   const url = await getSignedUrl(s3Client, command, {
-    expiresIn: awsExpiryTime,
+    expiresIn: presignedUrlExpiry,
   });
   return {
     error: !url,
@@ -42,7 +42,7 @@ export const getQuestionSignedUrl = async (fileName: string) => {
     Key: `${bulkUploadFolder}/${fileName}`,
   });
   const url = await getSignedUrl(s3Client, command, {
-    expiresIn: awsExpiryTime,
+    expiresIn: presignedUrlExpiry,
   });
   return {
     error: !url,
@@ -57,7 +57,7 @@ export const mediaUploadUrl = async (fileName: string) => {
     Key: `media/${fileName}`,
   });
   const url = await getSignedUrl(s3Client, command, {
-    expiresIn: awsExpiryTime,
+    expiresIn: presignedUrlExpiry,
   });
   return {
     error: !url,

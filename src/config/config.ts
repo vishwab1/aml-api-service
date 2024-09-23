@@ -22,7 +22,7 @@ const appConfiguration: IConfiguration = {
     user: get(envVars, 'AML_SERVICE_DB_USER', 'postgres'),
   },
   bucketName: get(envVars, 'BUCKET_NAME', 'dummy bucket'),
-  awsExpiryTime: get(envVars, 'AWS_EXPIRY_TIME', 1800) as number,
+  presignedUrlExpiry: get(envVars, 'AWS_EXPIRY_TIME', 1800) as number,
   bulkUploadFolder: get(envVars, 'UPLOAD_FOLDER', 'upload'),
   templateFolder: get(envVars, 'TEMPLATE_FOLDER', 'template'),
 };
