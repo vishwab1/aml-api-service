@@ -22,8 +22,8 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
 
   if (!process) {
     const code = 'SERVER_ERROR';
-    logger.error({ code, apiId, msgid, resmsgid, message: process.message });
-    throw amlError(code, process.message, 'INTERNAL_SERVER_ERROR', 500);
+    logger.error({ code, apiId, msgid, resmsgid, message: process });
+    throw amlError(code, process, 'INTERNAL_SERVER_ERROR', 500);
   }
 
   if (_.isEmpty(process.getProcess)) {
