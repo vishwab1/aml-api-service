@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import httpStatus from 'http-status';
-import { getQuestionSignedUrl } from '../../services/awsService';
+import { getUploadSignedUrl } from '../../services/awsService';
 import { getProcessById } from '../../services/process';
 
 export const apiId = 'api.upload.status';
@@ -32,7 +32,7 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
     throw amlError(code, 'process not exists', 'NOT_FOUND', 404);
   }
 
-  const getSignedUrl = await getQuestionSignedUrl(`upload/${process_id}/${fileName}`);
+  const getSignedUrl = await getUploadSignedUrl(`upload/${process_id}/${fileName}`);
 
   if (!getSignedUrl) {
     const code = 'SERVER_ERROR';

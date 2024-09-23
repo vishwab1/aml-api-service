@@ -48,7 +48,7 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
   }
 
   const { message, url } = getSignedUrl;
-  logger.info({ apiId, requestBody, message: `signed url for upload question created successfully ` });
+  logger.info({ apiId, requestBody, message: `signed url for bulk upload created successfully ` });
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message, url, fileName, process_id } });
 };
 
