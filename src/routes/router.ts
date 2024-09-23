@@ -18,8 +18,8 @@ router.get('/tenant/read/:tenant_id', setDataToRequestObject('api.tenant.read'),
 
 router.post('/tenant/search', setDataToRequestObject('api.tenant.search'), tenantSearch);
 
-router.post('/bulk/upload', setDataToRequestObject('api.bulk.upload'), getBulkUploadURL);
+router.post('/bulk/upload/url', setDataToRequestObject('api.bulk.url'), getBulkUploadURL);
 
-router.get('/template/read/:fileName', setDataToRequestObject('api.get.template'), getTemplate);
+router.get('/bulk/template/read/:fileName', setDataToRequestObject('api.bulk.template'), getTemplate);
 
-router.get('/bulk/upload/status/:process_id', setDataToRequestObject('api.upload.status'), uploadStatus);
+router.get('/bulk/upload/status/:process_id', setDataToRequestObject('api.bulk.status'), uploadStatus);

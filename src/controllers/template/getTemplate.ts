@@ -3,14 +3,17 @@ import logger from '../../utils/logger';
 import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
 import httpStatus from 'http-status';
-import { templateUrl } from '../../services/awsService';
+import { getPresignedUrl } from '../../services/awsService';
 import { amlError } from '../../types/AmlError';
+import { appConfiguration } from '../../config';
 
-export const apiId = 'api.get.template';
+const { templateFolder } = appConfiguration;
+
+export const apiId = 'api.bulk.url';
 
 const getTemplate = async (req: Request, res: Response) => {
   const fileName = _.get(req, 'params.fileName');
-  const getTemplatefile = await templateUrl(fileName);
+  const getTemplatefile = await getPresignedUrl(`${templateFolder}/${fileName}`);
   if (!getTemplatefile) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, message: getTemplatefile });

@@ -3,7 +3,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "enum": ["api.bulk.upload"]
+      "enum": ["api.bulk.url"]
     },
     "ver": {
       "type": "string"

@@ -10,7 +10,7 @@ import bulkUploadSchema from './bulkUploadSchema.json';
 import { uploadUrl } from '../../services/awsService';
 import { createProcess } from '../../services/process';
 
-export const apiId = 'api.bulk.upload';
+export const apiId = 'api.bulk.url';
 
 const getBulkUploadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
@@ -28,10 +28,10 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
   const process_id = uuid.v4();
 
   const getSignedUrl = await uploadUrl(process_id, fileName);
-  if (!getSignedUrl) {
+  if (getSignedUrl) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: getSignedUrl });
-    throw amlError(code, getSignedUrl, 'INTERNAL_SERVER_ERROR', 500);
+    throw amlError(code, 'Error while generating presigned url', 'INTERNAL_SERVER_ERROR', 500);
   }
 
   const insertProcess = await createProcess({

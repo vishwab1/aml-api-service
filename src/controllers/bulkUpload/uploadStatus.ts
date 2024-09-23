@@ -4,10 +4,12 @@ import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import httpStatus from 'http-status';
-import { bulkUploadUrl } from '../../services/awsService';
+import { getPresignedUrl } from '../../services/awsService';
 import { getProcessById } from '../../services/process';
+import { appConfiguration } from '../../config';
 
-export const apiId = 'api.upload.status';
+const { bulkUploadFolder } = appConfiguration;
+export const apiId = 'api.bulk.status';
 
 const bulkUploadStatus = async (req: Request, res: Response) => {
   const process_id = _.get(req, 'params.process_id');
@@ -32,8 +34,7 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
     throw amlError(code, 'process not exists', 'NOT_FOUND', 404);
   }
 
-  const getSignedUrl = await bulkUploadUrl(`upload/${process_id}/${fileName}`);
-
+  const getSignedUrl = await getPresignedUrl(`${bulkUploadFolder}/${process_id}/${fileName}`);
   if (!getSignedUrl) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl });
