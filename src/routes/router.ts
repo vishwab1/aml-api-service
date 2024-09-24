@@ -6,6 +6,9 @@ import ReadSingleTenant from '../controllers/TenantRead/GetSingleTenant';
 import tenantSearch from '../controllers/TenantSearch/TenantSearch';
 import { masterCreate } from '../controllers/MasterCreate/MasterCreate';
 import { masterSearch } from '../controllers/MasterSearch/MasterSearch';
+import getBulkUploadURL from '../controllers/bulkUpload/bulkUpload';
+import uploadStatus from '../controllers/bulkUpload/uploadStatus';
+import getTemplate from '../controllers/template/getTemplate';
 
 export const router = express.Router();
 
@@ -20,3 +23,9 @@ router.post('/tenant/search', setDataToRequestObject('api.tenant.search'), tenan
 router.post('/master/create', setDataToRequestObject('api.master.create'), masterCreate);
 
 router.post('/master/search', setDataToRequestObject('api.master.search'), masterSearch);
+
+router.post('/bulk/upload/url', setDataToRequestObject('api.bulk.url'), getBulkUploadURL);
+
+router.get('/bulk/template/read/:fileName', setDataToRequestObject('api.bulk.template'), getTemplate);
+
+router.get('/bulk/upload/status/:process_id', setDataToRequestObject('api.bulk.status'), uploadStatus);

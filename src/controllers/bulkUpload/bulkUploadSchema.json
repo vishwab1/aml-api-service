@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.bulk.url"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "required": ["fileName"],
+      "additionalProperties": false,
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "description": "Name of the file"
+        }
+      }
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}

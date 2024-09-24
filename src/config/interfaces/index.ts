@@ -7,7 +7,7 @@ export interface IConfiguration {
     size: string;
     zippedArchive: boolean;
   };
-  envPort: string;
+  envPort: number;
   applicationEnv: string;
   appVersion: string;
   DB: {
@@ -17,4 +17,8 @@ export interface IConfiguration {
     user: string;
     name: string;
   };
+  bucketName: string;
+  presignedUrlExpiry: number;
+  bulkUploadFolder: string;
+  templateFolder: string;
 }
