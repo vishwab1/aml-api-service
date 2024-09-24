@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.master.create"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "boardData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "description": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["name", "description"],
+            "additionalProperties": false
+          }
+        },
+        "classData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "prerequisites": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              "description": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          }
+        },
+        "subskillData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "description": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["boardData", "classData", "subskillData"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
