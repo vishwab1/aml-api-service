@@ -11,7 +11,7 @@ import { ResponseHandler } from '../../utils/responseHandler';
 export const apiId = 'api.master.search';
 
 //Function for master search
-export const masterSearch = async (req: Request, res: Response) => {
+export const searchMasters = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');

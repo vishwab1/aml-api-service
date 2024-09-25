@@ -5,14 +5,14 @@ import _ from 'lodash';
 import { Status } from '../enums/status';
 
 //create service for tenant
-export const createTenant = async (req: Optional<any, string> | undefined): Promise<any> => {
+export const createTenantData = async (req: Optional<any, string> | undefined): Promise<any> => {
   const insertTenant = await Tenant.create(req);
   const { dataValues } = insertTenant;
   return { dataValues };
 };
 
 //update single tenant
-export const updateTenant = async (identifier: string, req: UpdateTenant): Promise<any> => {
+export const updateTenantData = async (identifier: string, req: UpdateTenant): Promise<any> => {
   const whereClause: Record<string, any> = { identifier, is_active: true, status: Status.LIVE };
   const updateTenant = await Tenant.update(req, { where: whereClause });
   return { updateTenant };

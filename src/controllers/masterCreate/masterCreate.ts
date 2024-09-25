@@ -11,7 +11,7 @@ import { amlError } from '../../types/amlError';
 export const apiId = 'api.master.create';
 
 //function to create master data
-export const masterCreate = async (req: Request, res: Response) => {
+export const createMaster = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');

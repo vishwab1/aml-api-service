@@ -11,7 +11,7 @@ import { ResponseHandler } from '../../utils/responseHandler';
 export const apiId = 'api.skillTaxonomy.search';
 
 //Function for the taxonomy search
-const skillTaxonomySearch = async (req: Request, res: Response) => {
+const searchSkillTaxonomies = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -31,4 +31,4 @@ const skillTaxonomySearch = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: filteredData });
 };
 
-export default skillTaxonomySearch;
+export default searchSkillTaxonomies;

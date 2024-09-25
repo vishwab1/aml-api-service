@@ -6,12 +6,12 @@ import skillUpdateSchema from './updateSkillValidationSchema.json';
 import logger from '../../utils/logger';
 import { amlError } from '../../types/amlError';
 import { ResponseHandler } from '../../utils/responseHandler';
-import { getSkillById, updateSkill } from '../../services/skill';
+import { getSkillById, updateSkillData } from '../../services/skill';
 
 export const apiId = 'api.skill.update';
 
 //Function for the skill update
-const skillUpdate = async (req: Request, res: Response) => {
+const updateSkill = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -35,10 +35,10 @@ const skillUpdate = async (req: Request, res: Response) => {
   }
 
   // Update the skill
-  await updateSkill(skillId, dataBody);
+  await updateSkillData(skillId, dataBody);
 
   // Return a success response
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Skill Successfully Updated' } });
 };
 
-export default skillUpdate;
+export default updateSkill;

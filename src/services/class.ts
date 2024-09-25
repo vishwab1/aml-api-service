@@ -3,7 +3,7 @@ import { Status } from '../enums/status';
 import { classMaster } from '../models/classMaster';
 
 // Update a single class
-export const updateClass = async (identifier: string, req: any): Promise<any> => {
+export const updateClassData = async (identifier: string, req: any): Promise<any> => {
   const whereClause: Record<string, any> = { identifier, is_active: true, status: Status.LIVE };
   const updateClass = await classMaster.update(req, { where: whereClause });
   return { updateClass };

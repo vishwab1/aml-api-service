@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import httpStatus from 'http-status';
-import { getTenant, updateTenant } from '../../services/tenant';
+import { getTenant, updateTenantData } from '../../services/tenant';
 import { schemaValidation } from '../../services/validationService';
 import logger from '../../utils/logger';
 import tenantUpdateJson from './updateTenantValidationSchema.json';
@@ -11,7 +11,7 @@ import { amlError } from '../../types/amlError';
 
 export const apiId = 'api.tenant.update';
 
-const tenantUpdate = async (req: Request, res: Response) => {
+const updateTenant = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -43,9 +43,9 @@ const tenantUpdate = async (req: Request, res: Response) => {
   }
 
   // Update the tenant
-  await updateTenant(tenant_id, dataBody);
+  await updateTenantData(tenant_id, dataBody);
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Tenant Successfully Updated' } });
 };
 
-export default tenantUpdate;
+export default updateTenant;

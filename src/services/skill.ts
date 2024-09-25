@@ -38,7 +38,7 @@ export const getSkillById = async (skillId: string): Promise<any> => {
 };
 
 // Update skill
-export const updateSkill = async (skillId: string, req: any): Promise<any> => {
+export const updateSkillData = async (skillId: string, req: any): Promise<any> => {
   const whereClause = { identifier: skillId, is_active: true, status: 'live' };
   const updatedSkill = await SkillMaster.update(req, { where: whereClause });
   return { updatedSkill };

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import skillTaxonomyCreateJson from './createSkillTaxonomyValidationSchema.json';
 import httpStatus from 'http-status';
-import { createSkillTaxonomy, processSkillTaxonomy } from '../../services/skillTaxonomy';
+import { createSkillTaxonomyData, processSkillTaxonomy } from '../../services/skillTaxonomy';
 import { schemaValidation } from '../../services/validationService';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
@@ -12,7 +12,7 @@ import { fetchSkillIds } from '../../services/skill';
 export const apiId = 'api.skillTaxonomy.create';
 
 //Function for the taxonomy create
-const skillTaxonomyCreate = async (req: Request, res: Response) => {
+const createSkillTaxonomy = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
@@ -32,7 +32,7 @@ const skillTaxonomyCreate = async (req: Request, res: Response) => {
   const insertedskillTaxonomyData = await processSkillTaxonomy(dataBody, skillMap);
 
   // Insert skill taxonomies into the database
-  const createdSkillTaxonomies = await createSkillTaxonomy(insertedskillTaxonomyData);
+  const createdSkillTaxonomies = await createSkillTaxonomyData(insertedskillTaxonomyData);
 
   // Extract identifiers
   const identifiers = createdSkillTaxonomies.map((taxonomy: any) => taxonomy.identifier);
@@ -48,4 +48,4 @@ const skillTaxonomyCreate = async (req: Request, res: Response) => {
   });
 };
 
-export default skillTaxonomyCreate;
+export default createSkillTaxonomy;

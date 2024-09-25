@@ -1,7 +1,7 @@
 import { SubSkillMaster } from '../models/subSkillMaster'; // The model file
 
 // Update a sub-skill
-export const updateSubSkill = async (subSkillId: string, data: any): Promise<any> => {
+export const updateSubSkillData = async (subSkillId: string, data: any): Promise<any> => {
   const whereClause: Record<string, any> = { identifier: subSkillId, is_active: true };
   const updatedSubSkill = await SubSkillMaster.update(data, { where: whereClause });
   return { updatedSubSkill };

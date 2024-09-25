@@ -10,7 +10,7 @@ import { ResponseHandler } from '../../utils/responseHandler';
 
 export const apiId = 'api.tenant.search';
 
-const tenantSearch = async (req: Request, res: Response) => {
+const searchTenants = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -31,4 +31,4 @@ const tenantSearch = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: filteredData });
 };
 
-export default tenantSearch;
+export default searchTenants;

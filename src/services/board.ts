@@ -33,7 +33,7 @@ export const getBoard = async (board_identifier: string): Promise<any> => {
 };
 
 //update the board
-export const updateBoard = async (board_identifier: string, data: any): Promise<any> => {
+export const updateBoardData = async (board_identifier: string, data: any): Promise<any> => {
   await boardMaster.update(data, {
     where: { identifier: board_identifier },
   });

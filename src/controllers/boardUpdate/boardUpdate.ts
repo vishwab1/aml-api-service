@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import httpStatus from 'http-status';
-import { getBoard, updateBoard } from '../../services/board'; // Add corresponding functions in services
+import { getBoard, updateBoardData } from '../../services/board'; // Add corresponding functions in services
 import { schemaValidation } from '../../services/validationService';
 import logger from '../../utils/logger';
 import boardUpdateJson from './updateBoardValidationSchema.json'; // Validation schema for board updates
@@ -13,7 +13,7 @@ import { checkClassIdsExists } from '../../services/class';
 export const apiId = 'api.board.update';
 
 //Function for board Update
-const boardUpdate = async (req: Request, res: Response) => {
+const updateBoard = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -52,9 +52,9 @@ const boardUpdate = async (req: Request, res: Response) => {
   }
 
   // Update the board
-  await updateBoard(board_id, dataBody);
+  await updateBoardData(board_id, dataBody);
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Board Successfully Updated' } });
 };
 
-export default boardUpdate;
+export default updateBoard;

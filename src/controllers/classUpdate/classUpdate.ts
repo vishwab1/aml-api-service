@@ -6,12 +6,12 @@ import logger from '../../utils/logger';
 import classUpdateJson from './updateClassValidationSchema.json';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
-import { getClassById, updateClass } from '../../services/class';
+import { getClassById, updateClassData } from '../../services/class';
 
 export const apiId = 'api.class.update';
 
 //function for class update
-const classUpdate = async (req: Request, res: Response) => {
+const updateClass = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -40,10 +40,10 @@ const classUpdate = async (req: Request, res: Response) => {
   };
 
   // Update the class
-  await updateClass(class_id, updatedData);
+  await updateClassData(class_id, updatedData);
 
   // Respond with a success message
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Class Successfully Updated' } });
 };
 
-export default classUpdate;
+export default updateClass;

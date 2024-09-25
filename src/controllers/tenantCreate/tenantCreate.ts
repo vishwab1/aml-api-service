@@ -3,7 +3,7 @@ import logger from '../../utils/logger';
 import * as _ from 'lodash';
 import tenantCreateJson from './createTenantValidationSchema.json';
 import httpStatus from 'http-status';
-import { createTenant } from '../../services/tenant';
+import { createTenantData } from '../../services/tenant';
 import { schemaValidation } from '../../services/validationService';
 import * as uuid from 'uuid';
 import { getBoards } from '../../services/board';
@@ -13,7 +13,7 @@ import { amlError } from '../../types/amlError';
 
 export const apiId = 'api.tenant.create';
 
-const tenantCreate = async (req: Request, res: Response) => {
+const createTenant = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
@@ -48,9 +48,9 @@ const tenantCreate = async (req: Request, res: Response) => {
     is_active: true,
   };
 
-  const createNewTenant = await createTenant(tenantInsertData);
+  const createNewTenant = await createTenantData(tenantInsertData);
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Tenant Successfully Created', identifier: createNewTenant.dataValues.identifier } });
 };
 
-export default tenantCreate;
+export default createTenant;

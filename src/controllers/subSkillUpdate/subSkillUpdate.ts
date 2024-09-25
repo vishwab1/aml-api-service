@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as _ from 'lodash';
 import httpStatus from 'http-status';
-import { getSubSkill, updateSubSkill } from '../../services/subSkill';
+import { getSubSkill, updateSubSkillData } from '../../services/subSkill';
 import { schemaValidation } from '../../services/validationService';
 import logger from '../../utils/logger';
 import subSkillUpdateJson from './updateSubSkillValidationSchema.json';
@@ -11,7 +11,7 @@ import { amlError } from '../../types/amlError';
 export const apiId = 'api.subskill.update';
 
 //Function for the sub-skill update
-const subSkillUpdate = async (req: Request, res: Response) => {
+const updateSubSkill = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
@@ -35,7 +35,7 @@ const subSkillUpdate = async (req: Request, res: Response) => {
   }
 
   // Update the sub-skill
-  await updateSubSkill(sub_skill_id, dataBody);
+  await updateSubSkillData(sub_skill_id, dataBody);
 
   ResponseHandler.successResponse(req, res, {
     status: httpStatus.OK,
@@ -43,4 +43,4 @@ const subSkillUpdate = async (req: Request, res: Response) => {
   });
 };
 
-export default subSkillUpdate;
+export default updateSubSkill;

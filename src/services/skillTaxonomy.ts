@@ -5,7 +5,7 @@ import { Status } from '../enums/status';
 import * as uuid from 'uuid';
 
 // Create skill taxonomy service
-export const createSkillTaxonomy = async (req: { [key: string]: any }[]): Promise<any> => {
+export const createSkillTaxonomyData = async (req: { [key: string]: any }[]): Promise<any> => {
   const createdSkillTaxonomies = await SkillTaxonomy.bulkCreate(req, { returning: true });
   // Return dataValues of created records
   return createdSkillTaxonomies.map(({ dataValues }) => dataValues);
