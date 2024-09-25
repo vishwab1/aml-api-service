@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import logger from '../../utils/logger';
 import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
-import { amlError } from '../../types/AmlError';
+import { amlError } from '../../types/amlError';
 import httpStatus from 'http-status';
 import { getPresignedUrl } from '../../services/awsService';
 import { getProcessById } from '../../services/process';

@@ -9,6 +9,7 @@ export const getBoards = async (board_ids: number[]): Promise<any> => {
   return { boards };
 };
 
+//board name exists
 export const checkBoardNameExists = async (boardName: string): Promise<boolean> => {
   const board = await boardMaster.findOne({
     where: {
@@ -20,4 +21,20 @@ export const checkBoardNameExists = async (boardName: string): Promise<boolean> 
     },
   });
   return !!board;
+};
+
+//get board by id
+export const getBoard = async (board_identifier: string): Promise<any> => {
+  const board = await boardMaster.findOne({
+    where: { identifier: board_identifier, is_active: true },
+    raw: true,
+  });
+  return { board };
+};
+
+//update the board
+export const updateBoard = async (board_identifier: string, data: any): Promise<any> => {
+  await boardMaster.update(data, {
+    where: { identifier: board_identifier },
+  });
 };

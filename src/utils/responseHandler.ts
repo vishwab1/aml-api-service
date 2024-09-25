@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import moment from 'moment';
 import httpStatus from 'http-status';
-import { IResponse, Result } from '../types/resposne';
+import { IResponse, Result } from '../types/response';
 import _ from 'lodash';
-import { AmlError } from '../types/AmlError';
+import { AmlError } from '../types/amlError';
 
 const ResponseHandler = {
   successResponse: (req: Request, res: Response, result: Result) => {

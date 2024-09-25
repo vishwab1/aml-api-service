@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const boardMaster = AppDataSource.define(
-  'board_master',
+export const SkillTaxonomy = AppDataSource.define(
+  'skill_taxonomy',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,29 +13,38 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    name: {
-      type: DataTypes.JSONB,
+    l1_id: {
+      type: DataTypes.INTEGER,
+    },
+    l1_identifier: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    class_ids: {
-      type: DataTypes.JSON,
+    l1_sequence: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    skill_taxonomy_id: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER), // Changed to array of integers
+    l1_skill: {
+      type: DataTypes.JSONB,
       allowNull: true,
     },
-    description: {
+    l1_skill_description: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    children: {
       type: DataTypes.JSONB,
       allowNull: true,
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
+      defaultValue: 'draft',
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
     },
     created_by: {
       type: DataTypes.STRING,
@@ -47,7 +56,7 @@ export const boardMaster = AppDataSource.define(
     },
   },
   {
-    tableName: 'board_master',
+    tableName: 'skill_taxonomy',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',

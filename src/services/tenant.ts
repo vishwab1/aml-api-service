@@ -1,6 +1,6 @@
 import { Tenant } from '../models/tenant';
 import { Optional } from 'sequelize';
-import { UpdateTenant } from '../types/TenantModel';
+import { UpdateTenant } from '../types/tenantModel';
 import _ from 'lodash';
 import { Status } from '../enums/status';
 
