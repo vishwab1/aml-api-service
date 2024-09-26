@@ -9,6 +9,7 @@ import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
 import { checkSkillTaxonomyIdsExists } from '../../services/skillTaxonomy';
 import { checkClassIdsExists } from '../../services/class';
+import { checkSkillsExistByIds } from '../../services/skill';
 
 export const apiId = 'api.board.update';
 
@@ -36,19 +37,36 @@ const updateBoard = async (req: Request, res: Response) => {
     throw amlError(code, 'Board does not exists', 'NOT_FOUND', 404);
   }
 
-  // Validate skill taxonomy  existence
-  const isTaxonomyIdsExists = await checkSkillTaxonomyIdsExists(dataBody.skill_taxonomy_ids);
-  if (!isTaxonomyIdsExists) {
-    const code = 'SKILL_TAXONOMY_NOT_EXISTS';
-    throw amlError(code, 'Taxonomy Ids does not exist', 'NOT_FOUND', 404);
+  // Validate skill taxonomy existence if present
+  if (dataBody.skill_taxonomy_ids && dataBody.skill_taxonomy_ids.length > 0) {
+    const isTaxonomyIdsExists = await checkSkillTaxonomyIdsExists(dataBody.skill_taxonomy_ids);
+    if (!isTaxonomyIdsExists) {
+      const code = 'SKILL_TAXONOMY_NOT_EXISTS';
+      throw amlError(code, 'Taxonomy Ids do not exist', 'NOT_FOUND', 404);
+    }
   }
 
-  // Validate class  existence
-  const isExists = await checkClassIdsExists(dataBody.class_ids.ids);
-  if (!isExists) {
-    const code = 'CLASS_ID_NOT_EXISTS';
-    logger.error({ code, apiId, msgid, resmsgid, message: 'Class Id does not exist' });
-    throw amlError(code, 'Class Id does not exists', 'NOT_FOUND', 404);
+  // Validate class existence if present
+  if (dataBody.class_ids && dataBody.class_ids.ids && dataBody.class_ids.ids.length > 0) {
+    const isExists = await checkClassIdsExists(dataBody.class_ids.ids);
+    if (!isExists) {
+      const code = 'CLASS_ID_NOT_EXISTS';
+      logger.error({ code, apiId, msgid, resmsgid, message: 'Class Id does not exist' });
+      throw amlError(code, 'Class Id does not exist', 'NOT_FOUND', 404);
+    }
+  }
+
+  // Check if l1_skill exists in skill_master and is of type l1_skill
+  if (dataBody.class_ids && dataBody.class_ids.l1_skill && dataBody.class_ids.l1_skill.length > 0) {
+    const l1SkillIds = dataBody.class_ids.l1_skill;
+
+    // Validate if l1_skill IDs exist and their type is 'l1_skill'
+    const isL1Exists = await checkSkillsExistByIds(l1SkillIds); // Check for 'l1_skill' type
+    if (!isL1Exists) {
+      const code = 'L1_SKILL_NOT_EXISTS';
+      logger.error({ code, apiId, msgid, resmsgid, message: 'One or more L1 skills do not exist or are not of type l1_skill' });
+      throw amlError(code, 'One or more L1 skills do not exist or are not of type l1_skill', 'NOT_FOUND', 404);
+    }
   }
 
   // Update the board

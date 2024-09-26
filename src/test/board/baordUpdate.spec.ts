@@ -6,6 +6,7 @@ import { boardMaster } from '../../models/boardMaster'; // Adjust this import as
 import { board_update_request } from './fixture'; // Ensure this file provides the correct fixtures
 import { SkillTaxonomy } from '../../models/skillTaxonomy';
 import { classMaster } from '../../models/classMaster';
+import { SkillMaster } from '../../models/skill';
 
 chai.use(chaiHttp);
 chai.use(chaiSpies);
@@ -34,6 +35,13 @@ describe('BOARD UPDATE API', () => {
       return Promise.resolve([
         { id: 3, status: 'live' },
         { id: 4, status: 'live' },
+      ]);
+    });
+
+    chai.spy.on(SkillMaster, 'findAll', () => {
+      return Promise.resolve([
+        { id: 1, status: 'live' },
+        { id: 2, status: 'live' },
       ]);
     });
 

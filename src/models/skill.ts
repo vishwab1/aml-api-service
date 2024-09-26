@@ -19,7 +19,7 @@ export const SkillMaster = AppDataSource.define(
       comment: 'Multilingual field for skill name',
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: true,
       comment: 'A short description of the skill',
     },

@@ -24,7 +24,7 @@ describe('skillTaxonomy CREATE API', () => {
   it('Should insert taxonomy to database', (done) => {
     // Mocking SkillMaster.findAll to return mocked skill IDs
     chai.spy.on(SkillMaster, 'findAll', () => {
-      return Promise.resolve([{ dataValues: { id: 1, name: { en: 'Substraction' } } }, { dataValues: { id: 2, name: { en: '1D without carry' } } }]);
+      return Promise.resolve([{ dataValues: { id: 1, name: { en: 'Substraction' }, type: 'l1_skill' } }, { dataValues: { id: 2, name: { en: '1D without carry' }, type: 'l2_skill' } }]);
     });
 
     // Mocking SkillTaxonomy.bulkCreate to simulate taxonomy creation

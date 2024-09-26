@@ -53,6 +53,9 @@
           "items": {
             "type": "object",
             "properties": {
+              "board_identifier": {
+                "type": "string"
+              },
               "name": {
                 "type": "object",
                 "additionalProperties": {
@@ -82,7 +85,7 @@
                     "minItems": 1,
                     "uniqueItems": true
                   },
-                  "name": {
+                  "l1_skill_ids": {
                     "type": "array",
                     "items": {
                       "type": "integer"
@@ -102,6 +105,9 @@
           "items": {
             "type": "object",
             "properties": {
+              "class_identifier": {
+                "type": "string"
+              },
               "name": {
                 "type": "object",
                 "additionalProperties": {

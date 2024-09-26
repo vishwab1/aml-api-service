@@ -30,6 +30,26 @@
       "items": {
         "type": "object",
         "properties": {
+          "board_identifier": {
+            "type": "string",
+            "description": "board identifier"
+          },
+          "board": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "class_identifier": {
+            "type": "string",
+            "description": "class identifer"
+          },
+          "class": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
           "l1_identifier": {
             "type": "string",
             "description": "L1 identifier, e.g., '11_addition'"

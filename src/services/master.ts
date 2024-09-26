@@ -9,6 +9,7 @@ import { SkillMaster } from '../models/skill';
 import { checkClassIdsExists } from './class';
 import { checkSkillTaxonomyIdsExists } from './skillTaxonomy';
 import { amlError } from '../types/amlError';
+import { checkSkillsExistByIds } from './skill';
 
 // Helper to process insertions
 const processInsertionResults = (results: any[]) => {
@@ -109,6 +110,16 @@ const handleBoardInsertion = async (boardData: any[]) => {
         if (!isClassIdsExists) {
           const code = 'CLASS_ID_NOT_EXISTS';
           throw amlError(code, 'Class Ids do not exist', 'NOT_FOUND', 404);
+        }
+      }
+
+      // Validate l1_ids array
+      const l1SkillIds = _.get(board, 'class_ids.l1_skill_ids', []);
+      if (!_.isEmpty(l1SkillIds)) {
+        const isL1Exists = await checkSkillsExistByIds(l1SkillIds); // Check for 'l1_skill' type
+        if (!isL1Exists) {
+          const code = 'L1_SKILL_NOT_EXISTS';
+          throw amlError(code, 'One or more L1 skills do not exist or are not of type l1_skill', 'NOT_FOUND', 404);
         }
       }
 

@@ -13,6 +13,19 @@ export const SkillTaxonomy = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    board_identifier: {
+      type: DataTypes.STRING,
+    },
+    board: {
+      type: DataTypes.JSONB,
+    },
+    class_identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    class: {
+      type: DataTypes.JSONB,
+    },
     l1_id: {
       type: DataTypes.INTEGER,
     },

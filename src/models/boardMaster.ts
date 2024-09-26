@@ -13,6 +13,10 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    board_identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
@@ -21,8 +25,8 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.JSON,
       allowNull: true,
     },
-    skill_taxonomy_id: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER), // Changed to array of integers
+    skill_taxonomy_ids: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: true,
     },
     description: {

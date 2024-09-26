@@ -7,7 +7,7 @@ import { schemaValidation } from '../../services/validationService';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
 import logger from '../../utils/logger';
-import { fetchSkillIds } from '../../services/skill';
+import { fetchSkillIdsByName } from '../../services/skill';
 
 export const apiId = 'api.skillTaxonomy.create';
 
@@ -26,7 +26,8 @@ const createSkillTaxonomy = async (req: Request, res: Response) => {
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 
-  const skillMap = await fetchSkillIds(); // Assuming this fetches skill IDs as numbers
+  // Assuming this fetches skill IDs as numbers
+  const skillMap = await fetchSkillIdsByName();
 
   // Process the skill taxonomy data
   const insertedskillTaxonomyData = await processSkillTaxonomy(dataBody, skillMap);

@@ -14,7 +14,7 @@ export const board_update_request = {
       },
       class_ids: {
         ids: [3, 4],
-        l1: [1, 2],
+        l1_skill_ids: [1, 2],
       },
       skill_taxonomy_ids: [1, 2],
       description: {
