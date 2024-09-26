@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.learner.journey.update"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "start_time": {
+          "type": "string",
+          "description": "must be a string"
+        },
+        "end_time": {
+          "type": "string",
+          "description": "must be a string"
+        },
+        "completed_question_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "must be a string"
+          },
+          "description": "must be an array of strings"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["in_progress", "complete"]
+        },
+        "attempts_count": {
+          "type": "integer",
+          "description": "must be a number"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}

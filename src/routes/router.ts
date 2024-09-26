@@ -17,6 +17,7 @@ import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
 import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
 import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
+import { learnerRouter } from './entities/learnerRouter';
 
 export const router = express.Router();
 
@@ -53,3 +54,5 @@ router.post('/skill-taxonomy/search', setDataToRequestObject('api.skillTaxonomy.
 router.post('/media/upload/presignedUrl', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
 
 router.post('/media/read/presignedUrl', setDataToRequestObject('api.media.read'), getMediaReadURL);
+
+router.use('/learner', learnerRouter);
