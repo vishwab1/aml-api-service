@@ -8,10 +8,6 @@ export const insert_skillTaxonomy_request = {
     },
     request: [
       {
-        board_identifier: 'cbse',
-        board: { en: 'cbse' },
-        class_identifier: 'grade_one',
-        class: { en: 'one' },
         l1_identifier: '11_addition',
         l1_sequence: 1,
         l1_skill: {
@@ -20,6 +16,7 @@ export const insert_skillTaxonomy_request = {
         l1_skill_description: {
           en: 'Addition',
         },
+        prerequisites: [],
         children: [
           {
             l2_identifier: '1digit_addition',

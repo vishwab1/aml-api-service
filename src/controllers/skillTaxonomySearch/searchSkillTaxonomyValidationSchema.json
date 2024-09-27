@@ -30,6 +30,13 @@
         "filters": {
           "type": "object",
           "properties": {
+            "taxonomy_id": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of identifiers for the taxonomy"
+            },
             "l1_skill": {
               "type": "array",
               "items": {

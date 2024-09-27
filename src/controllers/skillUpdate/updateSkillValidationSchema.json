@@ -46,7 +46,6 @@
           "description": "Skill type (l1, l2, or l3)"
         }
       },
-      "required": ["name", "type"],
       "additionalProperties": false
     }
   },

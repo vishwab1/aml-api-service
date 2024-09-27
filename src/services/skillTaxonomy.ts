@@ -22,17 +22,39 @@ export const getSkillTaxonomyId = async (skill_taxonomy_id: number): Promise<any
 };
 
 // Function to validate skill_taxonomy_id
-export const checkSkillTaxonomyIdsExists = async (skillTaxonomyIds: number[] | null) => {
-  const skillTaxonomyId = await SkillTaxonomy.findAll({
-    where: { id: { [Op.in]: skillTaxonomyIds } },
+export const checkSkillTaxonomyIdExists = async (skillTaxonomyId: string | null) => {
+  if (!skillTaxonomyId) return false; // Return false if the ID is null
+
+  const skillTaxonomy = await SkillTaxonomy.findOne({
+    where: { taxonomy_id: skillTaxonomyId },
     raw: true,
   });
 
-  const existingIds = _.map(skillTaxonomyId, 'id');
-  const missingTaxonomyIds = _.difference(skillTaxonomyIds, existingIds);
+  // Return true if the skill taxonomy ID exists, else return false
+  return !!skillTaxonomy;
+};
 
-  // If there are no missing IDs, return true, else return false
-  return _.isEmpty(missingTaxonomyIds);
+// Function to generate unique taxonomy_id
+const generateUniqueTaxonomyId = (taxonomy_name: string): string => {
+  return taxonomy_name.toLowerCase().replace(/\s+/g, '');
+};
+
+// Function to check if a taxonomy name already exists
+export const checkTaxonomyNameExists = async (taxonomy_name: string): Promise<boolean> => {
+  const existingTaxonomy = await SkillTaxonomy.findOne({
+    where: {
+      taxonomy_name: {
+        [Op.iLike]: taxonomy_name,
+      },
+      status: Status.LIVE,
+      is_active: true,
+    },
+    attributes: ['id'],
+    raw: true,
+  });
+
+  // Return true if taxonomy exists, otherwise false
+  return !!existingTaxonomy;
 };
 
 // Helper function to get skill ID from multilingual input
@@ -53,7 +75,7 @@ const processL3Skills = async (children: any[], skillMap: Map<string, { id: numb
   return await Promise.all(
     children.map((subchild: any) => {
       const l3SkillId = getSkillId(subchild.l3_skill, skillMap, SkillType.L3_SKILL);
-      if (!l3SkillId) throw new Error(`L3 skill not found or mismatched type`);
+      if (!l3SkillId) throw new Error(`L3 skill not found or mismatched type::${JSON.stringify(subchild.l3_skill)}`);
 
       return { ...subchild, l3_id: l3SkillId };
     }),
@@ -65,7 +87,7 @@ const processL2Skills = async (children: any[], skillMap: Map<string, { id: numb
   return await Promise.all(
     children.map(async (child: any) => {
       const l2SkillId = getSkillId(child.l2_skill, skillMap, SkillType.L2_SKILL);
-      if (!l2SkillId) throw new Error(`L2 skill not found or mismatched type`);
+      if (!l2SkillId) throw new Error(`L2 skill not found or mismatched type:${JSON.stringify(child.l2_skill)}`);
 
       const childrenWithL3Ids = _.get(child, 'children') ? await processL3Skills(_.get(child, 'children', []), skillMap) : [];
 
@@ -75,17 +97,20 @@ const processL2Skills = async (children: any[], skillMap: Map<string, { id: numb
 };
 
 // Main function to process L1 skills and taxonomy
-export const processSkillTaxonomy = async (dataBody: any[], skillMap: Map<string, { id: number; name: string; type: string }>): Promise<any[]> => {
+export const processSkillTaxonomy = async (dataBody: any[], taxonomy_name: string, skillMap: Map<string, { id: number; name: string; type: string }>): Promise<any[]> => {
   return await Promise.all(
     dataBody.map(async (taxonomy: any) => {
       const l1SkillId = getSkillId(taxonomy.l1_skill, skillMap, SkillType.L1_SKILL);
-      if (!l1SkillId) throw new Error(`L1 skill not found or mismatched type`);
+      if (!l1SkillId) throw new Error(`L1 skill not found or mismatched type:${JSON.stringify(taxonomy.l1_skill)}`);
 
       const childrenWithL2Ids = _.get(taxonomy, 'children') ? await processL2Skills(_.get(taxonomy, 'children', []), skillMap) : [];
+      const taxonomy_id = generateUniqueTaxonomyId(taxonomy_name);
 
       return {
         ...taxonomy,
         identifier: uuid.v4(),
+        taxonomy_id: taxonomy_id,
+        taxonomy_name: taxonomy_name,
         status: Status.LIVE,
         created_by: 'system',
         is_active: true,
@@ -106,6 +131,14 @@ export const getSkillTaxonomySearch = async (req: Record<string, any>) => {
 
   whereClause.status = Status.LIVE;
   whereClause.is_active = true;
+
+  if (filters.taxonomy_id) {
+    whereClause.taxonomy_id = {
+      [Op.or]: filters.taxonomy_id.map((id: string) => ({
+        [Op.iLike]: `%${id}%`, // Partial matching for each id
+      })),
+    };
+  }
 
   if (filters.l1_skill) {
     whereClause.l1_skill = {

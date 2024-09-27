@@ -30,26 +30,6 @@
       "items": {
         "type": "object",
         "properties": {
-          "board_identifier": {
-            "type": "string",
-            "description": "board identifier"
-          },
-          "board": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "class_identifier": {
-            "type": "string",
-            "description": "class identifer"
-          },
-          "class": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
           "l1_identifier": {
             "type": "string",
             "description": "L1 identifier, e.g., '11_addition'"
@@ -139,9 +119,17 @@
               "required": ["l2_identifier", "l2_sequence", "l2_skill", "l2_skill_description"],
               "additionalProperties": false
             }
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of prerequisite skills"
           }
         },
-        "required": ["l1_identifier", "l1_sequence", "l1_skill", "l1_skill_description", "children"],
+
+        "required": ["l1_identifier", "l1_sequence", "l1_skill", "l1_skill_description", "children", "prerequisites"],
         "additionalProperties": false
       },
       "description": "Array of skill taxonomy objects."

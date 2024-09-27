@@ -13,18 +13,13 @@ export const SkillTaxonomy = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    board_identifier: {
-      type: DataTypes.STRING,
-    },
-    board: {
-      type: DataTypes.JSONB,
-    },
-    class_identifier: {
+    taxonomy_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    class: {
-      type: DataTypes.JSONB,
+    taxonomy_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     l1_id: {
       type: DataTypes.INTEGER,
@@ -39,15 +34,19 @@ export const SkillTaxonomy = AppDataSource.define(
     },
     l1_skill: {
       type: DataTypes.JSONB,
-      allowNull: true,
+      allowNull: false,
     },
     l1_skill_description: {
       type: DataTypes.JSONB,
       allowNull: true,
     },
+    prerequisites: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
     children: {
       type: DataTypes.JSONB,
-      allowNull: true,
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),

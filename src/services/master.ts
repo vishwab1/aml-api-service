@@ -7,7 +7,7 @@ import * as uuid from 'uuid';
 import _ from 'lodash';
 import { SkillMaster } from '../models/skill';
 import { checkClassIdsExists } from './class';
-import { checkSkillTaxonomyIdsExists } from './skillTaxonomy';
+import { checkSkillTaxonomyIdExists } from './skillTaxonomy';
 import { amlError } from '../types/amlError';
 import { checkSkillsExistByIds } from './skill';
 
@@ -94,9 +94,9 @@ const handleBoardInsertion = async (boardData: any[]) => {
   const results = await Promise.all(
     _.map(boardData, async (board) => {
       // Validate skill_taxonomy_id array
-      const skillTaxonomyIds = _.get(board, 'skill_taxonomy_ids', []);
-      if (!_.isEmpty(skillTaxonomyIds)) {
-        const isTaxonomyIdsExists = await checkSkillTaxonomyIdsExists(skillTaxonomyIds);
+      const skillTaxonomyId = _.get(board, 'skill_taxonomy_id', []);
+      if (!_.isEmpty(skillTaxonomyId)) {
+        const isTaxonomyIdsExists = await checkSkillTaxonomyIdExists(skillTaxonomyId);
         if (!isTaxonomyIdsExists) {
           const code = 'SKILL_TAXONOMY_NOT_EXISTS';
           throw amlError(code, 'Taxonomy Id does not exist', 'NOT_FOUND', 404);

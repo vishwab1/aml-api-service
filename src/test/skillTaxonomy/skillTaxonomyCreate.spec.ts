@@ -13,7 +13,7 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('skillTaxonomy CREATE API', () => {
-  const insertUrl = '/api/v1/skillTaxonomy/create';
+  const insertUrl = '/api/v1/skillTaxonomy/create/karnatakaTaxonomy';
 
   // Restore spies after each test
   afterEach(() => {

@@ -1,5 +1,7 @@
 import { SkillType } from '../enums/skillType';
+import { Status } from '../enums/status';
 import { SkillMaster } from '../models/skill';
+import { amlError } from '../types/amlError';
 
 export async function fetchSkillIdsByName(): Promise<Map<string, { id: number; name: string; type: string }>> {
   const skills = await SkillMaster.findAll({
@@ -49,7 +51,24 @@ export const checkSkillsExistByIds = async (skillIds: number[]): Promise<boolean
 
 // Update skill
 export const updateSkillData = async (skillId: string, req: any): Promise<any> => {
-  const whereClause = { identifier: skillId, is_active: true, status: 'live' };
-  const updatedSkill = await SkillMaster.update(req, { where: whereClause });
-  return { updatedSkill };
+  const existingSkill = await SkillMaster.findOne({
+    where: { identifier: skillId, is_active: true, status: Status.LIVE },
+    raw: true,
+  });
+
+  if (!existingSkill) {
+    const code = 'SKILL_NOT_FOUND';
+    throw amlError(code, 'Skill not found.', 'NOT_FOUND', 404);
+  }
+
+  const updatedData = {
+    ...existingSkill,
+    ...req,
+  };
+
+  await SkillMaster.update(updatedData, {
+    where: { identifier: skillId },
+  });
+
+  return updatedData;
 };

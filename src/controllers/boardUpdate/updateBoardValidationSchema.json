@@ -26,15 +26,11 @@
       "properties": {
         "name": {
           "type": "object",
-          "properties": {
-            "en": { "type": "string" }
-          },
-          "required": ["en"],
           "minProperties": 1,
           "additionalProperties": {
             "type": "string"
           },
-          "description": "JSON object for name translations, 'en' is required, other languages can be added"
+          "description": "JSON object for name translations, at least one language key must be present"
         },
         "class_ids": {
           "type": "object",
@@ -51,29 +47,23 @@
               "type": "array",
               "items": {
                 "type": "integer"
-              }
+              },
+              "minItems": 1,
+              "uniqueItems": true
             }
           },
-          "required": ["ids"],
           "additionalProperties": false
         },
-        "skill_taxonomy_ids": {
-          "type": "array",
-          "items": {
-            "type": "integer"
-          }
+        "skill_taxonomy_id": {
+          "type": "string"
         },
         "description": {
           "type": "object",
-          "properties": {
-            "en": { "type": "string" }
-          },
-          "required": ["en"],
           "minProperties": 1,
           "additionalProperties": {
             "type": "string"
           },
-          "description": "JSON object for description translations, 'en' is required, other languages can be added"
+          "description": "JSON object for description translations, at least one language key must be present"
         }
       },
       "additionalProperties": false

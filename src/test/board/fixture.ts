@@ -16,7 +16,7 @@ export const board_update_request = {
         ids: [3, 4],
         l1_skill_ids: [1, 2],
       },
-      skill_taxonomy_ids: [1, 2],
+      skill_taxonomy_id: 'amltaxonomy',
       description: {
         en: 'This is the English description',
         es: 'Esta es la descripción en español',

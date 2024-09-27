@@ -7,7 +7,7 @@ import logger from '../../utils/logger';
 import boardUpdateJson from './updateBoardValidationSchema.json'; // Validation schema for board updates
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
-import { checkSkillTaxonomyIdsExists } from '../../services/skillTaxonomy';
+import { checkSkillTaxonomyIdExists } from '../../services/skillTaxonomy';
 import { checkClassIdsExists } from '../../services/class';
 import { checkSkillsExistByIds } from '../../services/skill';
 
@@ -38,16 +38,16 @@ const updateBoard = async (req: Request, res: Response) => {
   }
 
   // Validate skill taxonomy existence if present
-  if (dataBody.skill_taxonomy_ids && dataBody.skill_taxonomy_ids.length > 0) {
-    const isTaxonomyIdsExists = await checkSkillTaxonomyIdsExists(dataBody.skill_taxonomy_ids);
-    if (!isTaxonomyIdsExists) {
+  if (dataBody.skill_taxonomy_id) {
+    const isTaxonomyIdExists = await checkSkillTaxonomyIdExists(dataBody.skill_taxonomy_id);
+    if (!isTaxonomyIdExists) {
       const code = 'SKILL_TAXONOMY_NOT_EXISTS';
-      throw amlError(code, 'Taxonomy Ids do not exist', 'NOT_FOUND', 404);
+      throw amlError(code, 'Taxonomy ID does not exist', 'NOT_FOUND', 404);
     }
   }
 
   // Validate class existence if present
-  if (dataBody.class_ids && dataBody.class_ids.ids && dataBody.class_ids.ids.length > 0) {
+  if (dataBody.class_ids) {
     const isExists = await checkClassIdsExists(dataBody.class_ids.ids);
     if (!isExists) {
       const code = 'CLASS_ID_NOT_EXISTS';
@@ -55,11 +55,9 @@ const updateBoard = async (req: Request, res: Response) => {
       throw amlError(code, 'Class Id does not exist', 'NOT_FOUND', 404);
     }
   }
-
+  const l1SkillIds = _.get(dataBody, 'class_ids.l1_skill_ids');
   // Check if l1_skill exists in skill_master and is of type l1_skill
-  if (dataBody.class_ids && dataBody.class_ids.l1_skill && dataBody.class_ids.l1_skill.length > 0) {
-    const l1SkillIds = dataBody.class_ids.l1_skill;
-
+  if (dataBody.class_ids && l1SkillIds) {
     // Validate if l1_skill IDs exist and their type is 'l1_skill'
     const isL1Exists = await checkSkillsExistByIds(l1SkillIds); // Check for 'l1_skill' type
     if (!isL1Exists) {

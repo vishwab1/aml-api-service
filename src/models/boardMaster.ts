@@ -25,8 +25,8 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.JSON,
       allowNull: true,
     },
-    skill_taxonomy_ids: {
-      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    skill_taxonomy_id: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     description: {

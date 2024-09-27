@@ -68,11 +68,8 @@
                   "type": "string"
                 }
               },
-              "skill_taxonomy_ids": {
-                "type": "array",
-                "additionalProperties": {
-                  "type": "integer"
-                }
+              "skill_taxonomy_id": {
+                "type": "string"
               },
               "class_ids": {
                 "type": "object",
@@ -89,10 +86,11 @@
                     "type": "array",
                     "items": {
                       "type": "integer"
-                    }
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
                   }
                 },
-                "required": ["ids"],
                 "additionalProperties": false
               }
             },

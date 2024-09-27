@@ -26,7 +26,7 @@ export const checkBoardNameExists = async (boardName: string): Promise<boolean> 
 //get board by id
 export const getBoard = async (board_identifier: string): Promise<any> => {
   const board = await boardMaster.findOne({
-    where: { identifier: board_identifier, is_active: true },
+    where: { identifier: board_identifier, status: Status.LIVE, is_active: true },
     raw: true,
   });
   return { board };
@@ -34,7 +34,20 @@ export const getBoard = async (board_identifier: string): Promise<any> => {
 
 //update the board
 export const updateBoardData = async (board_identifier: string, data: any): Promise<any> => {
-  await boardMaster.update(data, {
+  const existingBoard = await getBoard(board_identifier);
+
+  if (!existingBoard) {
+    throw new Error('Board not found'); // Handle board not found scenario
+  }
+
+  const updatedData = {
+    ...existingBoard,
+    ...data,
+  };
+
+  await boardMaster.update(updatedData, {
     where: { identifier: board_identifier },
   });
+
+  return updatedData;
 };
