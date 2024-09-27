@@ -7,6 +7,7 @@ import logger from '../../utils/logger';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import { readLearnerJourney, updateLearnerJourney } from '../../services/learnerJourney';
+import moment from 'moment/moment';
 
 export const apiId = 'api.learner.journey.update';
 
@@ -19,9 +20,14 @@ export const learnerJourneyUpdate = async (req: Request, res: Response) => {
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, learnerUpdateJSON);
 
-  if (!isRequestValid.isValid) {
+  const invalidStartTime = dataBody.start_time && !moment(dataBody.start_time).isValid();
+  const invalidEndTime = dataBody.end_time && !moment(dataBody.end_time).isValid();
+
+  const invalidDateTimeKey = invalidStartTime ? 'start_time' : 'end_time';
+
+  if (!isRequestValid.isValid || invalidStartTime || invalidEndTime) {
     const code = 'LEARNER_JOURNEY_INVALID_INPUT';
-    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: !isRequestValid.isValid ? isRequestValid.message : `Invalid ${invalidDateTimeKey} format` });
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
   // TODO: validate question_set_id, completed_question_ids & learner_id

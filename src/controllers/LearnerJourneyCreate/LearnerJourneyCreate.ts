@@ -8,6 +8,7 @@ import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
 import { createLearnerJourney } from '../../services/learnerJourney';
 import * as uuid from 'uuid';
+import moment from 'moment';
 
 export const apiId = 'api.learner.journey.create';
 
@@ -22,9 +23,11 @@ export const learnerJourneyCreate = async (req: Request, res: Response) => {
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, learnerCreateJSON);
 
-  if (!isRequestValid.isValid) {
+  const invalidStartTime = dataBody.start_time && !moment(dataBody.start_time).isValid();
+
+  if (!isRequestValid.isValid || invalidStartTime) {
     const code = 'LEARNER_JOURNEY_INVALID_INPUT';
-    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: invalidStartTime ? 'Invalid start_time format' : isRequestValid.message });
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 

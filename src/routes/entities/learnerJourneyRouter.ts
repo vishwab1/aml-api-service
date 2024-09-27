@@ -4,10 +4,10 @@ import { learnerJourneyCreate } from '../../controllers/LearnerJourneyCreate/Lea
 import { learnerJourneyRead } from '../../controllers/LearnerJourneyRead/LearnerJourneyRead';
 import { learnerJourneyUpdate } from '../../controllers/LearnerJourneyUpdate/LearnerJourneyUpdate';
 
-export const learnerJourneyRouter = express.Router({ mergeParams: true });
+export const learnerJourneyRouter = express.Router();
 
-learnerJourneyRouter.post('/create', setDataToRequestObject('api.learner.journey.create'), learnerJourneyCreate);
+learnerJourneyRouter.post('/create/:learner_id', setDataToRequestObject('api.learner.journey.create'), learnerJourneyCreate);
 
-learnerJourneyRouter.put('/update', setDataToRequestObject('api.learner.journey.update'), learnerJourneyUpdate);
+learnerJourneyRouter.put('/update/:learner_id', setDataToRequestObject('api.learner.journey.update'), learnerJourneyUpdate);
 
-learnerJourneyRouter.get('/read', setDataToRequestObject('api.learner.journey.read'), learnerJourneyRead);
+learnerJourneyRouter.get('/read/:learner_id', setDataToRequestObject('api.learner.journey.read'), learnerJourneyRead);

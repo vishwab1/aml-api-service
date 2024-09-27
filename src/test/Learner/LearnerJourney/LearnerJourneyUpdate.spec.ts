@@ -11,7 +11,7 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Learner Journey Update API', () => {
-  const requestURL = '/api/v1/learner/2ca3b11a-d581-4aa1-a199-fb1c51392cc9/journey/update';
+  const requestURL = '/api/v1/learner/journey/update/2ca3b11a-d581-4aa1-a199-fb1c51392cc9';
 
   // Restore spies after each test
   afterEach(() => {

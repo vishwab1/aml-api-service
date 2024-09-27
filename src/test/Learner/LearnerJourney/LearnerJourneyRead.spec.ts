@@ -10,7 +10,7 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Learner Journey Read API', () => {
-  const requestURL = '/api/v1/learner/2ca3b11a-d581-4aa1-a199-fb1c51392cc9/journey/read';
+  const requestURL = '/api/v1/learner/journey/read/2ca3b11a-d581-4aa1-a199-fb1c51392cc9';
 
   // Restore spies after each test
   afterEach(() => {

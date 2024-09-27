@@ -1,6 +1,6 @@
 import express from 'express';
 import { learnerJourneyRouter } from './learnerJourneyRouter';
 
-export const learnerRouter = express.Router({ mergeParams: true });
+export const learnerRouter = express.Router();
 
-learnerRouter.use('/:learner_id/journey', learnerJourneyRouter);
+learnerRouter.use('/journey', learnerJourneyRouter);
