@@ -21,4 +21,5 @@ export interface IConfiguration {
   presignedUrlExpiry: number;
   bulkUploadFolder: string;
   templateFolder: string;
+  mediaFolder: string;
 }

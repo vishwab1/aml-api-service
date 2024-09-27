@@ -9,6 +9,8 @@ import { masterSearch } from '../controllers/MasterSearch/MasterSearch';
 import getBulkUploadURL from '../controllers/bulkUpload/bulkUpload';
 import uploadStatus from '../controllers/bulkUpload/uploadStatus';
 import getTemplate from '../controllers/template/getTemplate';
+import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
+import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
 
 export const router = express.Router();
 
@@ -29,3 +31,7 @@ router.post('/bulk/upload/url', setDataToRequestObject('api.bulk.url'), getBulkU
 router.get('/bulk/template/read/:fileName', setDataToRequestObject('api.bulk.template'), getTemplate);
 
 router.get('/bulk/upload/status/:process_id', setDataToRequestObject('api.bulk.status'), uploadStatus);
+
+router.post('/media/upload/presignedUrl', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
+
+router.post('/media/read/presignedUrl', setDataToRequestObject('api.media.read'), getMediaReadURL);

@@ -25,6 +25,7 @@ const appConfiguration: IConfiguration = {
   presignedUrlExpiry: get(envVars, 'AWS_EXPIRY_TIME', 1800) as number,
   bulkUploadFolder: get(envVars, 'UPLOAD_FOLDER', 'upload'),
   templateFolder: get(envVars, 'TEMPLATE_FOLDER', 'template'),
+  mediaFolder: get(envVars, 'MEDIA_FOLDER', 'media'),
 };
 
 export default appConfiguration;
