@@ -42,8 +42,8 @@ router.post('/class/update/:class_id', setDataToRequestObject('api.class.update'
 
 router.post('/skill/update/:skill_id', setDataToRequestObject('api.skill.update'), updateSkill);
 
-router.post('/subSkill/update/:sub_skill_id', setDataToRequestObject('api.subskill.update'), updateSubSkill);
+router.post('/sub-skill/update/:sub_skill_id', setDataToRequestObject('api.subskill.update'), updateSubSkill);
 
-router.post('/skillTaxonomy/create/:taxonomy_name', setDataToRequestObject('api.skillTaxonomy.create'), createSkillTaxonomy);
+router.post('/skill-taxonomy/create/:taxonomy_name', setDataToRequestObject('api.skillTaxonomy.create'), createSkillTaxonomy);
 
-router.post('/skillTaxonomy/search', setDataToRequestObject('api.skillTaxonomy.search'), searchSkillTaxonomies);
+router.post('/skill-taxonomy/search', setDataToRequestObject('api.skillTaxonomy.search'), searchSkillTaxonomies);
