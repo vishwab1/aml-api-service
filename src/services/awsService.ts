@@ -18,6 +18,7 @@ export const getPresignedUrl = async (fileName: string) => {
     error: !url,
     url,
     message: url ? 'success' : 'error getting signed url',
+    expiresInSec: presignedUrlExpiry,
   };
 };
 

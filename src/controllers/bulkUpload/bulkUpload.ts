@@ -36,7 +36,7 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
 
   const insertProcess = await createProcess({
     process_id: process_id,
-    fileName: fileName,
+    file_name: fileName,
     status: 'open',
     is_active: true,
     created_by: 1,
