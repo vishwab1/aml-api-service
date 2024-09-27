@@ -39,7 +39,7 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
 
   if (validStatuses.includes(status)) {
     logger.info({ apiId, msgid, resmsgid, message: `process retrieved successfully` });
-    ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { status, error_message, error_status } });
+    ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { status, error_status } });
   }
 
   const filesToSign = [content_error_file_name, question_error_file_name, question_set_error_file_name].filter(Boolean);
