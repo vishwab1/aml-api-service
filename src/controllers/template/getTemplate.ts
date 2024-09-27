@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import { ResponseHandler } from '../../utils/responseHandler';
 import httpStatus from 'http-status';
 import { getPresignedUrl } from '../../services/awsService';
-import { amlError } from '../../types/AmlError';
+import { amlError } from '../../types/amlError';
 import { appConfiguration } from '../../config';
 
 const { templateFolder } = appConfiguration;

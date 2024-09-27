@@ -3,7 +3,7 @@ import logger from '../../utils/logger';
 import * as _ from 'lodash';
 import * as uuid from 'uuid';
 import { ResponseHandler } from '../../utils/responseHandler';
-import { amlError } from '../../types/AmlError';
+import { amlError } from '../../types/amlError';
 import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
 import bulkUploadSchema from './bulkUploadSchema.json';

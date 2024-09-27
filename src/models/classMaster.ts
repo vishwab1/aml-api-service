@@ -13,6 +13,10 @@ export const classMaster = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    class_identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,
