@@ -29,7 +29,7 @@ describe('BULK UPLOAD API', () => {
     });
 
     chai.spy.on(Process, 'create', () => {
-      return Promise.resolve({ dataValues: { id: 1, fileName: 'fib.zip', process_id: '19b20fd6-029b-477b-9f65-28029f7ce1d9' } });
+      return Promise.resolve({ dataValues: { id: 1, file_name: 'fib.zip', status: 'open', process_id: '19b20fd6-029b-477b-9f65-28029f7ce1d9' } });
     });
 
     chai
