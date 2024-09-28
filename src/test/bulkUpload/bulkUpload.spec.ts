@@ -37,7 +37,6 @@ describe('BULK UPLOAD API', () => {
       .post(uploadUrl)
       .send(processRequest.validRequest)
       .end((err, res) => {
-        console.log('🚀 ~ .end ~ res:', res.body);
         if (err) return done(err);
         res.should.have.status(200);
         res.body.should.be.a('object');
