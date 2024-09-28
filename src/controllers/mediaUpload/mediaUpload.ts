@@ -21,7 +21,7 @@ const getMediaUploadURL = async (req: Request, res: Response) => {
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, mediaUploadSchema);
   if (!isRequestValid.isValid) {
-    const code = 'UPLOAD_INVALID_INPUT';
+    const code = 'MEDIA_UPLOAD_INVALID_INPUT';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', httpStatus.BAD_REQUEST);
   }

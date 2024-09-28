@@ -22,7 +22,7 @@ const getMediaReadURL = async (req: Request, res: Response) => {
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, mediaReadSchema);
   if (!isRequestValid.isValid) {
-    const code = 'READ_INVALID_INPUT';
+    const code = 'MEDIA_READ_INVALID_INPUT';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', httpStatus.BAD_REQUEST);
   }
@@ -53,6 +53,6 @@ export default getMediaReadURL;
 
 const getMediaMetaData = (fileName: string) => {
   const fileExtension = path.extname(fileName);
-  const fileMimeType = mime.lookup(fileExtension) || 'unknown';
+  const fileMimeType = mime.lookup(fileExtension) || 'application/octet-stream';
   return { mimeTye: fileMimeType, mediaType: fileMimeType.split('/')[0] };
 };

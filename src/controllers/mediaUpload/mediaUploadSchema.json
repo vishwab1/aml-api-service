@@ -36,10 +36,10 @@
             "enum": ["content", "questionSet", "question"],
             "description": "which category media belong to "
           }
-        }
-      },
-      "required": ["fileName", "category"],
-      "additionalProperties": false
+        },
+        "required": ["fileName", "category"],
+        "additionalProperties": false
+      }
     }
   },
   "required": ["id", "ver", "ts", "params", "request"],

@@ -44,10 +44,10 @@
             "enum": ["media/content", "media/questionSet", "media/question"],
             "description": "which category media belong to "
           }
-        }
-      },
-      "required": ["fileName", "category", "mimeType", "mediaType"],
-      "additionalProperties": false
+        },
+        "required": ["fileName", "src", "mimeType", "mediaType"],
+        "additionalProperties": false
+      }
     }
   },
   "required": ["id", "ver", "ts", "params", "request"],
