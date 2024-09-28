@@ -14,15 +14,16 @@ export const apiId = 'api.bulk.template';
 const getTemplate = async (req: Request, res: Response) => {
   const fileName = _.get(req, 'params.fileName');
   const getTemplatefile = await getPresignedUrl(`${templateFolder}/${fileName}`);
+
   if (getTemplatefile.error) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, message: getTemplatefile.message });
     throw amlError(code, getTemplatefile.message, 'INTERNAL_SERVER_ERROR', 500);
   }
 
-  const { url } = getTemplatefile;
+  const { url, expiresInSec } = getTemplatefile;
   logger.info({ apiId, fileName, message: `signed url created successfully ` });
-  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, fileName } });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { url, expiresInSec, fileName } });
 };
 
 export default getTemplate;

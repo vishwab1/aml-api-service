@@ -19,10 +19,6 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
 
   const process = await getProcessById(process_id);
 
-  const {
-    getProcess: { file_name, status, error_message, content_error_file_name, question_error_file_name, question_set_error_file_name, error_status },
-  } = process;
-
   if (process.errors) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, message: process });
@@ -35,11 +31,15 @@ const bulkUploadStatus = async (req: Request, res: Response) => {
     throw amlError(code, 'process not exists', 'NOT_FOUND', 404);
   }
 
+  const {
+    getProcess: { file_name, status, error_message, content_error_file_name, question_error_file_name, question_set_error_file_name, error_status },
+  } = process;
+
   const validStatuses = [ProcessStatus.COMPLETED, ProcessStatus.OPEN, ProcessStatus.VALIDATED, ProcessStatus.PROGRESS, ProcessStatus.REOPEN, ProcessStatus.COMPLETED];
 
   if (validStatuses.includes(status)) {
     logger.info({ apiId, msgid, resmsgid, message: `process retrieved successfully` });
-    ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { status, error_status } });
+    return ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { status, error_status } });
   }
 
   const filesToSign = [content_error_file_name, question_error_file_name, question_set_error_file_name].filter(Boolean);
