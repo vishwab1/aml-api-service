@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ResponseHandler } from '../utils/responseHandler';
 import _ from 'lodash';
-import { AmlError } from '../types/AmlError';
+import { AmlError } from '../types/amlError';
 import logger from '../utils/logger';
 
 export const amlErrorHandler = (amlErr: AmlError, req: Request, res: Response, _next: NextFunction) => {

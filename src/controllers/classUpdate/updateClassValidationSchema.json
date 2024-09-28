@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.class.update"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" }
+          },
+          "required": ["en"],
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "JSON object for name translations, 'en' is required, other languages can be added"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "An array of prerequisite class identifiers"
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "en": { "type": "string" }
+          },
+          "required": ["en"],
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "JSON object for description translations, 'en' is required, other languages can be added"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
