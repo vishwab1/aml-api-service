@@ -13,10 +13,6 @@ export const boardMaster = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    board_identifier: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     name: {
       type: DataTypes.JSONB,
       allowNull: false,

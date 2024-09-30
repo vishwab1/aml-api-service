@@ -39,21 +39,20 @@
               "type": "array",
               "items": {
                 "type": "integer"
-              }
+              },
+              "uniqueItems": true
             },
             "l1_skill_ids": {
               "type": "array",
               "items": {
                 "type": "integer"
-              }
+              },
+              "uniqueItems": true
             }
           },
           "additionalProperties": false
         },
         "skill_taxonomy_id": {
-          "type": "string"
-        },
-        "board_identifier": {
           "type": "string"
         },
         "description": {
