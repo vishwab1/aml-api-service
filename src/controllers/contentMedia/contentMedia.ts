@@ -7,11 +7,9 @@ import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
 import contentMediaSchema from './contentMediaSchema.json';
 import { getPresignedUrl } from '../../services/awsService';
-import { appConfiguration } from '../../config';
 import { getContentMediaById } from '../../services/content';
 
 export const apiId = 'api.contentMedia.read';
-const { mediaFolder } = appConfiguration;
 
 const getContentMediaReadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
@@ -35,7 +33,7 @@ const getContentMediaReadURL = async (req: Request, res: Response) => {
   }
   const signedUrls = await Promise.all(
     contentsMedia.media.map(async (media: any) => {
-      const getSignedUrl = await getPresignedUrl(`${mediaFolder}/${media.src.split('/')[1]}/${media.file_name}`);
+      const getSignedUrl = await getPresignedUrl(`${media.src}/${media.file_name}`);
       if (getSignedUrl.error) {
         const code = 'SERVER_ERROR';
         logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl.message });

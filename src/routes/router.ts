@@ -15,9 +15,9 @@ import createSkillTaxonomy from '../controllers/skillTaxonomyCreate/skillTaxonom
 import searchSkillTaxonomies from '../controllers/skillTaxonomySearch/skillTaxonomySearch';
 import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
-import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
-import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
-import getContentMediaReadURL from '../controllers/contentMedia/contentmedia';
+import getMediaUploadURL from '../controllers/media/mediaUpload';
+import getMediaReadURL from '../controllers/media/mediaRead';
+import getContentMediaReadURL from '../controllers/contentMedia/contentMedia';
 
 export const router = express.Router();
 
