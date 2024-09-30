@@ -15,7 +15,6 @@ export const learnerJourneyUpdate = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
-  const learner_id = _.get(req, 'params.learner_id');
   const resmsgid = _.get(res, 'resmsgid');
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, learnerUpdateJSON);
@@ -33,9 +32,12 @@ export const learnerJourneyUpdate = async (req: Request, res: Response) => {
   // TODO: validate question_set_id, completed_question_ids & learner_id
   // TODO: conclude journey status on the basis of completed question ids
 
-  const { learnerJourney } = await readLearnerJourney(learner_id);
+  const { learnerJourney } = await readLearnerJourney(dataBody.learner_id);
 
-  await updateLearnerJourney(learnerJourney.identifier, dataBody);
+  await updateLearnerJourney(learnerJourney.identifier, {
+    ...dataBody,
+    completed_question_ids: _.uniq([...(learnerJourney.completed_question_ids || []), ...(dataBody.completed_question_ids || [])]),
+  });
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Learner journey updated successfully' } });
 };

@@ -24,6 +24,10 @@
     "request": {
       "type": "object",
       "properties": {
+        "learner_id": {
+          "type": "string",
+          "description": "must be a string and is required"
+        },
         "start_time": {
           "type": "string",
           "description": "must be a string"
@@ -39,16 +43,9 @@
             "description": "must be a string"
           },
           "description": "must be an array of strings"
-        },
-        "status": {
-          "type": "string",
-          "enum": ["in_progress", "complete"]
-        },
-        "attempts_count": {
-          "type": "integer",
-          "description": "must be a number"
         }
       },
+      "required": ["learner_id"],
       "additionalProperties": false
     }
   },

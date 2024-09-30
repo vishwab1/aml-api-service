@@ -24,6 +24,10 @@
     "request": {
       "type": "object",
       "properties": {
+        "learner_id": {
+          "type": "string",
+          "description": "must be a string and is required"
+        },
         "question_set_id": {
           "type": "string",
           "description": "must be a string and is required"
@@ -33,7 +37,7 @@
           "description": "must be a string and is required"
         }
       },
-      "required": ["question_set_id", "start_time"],
+      "required": ["learner_id", "question_set_id", "start_time"],
       "additionalProperties": false
     }
   },

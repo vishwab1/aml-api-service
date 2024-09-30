@@ -17,9 +17,6 @@ export const learnerJourneyCreate = async (req: Request, res: Response) => {
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
   const resmsgid = _.get(res, 'resmsgid');
-  const learner_id = _.get(req, 'params.learner_id');
-
-  // TODO: validate learner_id
 
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, learnerCreateJSON);
 
@@ -31,11 +28,10 @@ export const learnerJourneyCreate = async (req: Request, res: Response) => {
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 
-  // TODO: validate question_set_id
+  // TODO: validate learner_id & question_set_id
 
   const learnerJourneyInsertData = {
     ...dataBody,
-    learner_id,
     identifier: uuid.v4(),
     created_by: uuid.v4(), // TODO: Replace with valid user identifier
   };
