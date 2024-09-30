@@ -34,10 +34,8 @@ const updateClass = async (req: Request, res: Response) => {
     throw amlError(code, 'Class does not exist', 'NOT_FOUND', 404);
   }
 
-  const mergedData = _.merge({}, classData, dataBody);
-
   const updatedData = {
-    ...mergedData,
+    ...dataBody,
     updated_by: 'system',
   };
 

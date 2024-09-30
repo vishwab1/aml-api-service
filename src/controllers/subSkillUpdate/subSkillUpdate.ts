@@ -34,10 +34,8 @@ const updateSubSkill = async (req: Request, res: Response) => {
     throw amlError(code, 'Sub-skill does not exist', 'NOT_FOUND', 404);
   }
 
-  const mergedData = _.merge({}, subSkill, dataBody);
-
   // Update the sub-skill
-  await updateSubSkillData(sub_skill_id, mergedData);
+  await updateSubSkillData(sub_skill_id, dataBody);
 
   ResponseHandler.successResponse(req, res, {
     status: httpStatus.OK,

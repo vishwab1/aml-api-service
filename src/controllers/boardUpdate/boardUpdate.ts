@@ -31,6 +31,12 @@ const updateBoard = async (req: Request, res: Response) => {
 
   // Validate board existence
   const board = await getBoard(board_id);
+
+  const updatedData = {
+    ...board,
+    ...dataBody,
+  };
+
   if (_.isEmpty(board)) {
     const code = 'BOARD_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: 'Board does not exist' });
@@ -54,7 +60,13 @@ const updateBoard = async (req: Request, res: Response) => {
       logger.error({ code, apiId, msgid, resmsgid, message: 'Class Id does not exist' });
       throw amlError(code, 'Class Id does not exist', 'NOT_FOUND', 404);
     }
+    // Merge the `class_ids` to ensure l1_skill_ids is preserved if not sent
+    updatedData.class_ids = {
+      ...board.class_ids, // Retain existing data
+      ...dataBody.class_ids, // Override with new data (if provided)
+    };
   }
+
   const l1SkillIds = _.get(dataBody, 'class_ids.l1_skill_ids');
   // Check if l1_skill exists in skill_master and is of type l1_skill
   if (dataBody.class_ids && l1SkillIds) {
@@ -65,11 +77,10 @@ const updateBoard = async (req: Request, res: Response) => {
       logger.error({ code, apiId, msgid, resmsgid, message: 'One or more L1 skills do not exist or are not of type l1_skill' });
       throw amlError(code, 'One or more L1 skills do not exist or are not of type l1_skill', 'NOT_FOUND', 404);
     }
+    updatedData.class_ids.l1_skill_ids = dataBody.class_ids.l1_skill_ids;
   }
 
-  // Update the board
-  const mergedData = _.merge({}, board, dataBody);
-  await updateBoardData(board_id, mergedData);
+  await updateBoardData(board_id, updatedData);
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Board Successfully Updated' } });
 };
