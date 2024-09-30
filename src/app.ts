@@ -43,7 +43,7 @@ const initializeServer = (): void => {
     app.use(cors());
 
     // Enable CORS preflight for all routes
-    app.options('*', cors());
+    app.options(/.*/, cors());
 
     // Router
     app.use('/api/v1', router);

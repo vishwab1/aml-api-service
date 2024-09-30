@@ -9,8 +9,10 @@ import { schemaValidation } from '../../services/validationService';
 import bulkUploadSchema from './bulkUploadSchema.json';
 import { uploadUrl } from '../../services/awsService';
 import { createProcess } from '../../services/process';
+import { appConfiguration } from '../../config';
 
 export const apiId = 'api.bulk.url';
+const { bulkUploadFolder } = appConfiguration;
 
 const getBulkUploadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
@@ -27,7 +29,7 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
 
   const process_id = uuid.v4();
 
-  const getSignedUrl = await uploadUrl(process_id, fileName);
+  const getSignedUrl = await uploadUrl(bulkUploadFolder, process_id, fileName);
   if (getSignedUrl.error) {
     const code = 'SERVER_ERROR';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: getSignedUrl.message });
@@ -36,7 +38,7 @@ const getBulkUploadURL = async (req: Request, res: Response) => {
 
   const insertProcess = await createProcess({
     process_id: process_id,
-    fileName: fileName,
+    file_name: fileName,
     status: 'open',
     is_active: true,
     created_by: 1,

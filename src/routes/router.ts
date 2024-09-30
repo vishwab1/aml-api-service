@@ -15,6 +15,8 @@ import createSkillTaxonomy from '../controllers/skillTaxonomyCreate/skillTaxonom
 import searchSkillTaxonomies from '../controllers/skillTaxonomySearch/skillTaxonomySearch';
 import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
+import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
+import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
 
 export const router = express.Router();
 
@@ -47,3 +49,7 @@ router.post('/sub-skill/update/:sub_skill_id', setDataToRequestObject('api.subsk
 router.post('/skill-taxonomy/create/:taxonomy_name', setDataToRequestObject('api.skillTaxonomy.create'), createSkillTaxonomy);
 
 router.post('/skill-taxonomy/search', setDataToRequestObject('api.skillTaxonomy.search'), searchSkillTaxonomies);
+
+router.post('/media/upload/presignedUrl', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
+
+router.post('/media/read/presignedUrl', setDataToRequestObject('api.media.read'), getMediaReadURL);

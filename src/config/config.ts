@@ -21,10 +21,11 @@ const appConfiguration: IConfiguration = {
     name: get(envVars, 'AML_SERVICE_DB_NAME', 'postgres'),
     user: get(envVars, 'AML_SERVICE_DB_USER', 'postgres'),
   },
-  bucketName: get(envVars, 'BUCKET_NAME', 'dummy bucket'),
+  bucketName: get(envVars, 'BUCKET_NAME', 'aml-dev-otsv83nane'),
   presignedUrlExpiry: get(envVars, 'AWS_EXPIRY_TIME', 1800) as number,
   bulkUploadFolder: get(envVars, 'UPLOAD_FOLDER', 'upload'),
   templateFolder: get(envVars, 'TEMPLATE_FOLDER', 'template'),
+  mediaFolder: get(envVars, 'MEDIA_FOLDER', 'media'),
 };
 
 export default appConfiguration;
