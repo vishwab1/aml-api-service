@@ -17,6 +17,7 @@ import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
 import getMediaUploadURL from '../controllers/media/mediaUpload';
 import getMediaReadURL from '../controllers/media/mediaRead';
+import { learnerRouter } from './entities/learnerRouter';
 import getContentMediaReadURL from '../controllers/contentMedia/contentMedia';
 
 export const router = express.Router();
@@ -56,3 +57,5 @@ router.post('/media/upload/presigned-url', setDataToRequestObject('api.media.upl
 router.post('/media/read/presigned-url', setDataToRequestObject('api.media.read'), getMediaReadURL);
 
 router.post('/content/media/read/presigned-url', setDataToRequestObject('api.contentMedia.read'), getContentMediaReadURL);
+
+router.use('/learner', learnerRouter);
