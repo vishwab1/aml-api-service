@@ -35,7 +35,7 @@ const getContentMediaReadURL = async (req: Request, res: Response) => {
   }
   const signedUrls = await Promise.all(
     contentsMedia.media.map(async (media: any) => {
-      const getSignedUrl = await getPresignedUrl(`${mediaFolder}/${media.src.split('/')[1]}/${media.fileName}`);
+      const getSignedUrl = await getPresignedUrl(`${mediaFolder}/${media.src.split('/')[1]}/${media.file_name}`);
       if (getSignedUrl.error) {
         const code = 'SERVER_ERROR';
         logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl.message });
