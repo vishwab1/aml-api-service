@@ -8,7 +8,7 @@ export const getContentMediaById = async (getObject: { contentId: number; mediaI
     const mediaConditions = getObject.mediaIds.flatMap((mediaId) => ({
       [Op.contains]: `${mediaId}`,
     }));
-    conditions.media.id = mediaConditions;
+    conditions.media = mediaConditions;
   }
 
   const mediaMetaData = await Content.findOne({
