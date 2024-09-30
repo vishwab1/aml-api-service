@@ -34,6 +34,14 @@ const learnerJourneyUpdate = async (req: Request, res: Response) => {
 
   const { learnerJourney } = await readLearnerJourney(dataBody.learner_id);
 
+  const startTime = dataBody.start_time ? dataBody.start_time : learnerJourney.start_time;
+
+  if (startTime && dataBody.end_time && moment(startTime).isAfter(moment(dataBody.end_time))) {
+    const code = 'LEARNER_JOURNEY_INVALID_INPUT';
+    logger.error({ code, apiId, msgid, resmsgid, requestBody, message: !isRequestValid.isValid ? isRequestValid.message : `end_time should be after start_time` });
+    throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
+  }
+
   await updateLearnerJourney(learnerJourney.identifier, {
     ...dataBody,
     completed_question_ids: _.uniq([...(learnerJourney.completed_question_ids || []), ...(dataBody.completed_question_ids || [])]),
