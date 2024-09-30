@@ -10,8 +10,8 @@ chai.use(spies);
 chai.should();
 chai.use(chaiHttp);
 
-describe('Learner Journey Update API', () => {
-  const requestURL = '/api/v1/learner/journey/update/2ca3b11a-d581-4aa1-a199-fb1c51392cc9';
+describe('learner Journey Update API', () => {
+  const requestURL = '/api/v1/learner/journey/update';
 
   // Restore spies after each test
   afterEach(() => {
@@ -19,7 +19,7 @@ describe('Learner Journey Update API', () => {
   });
 
   it('should update learner journey for valid data', (done) => {
-    // Mocking LearnerJourney.findOne to simulate no LearnerJourney found
+    // Mocking learnerJourney.findOne to simulate no learnerJourney found
     chai.spy.on(LearnerJourney, 'findOne', () => {
       return Promise.resolve({
         id: 1,
@@ -29,7 +29,7 @@ describe('Learner Journey Update API', () => {
       });
     });
 
-    // Mocking LearnerJourney.create to simulate LearnerJourney creation
+    // Mocking learnerJourney.create to simulate learnerJourney creation
     chai.spy.on(LearnerJourney, 'update', () => {
       return Promise.resolve({
         dataValues: {

@@ -5,7 +5,7 @@ import { schemaValidation } from '../../services/validationService';
 import learnerCreateJSON from './createLearnerJourneyValidationSchema.json';
 import logger from '../../utils/logger';
 import { ResponseHandler } from '../../utils/responseHandler';
-import { amlError } from '../../types/AmlError';
+import { amlError } from '../../types/amlError';
 import { createLearnerJourney, readLearnerJourneyByLearnerIdAndQuestionSetId, updateLearnerJourney } from '../../services/learnerJourney';
 import * as uuid from 'uuid';
 import moment from 'moment';
@@ -13,7 +13,7 @@ import { LearnerJourneyStatus } from '../../enums/learnerJourneyStatus';
 
 export const apiId = 'api.learner.journey.create';
 
-export const learnerJourneyCreate = async (req: Request, res: Response) => {
+const learnerJourneyCreate = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
@@ -45,5 +45,7 @@ export const learnerJourneyCreate = async (req: Request, res: Response) => {
     learnerJourney = await createLearnerJourney(learnerJourneyInsertData);
   }
 
-  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Learner journey started successfully', identifier: learnerJourney.dataValues.identifier } });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'learner journey started successfully', identifier: learnerJourney.dataValues.identifier } });
 };
+
+export default learnerJourneyCreate;

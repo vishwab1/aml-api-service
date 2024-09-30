@@ -10,8 +10,8 @@ chai.use(spies);
 chai.should();
 chai.use(chaiHttp);
 
-describe('Learner Journey Create API', () => {
-  const requestURL = '/api/v1/learner/journey/create/2ca3b11a-d581-4aa1-a199-fb1c51392cc9';
+describe('learner Journey Create API', () => {
+  const requestURL = '/api/v1/learner/journey/create';
 
   // Restore spies after each test
   afterEach(() => {
@@ -19,12 +19,12 @@ describe('Learner Journey Create API', () => {
   });
 
   it('should create learner journey for valid data', (done) => {
-    // Mocking LearnerJourney.findOne to simulate no LearnerJourney found
+    // Mocking learnerJourney.findOne to simulate no learnerJourney found
     chai.spy.on(LearnerJourney, 'findOne', () => {
       return Promise.resolve(null);
     });
 
-    // Mocking LearnerJourney.create to simulate LearnerJourney creation
+    // Mocking learnerJourney.create to simulate learnerJourney creation
     chai.spy.on(LearnerJourney, 'create', () => {
       return Promise.resolve({
         dataValues: { id: 1, identifier: '2ca3b11a-d581-4aa1-a199-fb1c51392cc9', learner_id: '2ca3b11a-d581-4aa1-a199-fb1c51392cc9', question_set_id: '2ca3b11a-d581-4aa1-a199-fb1c51392cc9' },
@@ -46,7 +46,7 @@ describe('Learner Journey Create API', () => {
   });
 
   it('Should not insert record into the database when transaction fails', (done) => {
-    // Mocking LearnerJourney.create to simulate LearnerJourney creation
+    // Mocking learnerJourney.create to simulate learnerJourney creation
     chai.spy.on(LearnerJourney, 'create', () => {
       return Promise.reject(new Error('Database Connection Error'));
     });

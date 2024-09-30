@@ -1,8 +1,8 @@
 import express from 'express';
 import { setDataToRequestObject } from '../../middlewares/setDataToReqObj';
-import { learnerJourneyCreate } from '../../controllers/LearnerJourneyCreate/LearnerJourneyCreate';
-import { learnerJourneyRead } from '../../controllers/LearnerJourneyRead/LearnerJourneyRead';
-import { learnerJourneyUpdate } from '../../controllers/LearnerJourneyUpdate/LearnerJourneyUpdate';
+import learnerJourneyCreate from '../../controllers/LearnerJourneyCreate/learnerJourneyCreate';
+import learnerJourneyRead from '../../controllers/LearnerJourneyRead/learnerJourneyRead';
+import learnerJourneyUpdate from '../../controllers/LearnerJourneyUpdate/learnerJourneyUpdate';
 
 export const learnerJourneyRouter = express.Router();
 

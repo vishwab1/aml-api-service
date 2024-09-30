@@ -5,13 +5,13 @@ import { schemaValidation } from '../../services/validationService';
 import learnerUpdateJSON from './updateLearnerJourneyValidationSchema.json';
 import logger from '../../utils/logger';
 import { ResponseHandler } from '../../utils/responseHandler';
-import { amlError } from '../../types/AmlError';
+import { amlError } from '../../types/amlError';
 import { readLearnerJourney, updateLearnerJourney } from '../../services/learnerJourney';
 import moment from 'moment/moment';
 
 export const apiId = 'api.learner.journey.update';
 
-export const learnerJourneyUpdate = async (req: Request, res: Response) => {
+const learnerJourneyUpdate = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
@@ -39,5 +39,7 @@ export const learnerJourneyUpdate = async (req: Request, res: Response) => {
     completed_question_ids: _.uniq([...(learnerJourney.completed_question_ids || []), ...(dataBody.completed_question_ids || [])]),
   });
 
-  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Learner journey updated successfully' } });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'learner journey updated successfully' } });
 };
+
+export default learnerJourneyUpdate;

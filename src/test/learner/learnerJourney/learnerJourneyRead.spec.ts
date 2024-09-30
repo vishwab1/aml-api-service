@@ -9,7 +9,7 @@ chai.use(spies);
 chai.should();
 chai.use(chaiHttp);
 
-describe('Learner Journey Read API', () => {
+describe('learner Journey Read API', () => {
   const requestURL = '/api/v1/learner/journey/read/2ca3b11a-d581-4aa1-a199-fb1c51392cc9';
 
   // Restore spies after each test
@@ -18,7 +18,7 @@ describe('Learner Journey Read API', () => {
   });
 
   it('should return the latest learner journey', (done) => {
-    // Mocking LearnerJourney.findOne to simulate no LearnerJourney found
+    // Mocking learnerJourney.findOne to simulate no learnerJourney found
     chai.spy.on(LearnerJourney, 'findOne', () => {
       return Promise.resolve({
         id: 1,
