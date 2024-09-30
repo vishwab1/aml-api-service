@@ -41,7 +41,7 @@
           },
           "src": {
             "type": "string",
-            "enum": ["media/content", "media/questionSet", "media/question"],
+            "pattern": "^media/(content|questionSet|question)/.*",
             "description": "which category media belong to "
           }
         },
