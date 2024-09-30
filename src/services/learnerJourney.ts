@@ -23,3 +23,12 @@ export const readLearnerJourney = async (learnerId: string): Promise<{ learnerJo
 
   return { learnerJourney };
 };
+
+export const readLearnerJourneyByLearnerIdAndQuestionSetId = async (learnerId: string, questionSetId: string): Promise<{ learnerJourney: any }> => {
+  const learnerJourney = await LearnerJourney.findOne({
+    where: { learner_id: learnerId, question_set_id: questionSetId },
+    attributes: { exclude: ['id'] },
+  });
+
+  return { learnerJourney };
+};

@@ -6,9 +6,10 @@ import learnerCreateJSON from './createLearnerJourneyValidationSchema.json';
 import logger from '../../utils/logger';
 import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/AmlError';
-import { createLearnerJourney } from '../../services/learnerJourney';
+import { createLearnerJourney, readLearnerJourneyByLearnerIdAndQuestionSetId, updateLearnerJourney } from '../../services/learnerJourney';
 import * as uuid from 'uuid';
 import moment from 'moment';
+import { LearnerJourneyStatus } from '../../enums/learnerJourneyStatus';
 
 export const apiId = 'api.learner.journey.create';
 
@@ -30,13 +31,19 @@ export const learnerJourneyCreate = async (req: Request, res: Response) => {
 
   // TODO: validate learner_id & question_set_id
 
-  const learnerJourneyInsertData = {
-    ...dataBody,
-    identifier: uuid.v4(),
-    created_by: uuid.v4(), // TODO: Replace with valid user identifier
-  };
+  let { learnerJourney } = await readLearnerJourneyByLearnerIdAndQuestionSetId(dataBody.learner_id, dataBody.question_set_id);
 
-  const learnerJourney = await createLearnerJourney(learnerJourneyInsertData);
+  if (learnerJourney && learnerJourney.status === LearnerJourneyStatus.COMPLETE) {
+    await updateLearnerJourney(learnerJourney.identifier, { attempts_count: learnerJourney.attempts_count + 1, start_time: dataBody.start_time, end_time: null, status: LearnerJourneyStatus.NOOP });
+  } else {
+    const learnerJourneyInsertData = {
+      ...dataBody,
+      identifier: uuid.v4(),
+      created_by: uuid.v4(), // TODO: Replace with valid user identifier
+    };
+
+    learnerJourney = await createLearnerJourney(learnerJourneyInsertData);
+  }
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'Learner journey started successfully', identifier: learnerJourney.dataValues.identifier } });
 };
