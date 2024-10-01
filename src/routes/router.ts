@@ -15,8 +15,10 @@ import createSkillTaxonomy from '../controllers/skillTaxonomyCreate/skillTaxonom
 import searchSkillTaxonomies from '../controllers/skillTaxonomySearch/skillTaxonomySearch';
 import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
-import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
-import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
+import getMediaUploadURL from '../controllers/media/mediaUpload';
+import getMediaReadURL from '../controllers/media/mediaRead';
+import { learnerRouter } from './entities/learnerRouter';
+import getContentMediaReadURL from '../controllers/contentMedia/contentMedia';
 import createQuestionSet from '../controllers/questionSetCreate/questionSetCreate';
 import publishQuestionSet from '../controllers/questionSetPublish/questionSetPublish';
 import readQuestionSetById from '../controllers/questionSetRead/questionSetRead';
@@ -57,9 +59,13 @@ router.post('/skill-taxonomy/create/:taxonomy_name', setDataToRequestObject('api
 
 router.post('/skill-taxonomy/search', setDataToRequestObject('api.skillTaxonomy.search'), searchSkillTaxonomies);
 
-router.post('/media/upload/presignedUrl', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
+router.post('/media/upload/presigned-url', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
 
-router.post('/media/read/presignedUrl', setDataToRequestObject('api.media.read'), getMediaReadURL);
+router.post('/media/read/presigned-url', setDataToRequestObject('api.media.read'), getMediaReadURL);
+
+router.post('/content/media/read/presigned-url', setDataToRequestObject('api.contentMedia.read'), getContentMediaReadURL);
+
+router.use('/learner', learnerRouter);
 
 router.post('/question-set/create', setDataToRequestObject('api.questionSet.create'), createQuestionSet);
 

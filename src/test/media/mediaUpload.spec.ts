@@ -11,7 +11,7 @@ chai.use(spies);
 chai.should();
 
 describe('MEDIA UPLOAD API', () => {
-  const uploadStatusUrl = '/api/v1/media/upload/presignedUrl';
+  const uploadStatusUrl = '/api/v1/media/upload/presigned-url';
 
   afterEach(() => {
     chai.spy.restore();

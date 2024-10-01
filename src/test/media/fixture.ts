@@ -87,7 +87,7 @@ export const mediaReadFixture = {
         fileName: 'media_file_1.mp4',
         mimeType: 'video/mp4',
         mediaType: 'video',
-        src: 'media/content',
+        src: 'media/content/1727688106697',
       },
       {
         fileName: 'question_set_1.zip',
@@ -99,7 +99,7 @@ export const mediaReadFixture = {
         fileName: 'question_1.jpg',
         mimeType: 'image/jpeg',
         mediaType: 'image',
-        src: 'media/question',
+        src: 'media/question/1727688106701',
       },
     ],
   },

@@ -5,32 +5,31 @@ import { ResponseHandler } from '../../utils/responseHandler';
 import { amlError } from '../../types/amlError';
 import httpStatus from 'http-status';
 import { schemaValidation } from '../../services/validationService';
-import mediaReadSchema from './mediaReadSchema.json';
-import { getPresignedUrl } from '../../services/awsService';
+import mediaUploadSchema from './mediaUploadSchema.json';
+import { uploadUrl } from '../../services/awsService';
 import { appConfiguration } from '../../config';
-import path from 'path';
 import mime from 'mime-types';
 
 export const apiId = 'api.media.upload';
 const { mediaFolder } = appConfiguration;
 
-const getMediaReadURL = async (req: Request, res: Response) => {
+const getMediaUploadURL = async (req: Request, res: Response) => {
   const requestBody = _.get(req, 'body');
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const dataBody = _.get(req, 'body.request');
   const resmsgid = _.get(res, 'resmsgid');
 
-  const isRequestValid: Record<string, any> = schemaValidation(requestBody, mediaReadSchema);
+  const isRequestValid: Record<string, any> = schemaValidation(requestBody, mediaUploadSchema);
   if (!isRequestValid.isValid) {
-    const code = 'MEDIA_READ_INVALID_INPUT';
+    const code = 'MEDIA_UPLOAD_INVALID_INPUT';
     logger.error({ code, apiId, msgid, resmsgid, requestBody, message: isRequestValid.message });
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', httpStatus.BAD_REQUEST);
   }
 
   const signedUrls = await Promise.all(
     dataBody.map(async (file: any) => {
-      const category = file.src.split('/')[1];
-      const getSignedUrl = await getPresignedUrl(`${mediaFolder}/${category}/${file.fileName}`);
+      const timeStamp = Date.now();
+      const getSignedUrl = await uploadUrl(mediaFolder, file.category, `${timeStamp}/${file.fileName}`);
       if (getSignedUrl.error) {
         const code = 'SERVER_ERROR';
         logger.error({ code, apiId, msgid, resmsgid, message: getSignedUrl.message });
@@ -38,7 +37,7 @@ const getMediaReadURL = async (req: Request, res: Response) => {
       }
       const mediaMetaData = getMediaMetaData(file.fileName);
       return {
-        media: { fileName: file.fileName, src: `${mediaFolder}/${file.category}`, mimeType: mediaMetaData.mimeTye, mediaType: mediaMetaData.mediaType },
+        media: { fileName: file.fileName, src: `${mediaFolder}/${file.category}/${timeStamp}`, mimeType: mediaMetaData.mimeTye, mediaType: mediaMetaData.mediaType },
         url: getSignedUrl.url,
         expiresInSec: getSignedUrl.expiresInSec,
       };
@@ -49,10 +48,9 @@ const getMediaReadURL = async (req: Request, res: Response) => {
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'success', signedUrls } });
 };
 
-export default getMediaReadURL;
-
 const getMediaMetaData = (fileName: string) => {
-  const fileExtension = path.extname(fileName);
-  const fileMimeType = mime.lookup(fileExtension) || 'application/octet-stream';
+  const fileMimeType = mime.lookup(fileName) || 'unknown';
   return { mimeTye: fileMimeType, mediaType: fileMimeType.split('/')[0] };
 };
+
+export default getMediaUploadURL;
