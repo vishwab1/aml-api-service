@@ -17,6 +17,13 @@ import updateClass from '../controllers/classUpdate/classUpdate';
 import updateSubSkill from '../controllers/subSkillUpdate/subSkillUpdate';
 import getMediaUploadURL from '../controllers/mediaUpload/mediaUpload';
 import getMediaReadURL from '../controllers/mediaUpload/mediaRead';
+import createQuestionSet from '../controllers/questionSetCreate/questionSetCreate';
+import publishQuestionSet from '../controllers/questionSetPublish/questionSetPublish';
+import readQuestionSetById from '../controllers/questionSetRead/questionSetRead';
+import updateQuestionSetById from '../controllers/questionSetUpdate/questionSetUpdate';
+import deleteQuestionSetById from '../controllers/questionSetDelete/questionSetDelete';
+import discardQuestionSetById from '../controllers/questionSetDiscard/questionSetDiscard';
+import { searchQuestionSets } from '../controllers/questionSetSearch/questionSetSearch';
 
 export const router = express.Router();
 
@@ -53,3 +60,17 @@ router.post('/skill-taxonomy/search', setDataToRequestObject('api.skillTaxonomy.
 router.post('/media/upload/presignedUrl', setDataToRequestObject('api.media.upload'), getMediaUploadURL);
 
 router.post('/media/read/presignedUrl', setDataToRequestObject('api.media.read'), getMediaReadURL);
+
+router.post('/question-set/create', setDataToRequestObject('api.questionSet.create'), createQuestionSet);
+
+router.post('/question-set/publish/:question_set_id', setDataToRequestObject('api.questionSet.publish'), publishQuestionSet);
+
+router.get('/question-set/read/:question_set__id', setDataToRequestObject('api.questionSet.read'), readQuestionSetById);
+
+router.post('/question-set/update/:question_set__id', setDataToRequestObject('api.questionSet.update'), updateQuestionSetById);
+
+router.post('/question-set/delete/:question_set_id', setDataToRequestObject('api.questionSet.delete'), deleteQuestionSetById);
+
+router.post('/question-set/discard/:question_set__id', setDataToRequestObject('api.questionSet.discard'), discardQuestionSetById);
+
+router.post('/question-set/search', setDataToRequestObject('api.questionSet.search'), searchQuestionSets);
