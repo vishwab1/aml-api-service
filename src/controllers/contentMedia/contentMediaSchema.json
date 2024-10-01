@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.contentMedia.read"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "contentId": {
+          "type": "number",
+          "description": "Id of the content"
+        },
+        "mediaIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "UUID of the media object"
+          },
+          "minItems": 1,
+          "description": "Array of media UUIDs"
+        }
+      },
+      "required": ["contentId"],
+      "additionalProperties": false,
+      "dependencies": {
+        "mediaIds": ["contentId"]
+      }
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
