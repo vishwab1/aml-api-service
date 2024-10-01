@@ -27,7 +27,7 @@ const updateSubSkill = async (req: Request, res: Response) => {
   }
 
   // Validate sub-skill existence
-  const { subSkill } = await getSubSkill(sub_skill_id);
+  const subSkill = await getSubSkill(sub_skill_id);
   if (_.isEmpty(subSkill)) {
     const code = 'SUBSKILL_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: 'Sub-skill does not exist' });

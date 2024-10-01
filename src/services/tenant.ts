@@ -26,6 +26,7 @@ export const getTenant = async (tenant_id: string): Promise<any> => {
   });
 
   return tenant?.dataValues;
+  return tenant?.dataValues;
 };
 
 //filter tenants

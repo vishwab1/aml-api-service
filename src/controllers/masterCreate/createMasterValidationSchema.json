@@ -53,9 +53,6 @@
           "items": {
             "type": "object",
             "properties": {
-              "board_identifier": {
-                "type": "string"
-              },
               "name": {
                 "type": "object",
                 "additionalProperties": {
@@ -103,9 +100,6 @@
           "items": {
             "type": "object",
             "properties": {
-              "class_identifier": {
-                "type": "string"
-              },
               "name": {
                 "type": "object",
                 "additionalProperties": {

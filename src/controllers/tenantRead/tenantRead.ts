@@ -13,14 +13,7 @@ const readTeantById = async (req: Request, res: Response) => {
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
 
-  const getTenantInfo = await getTenant(tenant_id);
-
-  //handle databse error
-  if (getTenantInfo.error) {
-    throw new Error(getTenantInfo.message);
-  }
-
-  const tenantDetails = getTenantInfo.tenant;
+  const tenantDetails = await getTenant(tenant_id);
 
   //validating tenant is exist
   if (_.isEmpty(tenantDetails)) {
