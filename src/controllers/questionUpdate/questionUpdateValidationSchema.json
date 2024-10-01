@@ -226,7 +226,6 @@
           "type": "integer"
         }
       },
-      "required": ["question_set_id", "question_type", "taxonomy", "question_body", "sub_skills", "benchmark_time"],
       "if": {
         "properties": {
           "question_type": { "const": "Mcq" }
