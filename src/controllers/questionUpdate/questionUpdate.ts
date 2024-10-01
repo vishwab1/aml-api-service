@@ -47,11 +47,13 @@ const updateQuestionById = async (req: Request, res: Response) => {
   const updatedDataBody: any = {};
 
   //checking question id if it exists
-  const questionSet = await getQuestionSetById(questionSetId);
-  if (_.isEmpty(questionSet)) {
-    const code = 'QUESTION_SET_NOT_EXISTS';
-    logger.error({ code, apiId, msgid, resmsgid, message: `Question set id not exists` });
-    throw amlError(code, 'Question set id not exists', 'NOT_FOUND', 404);
+  if (questionSetId) {
+    const questionSet = await getQuestionSetById(questionSetId);
+    if (_.isEmpty(questionSet)) {
+      const code = 'QUESTION_SET_NOT_EXISTS';
+      logger.error({ code, apiId, msgid, resmsgid, message: `Question set id not exists` });
+      throw amlError(code, 'Question set id not exists', 'NOT_FOUND', 404);
+    }
   }
 
   // Extract and check tenant
