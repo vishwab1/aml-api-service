@@ -19,6 +19,13 @@ import getMediaUploadURL from '../controllers/media/mediaUpload';
 import getMediaReadURL from '../controllers/media/mediaRead';
 import { learnerRouter } from './entities/learnerRouter';
 import getContentMediaReadURL from '../controllers/contentMedia/contentMedia';
+import createQuestion from '../controllers/questionCreate/questionCreate';
+import deleteQuestionById from '../controllers/questionDelete/deleteQuestion';
+import discardQuestionById from '../controllers/questionDiscard/discardQuestion';
+import publishQuestion from '../controllers/questionPublish/publishQuestion';
+import readQuestionById from '../controllers/questionRead/questionRead';
+import { searchQuestions } from '../controllers/questionSearch/searchQuestion';
+import updateQuestionById from '../controllers/questionUpdate/questionUpdate';
 
 export const router = express.Router();
 
@@ -59,3 +66,17 @@ router.post('/media/read/presigned-url', setDataToRequestObject('api.media.read'
 router.post('/content/media/read/presigned-url', setDataToRequestObject('api.contentMedia.read'), getContentMediaReadURL);
 
 router.use('/learner', learnerRouter);
+
+router.post('/question/create', setDataToRequestObject('api.question.create'), createQuestion);
+
+router.post('/question/publish/:question_id', setDataToRequestObject('api.question.publish'), publishQuestion);
+
+router.get('/question/read/:question_id', setDataToRequestObject('api.question.read'), readQuestionById);
+
+router.post('/question/update/:question_id', setDataToRequestObject('api.question.update'), updateQuestionById);
+
+router.post('/question/delete/:question_id', setDataToRequestObject('api.question.delete'), deleteQuestionById);
+
+router.post('/question/discard/:question_id', setDataToRequestObject('api.question.discard'), discardQuestionById);
+
+router.post('/question/search', setDataToRequestObject('api.question.search'), searchQuestions);
