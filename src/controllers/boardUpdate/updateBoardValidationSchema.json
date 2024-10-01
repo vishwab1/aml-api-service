@@ -40,7 +40,6 @@
               "items": {
                 "type": "integer"
               },
-              "minItems": 1,
               "uniqueItems": true
             },
             "l1_skill_ids": {
@@ -48,7 +47,6 @@
               "items": {
                 "type": "integer"
               },
-              "minItems": 1,
               "uniqueItems": true
             }
           },

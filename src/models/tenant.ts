@@ -14,11 +14,11 @@ export const Tenant = AppDataSource.define(
       allowNull: false,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     board_id: {

@@ -1,5 +1,5 @@
 import { Tenant } from '../models/tenant';
-import { Optional } from 'sequelize';
+import { Op, Optional } from 'sequelize';
 import { UpdateTenant } from '../types/tenantModel';
 import _ from 'lodash';
 import { Status } from '../enums/status';
@@ -25,7 +25,7 @@ export const getTenant = async (tenant_id: string): Promise<any> => {
     attributes: { exclude: ['id'] },
   });
 
-  return { tenant };
+  return tenant?.dataValues;
 };
 
 //filter tenants
@@ -33,6 +33,34 @@ export const getTenantSearch = async (req: Record<string, any>) => {
   const limit: any = _.get(req, 'limit');
   const offset: any = _.get(req, 'offset');
   const { filters = {} } = req || {};
-  const tenants = await Tenant.findAll({ limit: limit || 100, offset: offset || 0, ...(filters && { where: filters }) });
+
+  const whereClause: any = {};
+
+  whereClause.status = Status.LIVE;
+  whereClause.is_active = true;
+
+  if (filters.name) {
+    whereClause.name = {
+      [Op.or]: filters.name.map((termObj: any) => {
+        const [key, value] = Object.entries(termObj)[0];
+        return {
+          [key]: { [Op.iLike]: `%${String(value)}%` },
+        };
+      }),
+    };
+  }
+
+  if (filters.type) {
+    whereClause.type = {
+      [Op.or]: filters.type.map((termObj: any) => {
+        const [key, value] = Object.entries(termObj)[0];
+        return {
+          [key]: { [Op.iLike]: `%${String(value)}%` },
+        };
+      }),
+    };
+  }
+
+  const tenants = await Tenant.findAll({ limit: limit || 100, offset: offset || 0, ...(whereClause && { where: whereClause }), attributes: { exclude: ['id'] } });
   return tenants;
 };

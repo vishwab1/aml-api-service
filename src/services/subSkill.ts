@@ -33,5 +33,5 @@ export const getSubSkill = async (subSkillId: string): Promise<any> => {
     attributes: { exclude: ['id'] },
   });
 
-  return { subSkill };
+  return subSkill?.dataValues;
 };

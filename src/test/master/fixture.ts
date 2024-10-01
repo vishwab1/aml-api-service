@@ -26,7 +26,6 @@ export const insert_master_request = {
       ],
       classData: [
         {
-          class_identifier: 'grade_one',
           name: { en: 'Class One' },
           description: { en: 'Description for Class One' },
           prerequisites: ['Class Zero'],
@@ -39,7 +38,6 @@ export const insert_master_request = {
       ],
       boardData: [
         {
-          board_identifier: 'cbse',
           name: { en: 'Board 8', ka: 'ಬೋರ್ಡ್ 8' },
           description: { en: 'Description for 8' },
         },
