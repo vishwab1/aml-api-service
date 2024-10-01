@@ -33,6 +33,13 @@
                 "type": "object",
                 "description": "Title of the question set in different languages."
               }
+            },
+            "type": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "Title of the question set in different languages."
+              }
             }
           },
           "additionalProperties": false

@@ -13,17 +13,17 @@ const readTeantById = async (req: Request, res: Response) => {
   const msgid = _.get(req, ['body', 'params', 'msgid']);
   const resmsgid = _.get(res, 'resmsgid');
 
-  const tenant = await getTenant(tenant_id);
+  const tenantDetails = await getTenant(tenant_id);
 
   //validating tenant is exist
-  if (_.isEmpty(tenant)) {
+  if (_.isEmpty(tenantDetails)) {
     const code = 'TENANT_NOT_EXISTS';
     logger.error({ code, apiId, msgid, resmsgid, message: `Tenant not exists` });
     throw amlError(code, 'Tenant not exists', 'NOT_FOUND', 404);
   }
 
   logger.info({ apiId, msgid, resmsgid, message: `Tenant Read Successfully` });
-  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: tenant });
+  ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: tenantDetails });
 };
 
 export default readTeantById;
