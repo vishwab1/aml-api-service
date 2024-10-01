@@ -196,9 +196,6 @@
           "items": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "integer"
-              },
               "name": {
                 "type": "object",
                 "additionalProperties": {
@@ -207,7 +204,7 @@
                 "minProperties": 1
               }
             },
-            "required": ["name", "id"],
+            "required": ["name"],
             "additionalProperties": false
           },
           "uniqueItems": true
@@ -226,7 +223,7 @@
           "type": "integer"
         }
       },
-      "required": ["question_set_id", "question_type", "taxonomy", "question_body", "sub_skills", "benchmark_time"],
+      "required": ["question_set_id", "question_type", "taxonomy", "question_body", "benchmark_time"],
       "if": {
         "properties": {
           "question_type": { "const": "Mcq" }

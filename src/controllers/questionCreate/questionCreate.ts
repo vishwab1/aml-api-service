@@ -143,14 +143,16 @@ const createQuestion = async (req: Request, res: Response) => {
     });
   }
 
-  const subSkillsExistence = await checkSubSkillsExist(dataBody.sub_skills);
-
-  if (!subSkillsExistence.exists) {
-    const code = 'SUB_SKILL_NOT_EXISTS';
-    logger.error({ code, message: `Missing sub-skills` });
-    throw amlError(code, 'sub Skill not exists', 'NOT_FOUND', 404);
+  let subSkillObjects;
+  if (dataBody.sub_skills) {
+    const subSkillsExistence = await checkSubSkillsExist(dataBody.sub_skills);
+    if (!subSkillsExistence.exists) {
+      const code = 'SUB_SKILL_NOT_EXISTS';
+      logger.error({ code, message: `Missing sub-skills` });
+      throw amlError(code, 'sub Skill not exists', 'NOT_FOUND', 404);
+    }
+    subSkillObjects = subSkillsExistence.foundSkills;
   }
-  const subSkillObjects = subSkillsExistence.foundSkills;
 
   // Construct the questionData object with all updated objects including sub-skills with IDs
   const questionData = _.assign(dataBody, {

@@ -31,7 +31,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["Grid-1", "mcq", "fib", "Grid-2"]
+                "enum": ["Grid-1", "Mcq", "Fib", "Grid-2"]
               },
               "minItems": 1,
               "uniqueItems": true
