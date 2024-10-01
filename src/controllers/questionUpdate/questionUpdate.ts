@@ -14,6 +14,7 @@ import { checkClassNameExists } from '../../services/class';
 import { checkSkillExists } from '../../services/skill';
 import { SkillType } from '../../enums/skillType';
 import { checkSubSkillsExist } from '../../services/subSkill';
+import { getQuestionSetById } from '../../services/questionSet';
 
 export const apiId = 'api.question.update';
 
@@ -23,6 +24,7 @@ const updateQuestionById = async (req: Request, res: Response) => {
   const question_id = _.get(req, 'params.question_id');
   const dataBody = _.get(req, 'body.request');
   const resmsgid = _.get(res, 'resmsgid');
+  const questionSetId = _.get(dataBody, 'question_set_id');
 
   // Validating the update schema
   const isRequestValid: Record<string, any> = schemaValidation(requestBody, questionUpdateSchema);
@@ -43,6 +45,14 @@ const updateQuestionById = async (req: Request, res: Response) => {
 
   // Initialize an updated body
   const updatedDataBody: any = {};
+
+  //checking question id if it exists
+  const questionSet = await getQuestionSetById(questionSetId);
+  if (_.isEmpty(questionSet)) {
+    const code = 'QUESTION_SET_NOT_EXISTS';
+    logger.error({ code, apiId, msgid, resmsgid, message: `Question set id not exists` });
+    throw amlError(code, 'Question set id not exists', 'NOT_FOUND', 404);
+  }
 
   // Extract and check tenant
   if (dataBody.tenant) {
