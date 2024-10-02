@@ -1,0 +1,368 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.question.create"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "question_set_id": {
+          "type": "string"
+        },
+        "question_type": {
+          "type": "string",
+          "enum": ["Grid-1", "Mcq", "Fib", "Grid-2"]
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["Addition", "Subtraction", "Multiplication", "Division"]
+        },
+        "name": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "sequence_no": {
+          "type": "integer"
+        },
+        "hints": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "tenant": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "minProperties": 1
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "repository": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "minProperties": 1
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "taxonomy": {
+          "type": "object",
+          "properties": {
+            "board": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "class": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "l1_skill": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "l2_skill": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "minProperties": 1
+                  }
+                }
+              },
+              "uniqueItems": true
+            },
+            "l3_skill": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "minProperties": 1
+                  }
+                }
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["board", "class", "l1_skill", "l2_skill"],
+          "additionalProperties": false
+        },
+        "gradient": {
+          "type": "string"
+        },
+        "media": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fileName": {
+                "type": "string"
+              },
+              "mediaType": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "src": {
+                "type": "string"
+              }
+            },
+            "required": ["fileName", "mediaType", "mimeType", "src"],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "sub_skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "minProperties": 1
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "question_body": {
+          "type": "object",
+          "properties": {
+            "options": { "type": "object" },
+            "correct_option": { "type": "string" },
+            "answer": { "type": "object" },
+            "wrongAnswers": { "type": "array" }
+          },
+          "additionalProperties": false
+        },
+        "benchmark_time": {
+          "type": "integer"
+        }
+      },
+      "required": ["question_set_id", "question_type", "taxonomy", "question_body", "benchmark_time"],
+      "if": {
+        "properties": {
+          "question_type": { "const": "Mcq" }
+        }
+      },
+      "then": {
+        "properties": {
+          "question_body": {
+            "type": "object",
+            "properties": {
+              "options": {
+                "type": "object",
+                "properties": {
+                  "mcq_question_image": { "type": "string" },
+                  "mcq_option_1": { "type": "string" },
+                  "mcq_option_2": { "type": "string" },
+                  "mcq_option_3": { "type": "string" },
+                  "mcq_option_4": { "type": "string" },
+                  "mcq_option_5": { "type": "string" },
+                  "mcq_option_6": { "type": "string" }
+                }
+              },
+              "correct_option": {
+                "type": "string"
+              },
+              "wrongAnswers": {
+                "type": "array",
+                "items": { "type": "object" }
+              }
+            },
+            "required": ["options", "correct_option"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "else": {
+        "if": {
+          "properties": {
+            "question_type": { "const": "Fib" }
+          }
+        },
+        "then": {
+          "properties": {
+            "question_body": {
+              "type": "object",
+              "properties": {
+                "numbers": {
+                  "type": "object",
+                  "properties": {
+                    "n1": { "type": "integer" },
+                    "n2": { "type": "integer" }
+                  }
+                },
+                "answers": {
+                  "type": "object",
+                  "properties": {
+                    "result": { "type": "integer" }
+                  }
+                },
+                "wrongAnswers": {
+                  "type": "array",
+                  "items": { "type": "object" }
+                }
+              },
+              "required": ["numbers", "answer", "wrongAnswers"]
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "question_type": { "const": "Grid-2" }
+            }
+          },
+          "then": {
+            "properties": {
+              "question_body": {
+                "type": "object",
+                "properties": {
+                  "numbers": {
+                    "type": "object",
+                    "properties": {
+                      "n1": { "type": "integer" },
+                      "n2": { "type": "integer" }
+                    }
+                  },
+                  "answers": {
+                    "type": "object",
+                    "properties": {
+                      "result": { "type": "integer" }
+                    }
+                  },
+                  "wrongAnswers": {
+                    "type": "array",
+                    "items": { "type": "object" }
+                  }
+                },
+                "required": ["numbers", "answer", "wrongAnswers"]
+              }
+            }
+          },
+          "else": {
+            "if": {
+              "properties": {
+                "question_type": { "const": "Grid-1" }
+              }
+            },
+            "then": {
+              "properties": {
+                "question_body": {
+                  "type": "object",
+                  "properties": {
+                    "numbers": {
+                      "type": "object",
+                      "properties": {
+                        "n1": { "type": "integer" },
+                        "n2": { "type": "integer" }
+                      }
+                    },
+                    "answers": {
+                      "type": "object",
+                      "properties": {
+                        "result": { "type": "integer" }
+                      }
+                    },
+                    "wrongAnswers": {
+                      "type": "array",
+                      "items": { "type": "object" }
+                    }
+                  },
+                  "required": ["numbers", "answer", "wrongAnswers"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"]
+}

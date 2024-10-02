@@ -26,6 +26,7 @@ export const getTenant = async (tenant_id: string): Promise<any> => {
   });
 
   return tenant?.dataValues;
+  return tenant?.dataValues;
 };
 
 //filter tenants
@@ -50,17 +51,22 @@ export const getTenantSearch = async (req: Record<string, any>) => {
     };
   }
 
-  if (filters.type) {
-    whereClause.type = {
-      [Op.or]: filters.type.map((termObj: any) => {
-        const [key, value] = Object.entries(termObj)[0];
-        return {
-          [key]: { [Op.iLike]: `%${String(value)}%` },
-        };
-      }),
-    };
-  }
-
   const tenants = await Tenant.findAll({ limit: limit || 100, offset: offset || 0, ...(whereClause && { where: whereClause }), attributes: { exclude: ['id'] } });
   return tenants;
+};
+
+//tenant Name check
+export const checkTenantNameExists = async (tenantNames: { [key: string]: string }): Promise<{ exists: boolean; tenant?: any }> => {
+  const conditions = Object.entries(tenantNames).map(([lang, name]) => ({
+    name: { [Op.contains]: { [lang]: name } }, // Dynamic condition for each language
+    is_active: true,
+    status: Status.LIVE,
+  }));
+
+  const tenant = await Tenant.findOne({
+    where: { [Op.or]: conditions },
+    attributes: ['id', 'name'], // Fetch ID and name only
+  });
+
+  return tenant ? { exists: true, tenant: tenant.toJSON() } : { exists: false };
 };
