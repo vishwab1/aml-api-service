@@ -35,6 +35,10 @@
               },
               "minItems": 1,
               "uniqueItems": true
+            },
+            "question_set_id": {
+              "type": "string",
+              "description": "question set id of the question"
             }
           },
           "description": "Object containing search criteria. Can include any fields defined in the Tenant model.",
