@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.repository.update"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object",
+          "description": "Multilingual name, key-value pairs where key is the language code",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "object",
+          "description": "Multilingual description, key-value pairs where key is the language code",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "sub_skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "minProperties": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "tenant": {
+          "type": "object",
+          "description": "Tenant object with multilingual support, containing a 'name' key with language-specific values",
+          "properties": {
+            "name": {
+              "type": "object",
+              "description": "Multilingual tenant name, key-value pairs where key is the language code",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}

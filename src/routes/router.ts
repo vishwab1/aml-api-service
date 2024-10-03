@@ -26,6 +26,13 @@ import updateQuestionSetById from '../controllers/questionSetUpdate/questionSetU
 import deleteQuestionSetById from '../controllers/questionSetDelete/questionSetDelete';
 import discardQuestionSetById from '../controllers/questionSetDiscard/questionSetDiscard';
 import { searchQuestionSets } from '../controllers/questionSetSearch/questionSetSearch';
+import createRepository from '../controllers/repositoryCreate/repositoryCreate';
+import repositoryReadById from '../controllers/repositoryRead/repositoryRead';
+import publishRepository from '../controllers/repositoryPublish/repositoryPublish';
+import repositoryUpdate from '../controllers/repositoryUpdate/repositoryUpdate';
+import deleteRepositoryById from '../controllers/repositoryDelete/repositoryDelete';
+import discardRepositoryById from '../controllers/repositoryDiscard/repositoryDiscard';
+import { searchRepositories } from '../controllers/repositorySearch/repositorySearch';
 
 export const router = express.Router();
 
@@ -80,3 +87,17 @@ router.post('/question-set/delete/:question_set_id', setDataToRequestObject('api
 router.post('/question-set/discard/:question_set__id', setDataToRequestObject('api.questionSet.discard'), discardQuestionSetById);
 
 router.post('/question-set/search', setDataToRequestObject('api.questionSet.search'), searchQuestionSets);
+
+router.post('/repository/create', setDataToRequestObject('api.repository.create'), createRepository);
+
+router.get('/repository/read/:repository_id', setDataToRequestObject('api.repository.read'), repositoryReadById);
+
+router.post('/repository/publish/:repository_id', setDataToRequestObject('api.repository.publish'), publishRepository);
+
+router.post('/repository/update/:repository_id', setDataToRequestObject('api.repository.update'), repositoryUpdate);
+
+router.post('/repository/delete/:repository_id', setDataToRequestObject('api.repository.delete'), deleteRepositoryById);
+
+router.post('/repository/discard/:repository_id', setDataToRequestObject('api.repository.discard'), discardRepositoryById);
+
+router.post('/repository/search', setDataToRequestObject('api.repository.search'), searchRepositories);
