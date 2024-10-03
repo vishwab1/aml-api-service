@@ -1,0 +1,489 @@
+{
+  "info": {
+    "_postman_id": "a5010794-7aeb-4210-b5b0-9eec0b87648f",
+    "name": "AML_service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "18597192"
+  },
+  "item": [
+    {
+      "name": "Tenant",
+      "item": [
+        {
+          "name": "create tenant",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.tenant.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"Tamil Nadu\",\n      \"ka\": \"ತಮಿಳುನಾಡು\"\n    },\n    \"type\": {\n      \"en\": \"Education\",\n      \"ka\": \"ಶಿಕ್ಷಣ\"\n    },\n    \"board_id\": [1]\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/tenant/create"
+          },
+          "response": []
+        },
+        {
+          "name": "get tenant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.test(\"Status code is 200\", function () {", "    pm.response.to.have.status(200);", "});"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/tenant/read/96a33ea0-5799-4edd-b2ee-373451b01d58",
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "updateTenant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.test(\"Status code is 200\", function () {", "    pm.response.to.have.status(200);", "});"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.tenant.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\":{\"en\":\"name1\"}\n\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/tenant/update/3a157850-9bcc-4030-937e-15fa0221ec99",
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        },
+        {
+          "name": "search",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.test(\"Status code is 200\", function () {", "    pm.response.to.have.status(200);", "});"],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.tenant.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n       \"type\":[{\"en\":\"education\"}]\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/tenant/search",
+            "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Master",
+      "item": [
+        {
+          "name": "master search",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.master.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-04T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"some-unique-id\"\n  },\n  \"request\": {\n    \"entityType\": \"skill\",\n    \"filters\": {\n        \"name\":[{\"en\": \"Multiplication\"}, {\"en\":\"Subtraction\"}]\n    },\n    \"limit\": 10,\n    \"offset\": 0\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/master/search"
+          },
+          "response": []
+        },
+        {
+          "name": "master create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.master.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-05T01:51:36Z\",\n  \"params\": {\n    \"msgid\": \"c43785c4-d02a-411d-8466-466ad8ae6fba\"\n  },\n  \"request\": {\n    \"skillData\": [\n      {\n        \"name\": {\n          \"en\": \"Addition\",\n          \"ka\": \"ಒಲವಾಯ್ತು\"\n        },\n        \"description\":  \"This is Addition\",\n        \"type\": \"l1_skill\"\n      },\n      {\n        \"name\": {\n          \"en\": \"1D\",\n          \"ka\": \"1D\"\n        },\n        \"description\": \"This is 1D\",\n        \"type\": \"l2_skill\"\n      },\n      {\n        \"name\": {\n          \"en\": \"1D+1D\",\n          \"ka\": \"1D+1D\"\n        },\n        \"description\": \"This is 1D\",\n        \"type\": \"l3_skill\"\n      }\n    ],\n    \"classData\": [\n      {\n        \"name\": {\n          \"en\": \"Class One\",\n          \"ka\": \"ಕ್ಲಾಸ್ ಒನ್\"\n        },\n        \"description\": {\n          \"en\": \"Description for Class One\",\n          \"ka\": \"ಕ್ಲಾಸ್ ಒನ್ ಗೆ ವಿವರ\"\n        },\n        \"prerequisites\": [\"Class Zero\"]\n      },\n      {\n        \"name\": {\n          \"en\": \"Class Two\",\n          \"ka\": \"ವರ್ಗ ಎರಡು\"\n        },\n        \"description\": {\n          \"en\": \"Description for Class Two\",\n          \"ka\": \"ವರ್ಗ ಎರಡು ಗೆ ವಿವರ\"\n        },\n        \"prerequisites\": [\"Class One\"]\n      }\n    ],\n\"boardData\": [\n  {\n    \"name\": {\n      \"en\": \"Karnataka\",\n      \"ka\": \"ಕರ್ನಾಟಕ\"\n    },\n    \"description\": {\n      \"en\": \"this is Karnataka board\",\n      \"ka\": \"ಇದು ಕರ್ನಾಟಕ ಬೋರ್ಡ್\"\n    }\n  }\n],\n    \"subskillData\": [\n      {\n        \"name\": {\n          \"en\": \"Basic Addition\",\n          \"ka\": \"ಮೂಲ ಸೇರ್ಪಡೆ\"\n        },\n        \"description\": {\n          \"en\": \"This skill teaches basic addition of numbers\",\n          \"ka\": \"ಈ ಕೌಶಲ್ಯವು ಸಂಖ್ಯೆಗಳ ಮೂಲ ಸೇರ್ಪಡೆಯನ್ನು ಕಲಿಸುತ್ತದೆ\"\n        }\n      },\n      {\n        \"name\": {\n          \"en\": \"Advanced Multiplication\",\n          \"ka\": \"ಆಧುನಿಕ ಗುಣಾಕಾರ\"\n        },\n        \"description\": {\n          \"en\": \"Multiplication with larger numbers\",\n          \"ka\": \"ದೊಡ್ಡ ಸಂಖ್ಯೆಗಳೊಂದಿಗೆ ಗುಣಾಕಾರ\"\n        }\n      },\n      {\n        \"name\": {\n          \"en\": \"Fraction Subtraction\",\n          \"ka\": \"ಅಂಶಗಳ ವಜಾಗೊಳಿಸುವಿಕೆ\"\n        },\n        \"description\": {\n          \"en\": \"Subtract fractions and mixed numbers\",\n          \"ka\": \"ಭಿನ್ನರಾಶಿ ಮತ್ತು ಮಿಶ್ರ ಸಂಖ್ಯೆಗಳ ವಜಾಗೊಳಿಸುವಿಕೆ\"\n        }\n      },\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\",\n          \"ka\": \"ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು\"\n        },\n        \"description\": {\n          \"en\": \"Learn basic geometric shapes and properties\",\n          \"ka\": \"ಮೂಲಭೂತ ಜ್ಯಾಮಿತೀಯ ಆಕಾರಗಳು ಮತ್ತು ಗುಣಲಕ್ಷಣಗಳನ್ನು ಕಲಿಯಿರಿ\"\n        }\n      }\n    ]\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/master/create"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "skillTaxonomy",
+      "item": [
+        {
+          "name": "search",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.skillTaxonomy.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-04T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"6d029822-adcd-4572-a7b6-788da8e653dc\"\n  },\n  \"request\": {\n    \"filters\": {\n        \"taxonomy_id\":[\"karnatakataxoonmy\"],\n        \"l1_skill\":[{\"en\":\"Addition\"}],\n        \"l2_skill\":[{\"en\":\"1-digit addition\"}]\n    },\n    \"limit\": 10,\n    \"offset\": 0\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/skill-taxonomy/search"
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.skillTaxonomy.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-05T15:00:00Z\",\n  \"params\": {\n    \"msgid\": \"770e8600-g49b-43e6-c818-667877660003\"\n  },\n  \"request\": [\n    {\n      \"l1_identifier\": \"11_addition\",\n      \"l1_sequence\": 1,\n      \"l1_skill\": {\n        \"en\": \"addition\"\n      },\n      \"l1_skill_description\": {\n        \"en\": \"This is L1 addition\"\n      },\n       \"prerequisites\":[],\n      \"children\": [\n        {\n          \"l2_identifier\": \"1-digit_addition\",\n          \"l2_sequence\": 1,\n          \"l2_skill\": {\n            \"en\": \"1-digit addition\"\n          },\n          \"l2_skill_description\": {\n            \"en\": \"Addition of single-digit numbers\"\n          },\n          \"children\": [\n            {\n              \"l3_identifier\": \"horizontal_addition\",\n              \"l3_sequence\": 4,\n              \"l3_skill\": {\n                \"en\": \"2D + 1, 2, 3, 4, 5 - using finger schema - sum up to 20\"\n              },\n              \"l3_skill_description\": {\n                \"en\": \"Horizontal addition by counting objects - sum up to 9\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"l1_identifier\": \"12_subtraction\",\n      \"l1_sequence\": 2,\n      \"l1_skill\": {\n        \"en\": \"subtraction\"\n      },\n      \"l1_skill_description\": {\n        \"en\": \"This is L1 subtraction\"\n      },\n      \"prerequisites\":[],\n      \"children\": [\n        {\n          \"l2_identifier\": \"1-digit_subtraction\",\n          \"l2_sequence\": 1,\n          \"l2_skill\": {\n            \"en\": \"1-digit subtraction\"\n          },\n          \"l2_skill_description\": {\n            \"en\": \"Subtraction of single-digit numbers\"\n          },\n                    \"children\": [\n            {\n              \"l3_identifier\": \"horizontal_addition\",\n              \"l3_sequence\": 4,\n              \"l3_skill\": {\n                \"en\": \"2D - 1D = 2D without borrowing\"\n              },\n              \"l3_skill_description\": {\n                \"en\": \"Horizontal addition by counting objects - sum up to 9\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"l1_identifier\": \"13_multiplication\",\n      \"l1_sequence\": 3,\n      \"l1_skill\": {\n        \"en\": \"multiplication\"\n      },\n      \"l1_skill_description\": {\n        \"en\": \"This is L1 multiplication\"\n      },\n       \"prerequisites\":[],\n      \"children\": [\n        {\n          \"l2_identifier\": \"1digit_multiplication\",\n          \"l2_sequence\": 1,\n          \"l2_skill\": {\n            \"en\": \"1-digit multiplication\"\n          },\n          \"l2_skill_description\": {\n            \"en\": \"Multiplication of single-digit numbers\"\n          }\n        }\n      ]\n    },\n    {\n      \"l1_identifier\": \"14_division\",\n      \"l1_sequence\": 4,\n      \"l1_skill\": {\n        \"en\": \"division\"\n      },\n      \"l1_skill_description\": {\n        \"en\": \"This is L1 division\"\n      },\n       \"prerequisites\":[],\n      \"children\": [\n        {\n          \"l2_identifier\": \"1digit_division\",\n          \"l2_sequence\": 1,\n          \"l2_skill\": {\n            \"en\": \"1-digit division\"\n          },\n          \"l2_skill_description\": {\n            \"en\": \"Division of single-digit numbers\"\n          }\n        }\n      ]\n    }\n  ]\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/skill-taxonomy/create/karnatakaTaxoonmy"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "board",
+      "item": [
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.board.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-19T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"unique-message-id\"\n  },\n  \"request\": {\n    \"name\":{\"en\":\"ANDRA PRADESH\"},\n    \"class_ids\":{\n    \"ids\":[1,2]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/board/update/af440fb6-891c-4e71-b568-5e8a334558cf"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Skill",
+      "item": [
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "      {\n  \"id\": \"api.skill.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-05T01:51:36Z\",\n  \"params\": {\n    \"msgid\": \"c43785c4-d02a-411d-8466-466ad8ae6fba\"\n  },\n  \"request\":   \n      {\n        \"name\": { \"en\": \"Substraction1\" },\n        \"description\": \"This is Addition\",\n        \"type\": \"l1_skill\"\n      }\n      }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/skill/update/cca4b285-aff0-4d01-a800-0b067d16c205"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Class",
+      "item": [
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "      {\n  \"id\": \"api.class.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-05T01:51:36Z\",\n  \"params\": {\n    \"msgid\": \"c43785c4-d02a-411d-8466-466ad8ae6fba\"\n  },\n  \"request\": {\n        \"name\": { \"en\": \"Class One2\" }\n      }\n      }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/class/update/67594bf6-eb52-4c1b-aa23-b45dd0fbdbe"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "subskill",
+      "item": [
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "      {\n  \"id\": \"api.subskill.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-05T01:51:36Z\",\n  \"params\": {\n    \"msgid\": \"c43785c4-d02a-411d-8466-466ad8ae6fba\"\n  },\n  \"request\":  \n      {\n        \"name\": { \"en\": \"x+0\" },\n        \"description\": { \"en\": \"Description for X+0\" }\n      }\n      }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/subSkill/update/90d0e4a9-75a7-4ba4-98f8-7c18441eb52b"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Question",
+      "item": [
+        {
+          "name": "Create Question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"aa083e25-09a6-4e52-95d5-1e780906d886\"\n  },\n  \"request\": {\n    \"question_set_id\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\",\n    \"question_type\": \"Mcq\",\n    \"operation\": \"Addition\",\n    \"name\": {\n      \"en\": \"This is a question for Division\",\n      \"ka\": \"ಇದು ವಿಭಜನೆಯ ಪ್ರಶ್ನೆ\",\n      \"hi\": \"यह विभाजन के लिए प्रश्न है\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the question\"\n    },\n    \"sequence_no\":1,\n    \"hints\": {\n      \"en\": [\n        \"This is a hint for the question\"\n      ]\n    },\n    \"tenant\": {\n     \"name\": {\"en\":\"Tamil Nadu\"}\n    },\n    \"repository\": {\n      \"name\": {\n\"en\": \"Question Repository\"\n\n}\n    },\n    \"taxonomy\": {\n      \"board\": {\"name\":{\"en\": \"Central Board of Secondary Education\"}},\n      \"class\": {\"name\":{\"en\":\"Class One\"}},\n      \"l1_skill\": {\"name\":{\"en\":\"Addition\"}} ,\n      \"l2_skill\": [{\"name\":{\"en\":\"1-digit Addition\"}}] ,\n       \"l3_skill\": [{\"name\":{\"en\":\"2Dx1D with carry (non-zero digits)\"}}]\n    },\n    \"gradient\": \"g4\",\n    \"benchmark_time\":40,\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"media\": [{\n      \"fileName\": \"Mcq_uplaod_image.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    },\n{\n      \"fileName\": \"Mcq_uplaod_image1.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    }\n],\n\n  \"question_body\": {\n            \"options\": {\n                \"mcq_question_image\": \"image_url.jpg\"\n            },\n            \"correct_option\": \"Option A\",\n            \"wrongAnswers\": [\n                {\n                    \"carry\": [\n                        12,\n                        2\n                    ]\n                }\n            ]\n        }\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question/create"
+          },
+          "response": []
+        },
+        {
+          "name": "get Question",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/question/read/4e6f685f-6368-45e3-b62f-3ef3895e6b73"
+          },
+          "response": []
+        },
+        {
+          "name": "update question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"aa083e25-09a6-4e52-95d5-1e780906d886\"\n  },\n  \"request\": {\n     \"gradient\":\"g9\"\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question/update/6e88f130-2541-42a9-98a1-490bd32ab312"
+          },
+          "response": []
+        },
+        {
+          "name": "publishQuestion",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/question/publish/4e6f685f-6368-45e3-b62f-3ef3895e6b73"
+          },
+          "response": []
+        },
+        {
+          "name": "delete Question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/question/delete/3be3bf6c-2f0b-433a-a74f-78b51b10aa30"
+          },
+          "response": []
+        },
+        {
+          "name": "discard question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/question/discard/4e6f685f-6368-45e3-b62f-3ef3895e6b73"
+          },
+          "response": []
+        },
+        {
+          "name": "search question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n      \"question_type\":  [\"Grid-1\"]\n\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question/search"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bulk_upload",
+      "item": [
+        {
+          "name": "get template",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"api.get.template\",\n    \"ver\": \"1.0\",\n    \"ts\": \"2024-09-03T12:34:56Z\",\n    \"params\": {\n        \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n    \"request\": {\n        \"folderName\": \"template\",\n        \"fileName\": \"fib.zip\",\n        \"expiryTime\": 10\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{AMLBASEURL}}/get/template"
+          },
+          "response": []
+        },
+        {
+          "name": "uplaod question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"api.bulk.url\",\n    \"ver\": \"1.0\",\n    \"ts\": \"2024-09-29T23:03:00Z\",\n    \"params\": {\n        \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n    \"request\": {\n        \"fileName\": \"bulk_upload.zip\"\n            }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{AMLBASEURL}}/bulk/upload/url"
+          },
+          "response": []
+        },
+        {
+          "name": "upload status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{AMLBASEURL}}/bulk/upload/status/4206d2e7-7efc-4f7c-a342-370aa165ccae"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "media",
+      "item": [
+        {
+          "name": "media upload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"api.media.upload\",\n    \"ver\": \"1.0\",\n    \"ts\": \"2024-09-28T17:03:00Z\",\n    \"params\": {\n        \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n   \"request\": [\n    {\n      \"fileName\": \"Mcq_uplaod_image.png\",\n      \"category\": \"content\"\n    },\n    {\n      \"fileName\": \"vedo.mp4\",\n      \"category\": \"question\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{AMLBASEURL}}/media/upload/presigned-url"
+          },
+          "response": []
+        },
+        {
+          "name": "media downalod",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"api.media.read\",\n    \"ver\": \"1.0\",\n    \"ts\": \"2024-09-27T10:03:00Z\",\n    \"params\": {\n        \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n    \"request\": [\n       {\n                    \"fileName\": \"Mcq_uplaod_image.png\",\n                    \"src\": \"media/content/1727688106695\",\n                    \"mimeType\": \"image/png\",\n                    \"mediaType\": \"image\"\n                },\n                {\n                    \"fileName\": \"vedo.mp4\",\n                    \"src\": \"media/question/1727688106697\",\n                    \"mimeType\": \"video/mp4\",\n                    \"mediaType\": \"video\"\n                }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{AMLBASEURL}}/media/read/presigned-url"
+          },
+          "response": []
+        },
+        {
+          "name": "content media download",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"api.contentMedia.read\",\n    \"ver\": \"1.0\",\n    \"ts\": \"2024-09-27T10:03:00Z\",\n    \"params\": {\n        \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n    },\n   \"request\": {\n     \"contentId\":11,\n      \"mediaIds\":[\"828b1238-7cf0-4d75-a825-bfc87ef57bcq\"]\n   }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{AMLBASEURL}}/content/media/read/presigned-url"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
