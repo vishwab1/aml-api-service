@@ -118,8 +118,9 @@ export const getQuestionSetList = async (req: Record<string, any>) => {
       {
         model: Question,
         as: 'questions',
-        where: questionWhereClause,
-        required: true,
+        where: filters.question_type ? questionWhereClause : undefined,
+        required: !!filters.question_type,
+
         attributes: { exclude: ['id'] },
       },
     ],
