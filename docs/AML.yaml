@@ -4235,13 +4235,13 @@ paths:
               type: object
               example:
                 id: api.media.upload
-                ver: "1.0"
-                ts: "2024-08-20T08:32:26.094Z"
+                ver: '1.0'
+                ts: '2024-08-20T08:32:26.094Z'
                 params:
-                  msgid: "ff32a333-2898-49e4-9653-47f986cf4db7"
+                  msgid: 'ff32a333-2898-49e4-9653-47f986cf4db7'
                 request:
-                  fileName: "Mcq_upload_image.png"
-                  category: "content"
+                  fileName: 'Mcq_upload_image.png'
+                  category: 'content'
       responses:
         '200':
           description: OK
@@ -4251,21 +4251,21 @@ paths:
                 type: object
               example:
                 id: api.media.upload
-                ver: "1.0"
-                ts: "2024-08-20T08:32:26.094Z"
+                ver: '1.0'
+                ts: '2024-08-20T08:32:26.094Z'
                 params:
-                  resmsgid: "a8480f2d-c273-4dcd-9344-8948acab8ef4"
-                  msgid: "ff32a333-2898-49e4-9653-47f986cf4db7"
-                  status: "successful"
-                responseCode: "OK"
+                  resmsgid: 'a8480f2d-c273-4dcd-9344-8948acab8ef4'
+                  msgid: 'ff32a333-2898-49e4-9653-47f986cf4db7'
+                  status: 'successful'
+                responseCode: 'OK'
                 result:
-                  url: "upload url for media"
+                  url: 'upload url for media'
                   expiresInSec: 1200
-                  media: 
-                    fileName: "Mcq_upload_image.png"
-                    mediaType: "Image"
-                    mimeType: "image/png"
-                    src: "media/content/1727688106695"
+                  media:
+                    fileName: 'Mcq_upload_image.png'
+                    mediaType: 'Image'
+                    mimeType: 'image/png'
+                    src: 'media/content/1727688106695'
                 err:
                   err: null
                   errmsg: null
@@ -4289,16 +4289,16 @@ paths:
                   example: api.media.read
                 ver:
                   type: string
-                  example: "1.0"
+                  example: '1.0'
                 ts:
                   type: string
-                  example: "2024-08-20T08:32:26.094Z"
+                  example: '2024-08-20T08:32:26.094Z'
                 params:
                   type: object
                   properties:
                     msgid:
                       type: string
-                      example: "ff32a333-2898-49e4-9653-47f986cf4db7"
+                      example: 'ff32a333-2898-49e4-9653-47f986cf4db7'
                 request:
                   type: array
                   items:
@@ -4306,16 +4306,16 @@ paths:
                     properties:
                       fileName:
                         type: string
-                        example: "Mcq_upload_image.png"
+                        example: 'Mcq_upload_image.png'
                       src:
                         type: string
-                        example: "media/content/1727688106695"
+                        example: 'media/content/1727688106695'
                       mimeType:
                         type: string
-                        example: "image/png"
+                        example: 'image/png'
                       mediaType:
                         type: string
-                        example: "image"
+                        example: 'image'
       responses:
         '200':
           description: OK
@@ -4325,28 +4325,28 @@ paths:
                 type: object
               example:
                 id: api.media.read
-                ver: "1.0"
-                ts: "2024-08-20T08:32:26.094Z"
+                ver: '1.0'
+                ts: '2024-08-20T08:32:26.094Z'
                 params:
-                  resmsgid: "a8480f2d-c273-4dcd-9344-8948acab8ef4"
-                  msgid: "ff32a333-2898-49e4-9653-47f986cf4db7"
-                  status: "successful"
-                responseCode: "OK"
+                  resmsgid: 'a8480f2d-c273-4dcd-9344-8948acab8ef4'
+                  msgid: 'ff32a333-2898-49e4-9653-47f986cf4db7'
+                  status: 'successful'
+                responseCode: 'OK'
                 result:
-                    - url: "get url for media 1"
-                      expiresInSec: 1200
-                      media:
-                        fileName: "Mcq_upload_image.png"
-                        mediaType: "Image"
-                        mimeType: "image/png"
-                        src: "media/content/1727688106695"
-                    - url: "get url for media 2"
-                      expiresInSec: 1200
-                      media:
-                        fileName: "Another_image.png"
-                        mediaType: "Image"
-                        mimeType: "image/png"
-                        src: "media/content/1727688106696"
+                  - url: 'get url for media 1'
+                    expiresInSec: 1200
+                    media:
+                      fileName: 'Mcq_upload_image.png'
+                      mediaType: 'Image'
+                      mimeType: 'image/png'
+                      src: 'media/content/1727688106695'
+                  - url: 'get url for media 2'
+                    expiresInSec: 1200
+                    media:
+                      fileName: 'Another_image.png'
+                      mediaType: 'Image'
+                      mimeType: 'image/png'
+                      src: 'media/content/1727688106696'
                 err:
                   err: null
                   errmsg: null
