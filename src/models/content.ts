@@ -15,11 +15,7 @@ export const Content = AppDataSource.define(
     },
     process_id: {
       type: DataTypes.UUID,
-      allowNull: false,
-    },
-    content_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: DataTypes.JSONB,
@@ -35,7 +31,7 @@ export const Content = AppDataSource.define(
     },
     repository: {
       type: DataTypes.JSONB,
-      allowNull: false,
+      allowNull: true,
     },
     taxonomy: {
       type: DataTypes.JSONB,
@@ -55,7 +51,11 @@ export const Content = AppDataSource.define(
     },
     media: {
       type: DataTypes.JSONB,
-      allowNull: false,
+      allowNull: true,
+    },
+    content_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     created_by: {
       type: DataTypes.STRING,

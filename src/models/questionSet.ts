@@ -27,7 +27,7 @@ export const QuestionSet = AppDataSource.define(
     },
     repository: {
       type: DataTypes.JSONB,
-      allowNull: false,
+      allowNull: true,
     },
     sequence: {
       type: DataTypes.INTEGER,
@@ -78,6 +78,10 @@ export const QuestionSet = AppDataSource.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
+    },
+    question_set_id: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     created_by: {
       type: DataTypes.STRING,
