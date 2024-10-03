@@ -26,6 +26,13 @@ import publishQuestion from '../controllers/questionPublish/publishQuestion';
 import readQuestionById from '../controllers/questionRead/questionRead';
 import { searchQuestions } from '../controllers/questionSearch/searchQuestion';
 import updateQuestionById from '../controllers/questionUpdate/questionUpdate';
+import createQuestionSet from '../controllers/questionSetCreate/questionSetCreate';
+import publishQuestionSet from '../controllers/questionSetPublish/questionSetPublish';
+import readQuestionSetById from '../controllers/questionSetRead/questionSetRead';
+import updateQuestionSetById from '../controllers/questionSetUpdate/questionSetUpdate';
+import deleteQuestionSetById from '../controllers/questionSetDelete/questionSetDelete';
+import discardQuestionSetById from '../controllers/questionSetDiscard/questionSetDiscard';
+import { searchQuestionSets } from '../controllers/questionSetSearch/questionSetSearch';
 
 export const router = express.Router();
 
@@ -80,3 +87,17 @@ router.post('/question/delete/:question_id', setDataToRequestObject('api.questio
 router.post('/question/discard/:question_id', setDataToRequestObject('api.question.discard'), discardQuestionById);
 
 router.post('/question/search', setDataToRequestObject('api.question.search'), searchQuestions);
+
+router.post('/question-set/create', setDataToRequestObject('api.questionSet.create'), createQuestionSet);
+
+router.post('/question-set/publish/:question_set_id', setDataToRequestObject('api.questionSet.publish'), publishQuestionSet);
+
+router.get('/question-set/read/:question_set__id', setDataToRequestObject('api.questionSet.read'), readQuestionSetById);
+
+router.post('/question-set/update/:question_set__id', setDataToRequestObject('api.questionSet.update'), updateQuestionSetById);
+
+router.post('/question-set/delete/:question_set_id', setDataToRequestObject('api.questionSet.delete'), deleteQuestionSetById);
+
+router.post('/question-set/discard/:question_set__id', setDataToRequestObject('api.questionSet.discard'), discardQuestionSetById);
+
+router.post('/question-set/search', setDataToRequestObject('api.questionSet.search'), searchQuestionSets);
