@@ -1,0 +1,207 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.questionSet.create"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "object",
+          "description": "The title of the question set in multiple languages.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "minProperties": 1
+        },
+        "description": {
+          "type": "object",
+          "description": "The description of the question set in multiple languages.",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "minProperties": 1
+        },
+        "tenant": {
+          "type": "object",
+          "description": "The tenant information.",
+          "properties": {
+            "name": {
+              "type": "object",
+              "description": "The name of the tenant in multiple languages.",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "minProperties": 1
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "repository": {
+          "type": "object",
+          "description": "The repository information.",
+          "properties": {
+            "name": {
+              "type": "object",
+              "description": "The name of the repository in multiple languages.",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "minProperties": 1
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "sequence": {
+          "type": "integer",
+          "description": "The sequence order of the question set."
+        },
+        "taxonomy": {
+          "type": "object",
+          "properties": {
+            "board": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "class": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "l1_skill": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "minProperties": 1
+                }
+              }
+            },
+            "l2_skill": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "minProperties": 1
+                  }
+                }
+              },
+              "uniqueItems": true
+            },
+            "l3_skill": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "minProperties": 1
+                  }
+                }
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": ["board", "class", "l1_skill"],
+          "additionalProperties": false
+        },
+        "sub_skills": {
+          "type": "array",
+          "description": "A list of sub-skills associated with the question set.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "minProperties": 1
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          },
+          "uniqueItems": true
+        },
+        "purpose": {
+          "type": "string",
+          "description": "The purpose of the question set."
+        },
+        "is_atomic": {
+          "type": "boolean",
+          "description": "Indicates if the question set is atomic."
+        },
+        "gradient": {
+          "type": "string",
+          "description": "The difficulty gradient of the question set."
+        },
+        "content_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "An array of content IDs associated with the question set."
+        },
+        "group_name": {
+          "type": "integer",
+          "description": "The group name for the question set."
+        },
+        "instruction_text": {
+          "type": "string",
+          "description": "Instructions for the question set."
+        }
+      },
+      "required": ["title", "description", "tenant", "repository", "sequence", "taxonomy", "sub_skills", "purpose", "is_atomic", "gradient", "group_name"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
