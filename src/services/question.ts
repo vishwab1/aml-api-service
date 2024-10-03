@@ -64,7 +64,6 @@ export const getQuestionList = async (req: Record<string, any>) => {
   const limit: any = _.get(req, 'limit');
   const offset: any = _.get(req, 'offset');
   const { filters = {} } = req || {};
-  filters.status = Status.LIVE;
   const questions = await Question.findAll({ limit: limit || 100, offset: offset || 0, ...(filters && { where: filters }), attributes: { exclude: ['id'] }, raw: true });
   return questions;
 };
