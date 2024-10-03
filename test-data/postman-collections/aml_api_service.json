@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "a5010794-7aeb-4210-b5b0-9eec0b87648f",
+    "_postman_id": "d2adaab5-e08f-444e-9d7a-201df6f927f3",
     "name": "AML_service",
     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
     "_exporter_id": "18597192"
@@ -64,7 +64,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.tenant.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\":{\"en\":\"name1\"}\n\n  }\n}",
+              "raw": "{\n  \"id\": \"api.tenant.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\":{\"en\":\"Karnataka\"}\n\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -480,6 +480,128 @@
               }
             },
             "url": "{{AMLBASEURL}}/content/media/read/presigned-url"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "QuestionSet",
+      "item": [
+        {
+          "name": "Create Question Set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.questionSet.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\"\n  },\n  \"request\": {\n    \"title\": {\n      \"en\": \"Question Set 3\"\n    },\n    \"description\": {\n      \"en\": \"This is a question description\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"sequence\": 1,\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"content_id\":[\"b68dc3a5-f37f-4d69-b4f3-555408c2fab8\"],\n    \"purpose\": \"Practice\",\n    \"is_atomic\": false,\n    \"gradient\": \"g1\",\n    \"group_name\": 1,\n    \"instruction_text\": \"text\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/create"
+          },
+          "response": []
+        },
+        {
+          "name": "get question set",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/question-set/read/b68dc3a5-f37f-4d69-b4f3-555408c2fab2"
+          },
+          "response": []
+        },
+        {
+          "name": "update question set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.questionSet.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\"\n  },\n  \"request\": {\n    \"title\": {\n      \"en\": \"Question Set 2\"\n    },\n    \"description\": {\n      \"en\": \"This is a question description1\"\n    },\n\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"sequence\": 1,\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2-digit Addition\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"purpose\": \"Practice\",\n    \"is_atomic\": false,\n    \"gradient\": \"g2\",\n    \"group_name\": 1,\n    \"instruction_text\": \"text\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/update/b68dc3a5-f37f-4d69-b4f3-555408c2fab2"
+          },
+          "response": []
+        },
+        {
+          "name": "publish question set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-08-21T10:15:30.000Z\",\n  \"params\": {\n    \"msgid\": \"4a7f14c3-d61e-4d4f-be78-181834eeff6d\"\n  },\n  \"request\": {\n    \"gradient\": \"gi\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/publish/9211fa9f-df60-4251-9d19-03f0eb7db9b2"
+          },
+          "response": []
+        },
+        {
+          "name": "delete Question set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-08-21T10:15:30.000Z\",\n  \"params\": {\n    \"msgid\": \"4a7f14c3-d61e-4d4f-be78-181834eeff6d\"\n  },\n  \"request\": {\n    \"gradient\": \"gi\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/delete/9211fa9f-df60-4251-9d19-03f0eb7db9b2"
+          },
+          "response": []
+        },
+        {
+          "name": "discard question set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.question.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-08-21T10:15:30.000Z\",\n  \"params\": {\n    \"msgid\": \"4a7f14c3-d61e-4d4f-be78-181834eeff6d\"\n  },\n  \"request\": {\n    \"gradient\": \"gi\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/discard/04577841-e5c1-4660-a4e5-1e720d161bc9"
+          },
+          "response": []
+        },
+        {
+          "name": "search question set",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.questionSet.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n        \"title\":[{\"en\": \"Question Set 1\"}],\n        \"question_type\":[\"Mcq\"]\n    \n\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/question-set/search"
           },
           "response": []
         }
