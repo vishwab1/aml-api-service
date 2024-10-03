@@ -2512,9 +2512,6 @@ paths:
                 request:
                   type: object
                   properties:
-                    question_id:
-                      type: integer
-                      example: 1
                     question_set_id:
                       type: string
                       example: 'set001'
