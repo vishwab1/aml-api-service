@@ -39,7 +39,8 @@
               "items": {
                 "type": "string"
               },
-              "description": "Array of question types."
+              "description": "Array of question types.",
+              "minItems": 1
             }
           },
           "description": "Object containing search criteria. Can include any fields defined in the Tenant model.",

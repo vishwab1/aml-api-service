@@ -182,7 +182,7 @@
           "type": "string",
           "description": "The difficulty gradient of the question set."
         },
-        "content_ids": {
+        "content_id": {
           "type": "array",
           "items": {
             "type": "string"

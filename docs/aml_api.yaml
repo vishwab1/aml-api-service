@@ -23,6 +23,8 @@ tags:
     description: APIs for managing Question.
   - name: media
     description: APIs for managing Media
+  - name: Question Set
+    description: APIs for managing Question.
 paths:
   /master/create:
     post:
@@ -4347,3 +4349,1405 @@ paths:
                 err:
                   err: null
                   errmsg: null
+  /question-set/create:
+    post:
+      tags:
+        - Question Set
+      summary: Create a new question set
+      description: This API allows you to create a question set with specific parameters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.questionSet.create'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-13T12:00:00Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      format: uuid
+                      example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                request:
+                  type: object
+                  properties:
+                    title:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'Question Set 1'
+                    description:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'This is a question set description'
+                    tenant:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Karnataka'
+                    repository:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Content Repository'
+                    sequence:
+                      type: integer
+                      example: 1
+                    taxonomy:
+                      type: object
+                      properties:
+                        board:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Central Board of Secondary Education'
+                        class:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Class One'
+                        l1_skill:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Addition'
+                        l2_skill:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: '1-digit Addition'
+                        l3_skill:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: '2Dx1D with carry (non-zero digits)'
+                    sub_skills:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Procedural'
+                    content_id:
+                      type: array
+                      items:
+                        type: string
+                        format: uuid
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab8'
+                    purpose:
+                      type: string
+                      example: 'Practice'
+                    is_atomic:
+                      type: boolean
+                      example: false
+                    gradient:
+                      type: string
+                      example: 'g1'
+                    group_name:
+                      type: integer
+                      example: 1
+                    instruction_text:
+                      type: string
+                      example: 'text'
+      responses:
+        '200':
+          description: Question Set Successfully Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-13T12:00:00Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Question Set Successfully Created'
+                      identifier:
+                        type: string
+                        example: '4e6f685f-6368-45e3-b62f-3ef3895e6b73'
+        '400':
+          description: Bad Request - Invalid or missing data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-13T12:00:00Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-13T12:00:00Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Internal server error'
+  /question-set/publish/{question_set_id}:
+    post:
+      tags:
+        - Question Set
+      summary: Publish a question set
+      description: This API allows you to publish a question set by setting its status to 'live'.
+      parameters:
+        - name: question_set_id
+          in: path
+          required: true
+          description: The unique identifier of the question set to be published
+          schema:
+            type: string
+            format: uuid
+            example: '7c6e3852-3f01-45e1-aaeb-eb2293788dbe'
+      responses:
+        '200':
+          description: Question Set Successfully Published
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-28T11:40:32+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        format: uuid
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: '7114dceb-1d7e-4abb-ae75-e9f4bb52ebe0'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Question Set Successfully Published'
+        '400':
+          description: Bad Request - Invalid Question Set ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-28T11:40:32+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      msgid:
+                        type: string
+                        format: uuid
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: '7114dceb-1d7e-4abb-ae75-e9f4bb52ebe0'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Invalid Question Set ID'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-28T11:40:32+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      msgid:
+                        type: string
+                        format: uuid
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: '7114dceb-1d7e-4abb-ae75-e9f4bb52ebe0'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Internal Server Error'
+  /question-set/read/{question_set_id}:
+    get:
+      tags:
+        - Question Set
+      summary: Read question set details
+      description: This API allows you to fetch details of a question set by its unique identifier.
+      parameters:
+        - name: question_set_id
+          in: path
+          required: true
+          description: The unique identifier of the question set
+          schema:
+            type: string
+            example: 'a8d09d6b-77d0-462e-9779-5286d093dac2'
+      responses:
+        '200':
+          description: Successfully retrieved question set details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-30T10:28:18+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: 'db1fb1b4-2c71-4a9b-bad0-8b846d329a03'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      identifier:
+                        type: string
+                        example: 'a8d09d6b-77d0-462e-9779-5286d093dac2'
+                      title:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Question Set 1'
+                      description:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'This is a question description1'
+                      question_set_id:
+                        type: string
+                        example: 'q1'
+                      repository:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Question Repository'
+                              ta:
+                                type: string
+                                example: 'கேள்வி நூலகம்'
+                              te:
+                                type: string
+                                example: 'ప్రశ్న రిపోజిటరీ'
+                      sequence:
+                        type: integer
+                        example: 1
+                      tenant:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Karnataka'
+                              hi:
+                                type: string
+                                example: 'कर्नाटका'
+                      taxonomy:
+                        type: object
+                        properties:
+                          board:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Central Board of Secondary Education'
+                                  hi:
+                                    type: string
+                                    example: 'केंद्रीय माध्यमिक शिक्षा बोर्ड'
+                                  kn:
+                                    type: string
+                                    example: 'ಕೇಂದ್ರ ಮಾಧ್ಯಮಿಕ ಶಿಕ್ಷಣ ಮಂಡಳಿ'
+                          class:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 7
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Class One'
+                                  ka:
+                                    type: string
+                                    example: 'ವರ್ಗ ಎರಡು'
+                          l1_skill:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Addition'
+                                  hi:
+                                    type: string
+                                    example: 'जोड़'
+                                  kn:
+                                    type: string
+                                    example: 'ಜೋಡಣೆ'
+                          l2_skill:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 6
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: '2-digit Addition'
+                                    hi:
+                                      type: string
+                                      example: '2-अंक जोड़'
+                                    kn:
+                                      type: string
+                                      example: '2-ಅಂಕದ ಜೋಡಣೆ'
+                          l3_skill:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 120
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: '2Dx1D with carry (non-zero digits)'
+                                    hi:
+                                      type: string
+                                      example: '2D x 1D कैरी के साथ (गैर-शून्य अंकों के साथ)'
+                      sub_skills:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 9
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Geometry Basics'
+                                ka:
+                                  type: string
+                                  example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+                      purpose:
+                        type: string
+                        example: 'Practice'
+                      is_atomic:
+                        type: boolean
+                        example: false
+                      gradient:
+                        type: string
+                        example: 'g2'
+                      group_name:
+                        type: integer
+                        example: 1
+                      content_id:
+                        type: string
+                        nullable: true
+                        example: null
+                      instruction_text:
+                        type: string
+                        example: 'text'
+                      status:
+                        type: string
+                        example: 'draft'
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_by:
+                        type: string
+                        example: 'manual'
+                      updated_by:
+                        type: string
+                        nullable: true
+                        example: null
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2024-09-29T16:51:07.474Z'
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: '2024-09-29T22:22:27.787Z'
+        '400':
+          description: Bad Request - Invalid question set ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-30T10:28:18+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: 'db1fb1b4-2c71-4a9b-bad0-8b846d329a03'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Invalid Question Set ID'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-09-30T10:28:18+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'FAILED'
+                      resmsgid:
+                        type: string
+                        format: uuid
+                        example: 'db1fb1b4-2c71-4a9b-bad0-8b846d329a03'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Internal server error'
+  /question-set/update/{question_set_id}:
+    post:
+      tags:
+        - Question Set
+      summary: Update a question set by ID
+      description: This API allows you to update a specific question set by its ID.
+      parameters:
+        - name: question_set_id
+          in: path
+          required: true
+          description: The unique identifier of the question set to be updated.
+          schema:
+            type: string
+            format: uuid
+            example: fe87595d-af08-4e77-8b99-3d69bb2b79b4
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.questionSet.update'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-13T12:00:00Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      format: uuid
+                      example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                request:
+                  type: object
+                  properties:
+                    title:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'Question Set 1'
+                    description:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'This is a question description1'
+                    tenant:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Karnataka'
+                    repository:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Question Repository'
+                    sequence:
+                      type: integer
+                      example: 1
+                    taxonomy:
+                      type: object
+                      properties:
+                        board:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Central Board of Secondary Education'
+                        class:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Class One'
+                        l1_skill:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Addition'
+                        l2_skill:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: '2-digit Addition'
+                    sub_skills:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Geometry Basics'
+                    purpose:
+                      type: string
+                      example: 'Practice'
+                    is_atomic:
+                      type: boolean
+                      example: false
+                    gradient:
+                      type: string
+                      example: 'g2'
+                    group_name:
+                      type: integer
+                      example: 1
+                    instruction_text:
+                      type: string
+                      example: 'text'
+      responses:
+        '200':
+          description: Question Set Successfully Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T12:54:31+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                      resmsgid:
+                        type: string
+                        example: 'f0796561-44b1-4630-a2e4-5ff3ab95364c'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Question Set Successfully Updated'
+        '400':
+          description: Bad Request - Invalid or missing data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T12:54:31+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                      resmsgid:
+                        type: string
+                        example: 'abcd1234-5678-90ef-ghij-klmn1234pqrs'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T12:54:31+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: 'b68dc3a5-f37f-4d69-b4f3-555408c2fab2'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-1234-mnop-qrst5678uvwx'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /question-set/delete/{question_set_id}:
+    post:
+      tags:
+        - Question Set
+      summary: Delete a question set by ID
+      description: This API deletes a specific question set by its ID.
+      parameters:
+        - name: question_set_id
+          in: path
+          required: true
+          description: The unique identifier of the question set to be deleted.
+          schema:
+            type: string
+            format: uuid
+            example: 60d5124c-881e-4983-83a7-86fa6e4d90a7
+      responses:
+        '200':
+          description: Question Set Successfully Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:08:26+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: '3976033d-81c0-4344-90da-43407497a574'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Question Set deleted successfully'
+        '400':
+          description: Bad Request - Invalid or missing data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:08:26+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: 'abcd1234-5678-90ef-ghij-klmn1234pqrs'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:08:26+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-1234-mnop-qrst5678uvwx'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+
+  /question-set/discard/{question_set_id}:
+    post:
+      tags:
+        - Question Set
+      summary: Discard a question set by ID
+      description: This API discards a specific question set by its ID.
+      parameters:
+        - name: question_set_id
+          in: path
+          required: true
+          description: The unique identifier of the question set to be discarded.
+          schema:
+            type: string
+            format: uuid
+            example: 60d5124c-881e-4983-83a7-86fa6e4d90a7
+      responses:
+        '200':
+          description: Question Set Successfully Discarded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:30:00+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: '3976033d-81c0-4344-90da-43407497a574'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Question Set discarded successfully'
+        '400':
+          description: Bad Request - Invalid or missing data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:30:00+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: 'abcd1234-5678-90ef-ghij-klmn1234pqrs'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T13:30:00+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '4a7f14c3-d61e-4d4f-be78-181834eeff6d'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-1234-mnop-qrst5678uvwx'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /question-set/search:
+    post:
+      tags:
+        - Question Set
+      summary: Search for question sets based on filters
+      description: This API searches for question sets using filters such as title, question type, etc., and returns a paginated list.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.questionSet.search'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  example: '2024-09-03T12:34:56Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                request:
+                  type: object
+                  properties:
+                    filters:
+                      type: object
+                      properties:
+                        title:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Question Set 1'
+                        question_type:
+                          type: array
+                          items:
+                            type: string
+                            example: 'Mcq'
+                    limit:
+                      type: integer
+                      example: 10
+                    offset:
+                      type: integer
+                      example: 0
+      responses:
+        '200':
+          description: Question Sets Found Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-03T12:34:56Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: '9abcd123-4567-890a-bcde-0987654321f0'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      question_sets:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 'fe87595d-af08-4e77-8b99-3d69bb2b79b4'
+                            title:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Question Set 1'
+                            question_type:
+                              type: string
+                              example: 'Mcq'
+        '400':
+          description: Bad Request - Invalid or missing data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-03T12:34:56Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'abcd1234-5678-90ef-ghij-klmn1234pqrs'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid request data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.questionSet.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-09-03T12:34:56Z'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-1234-mnop-qrst5678uvwx'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
