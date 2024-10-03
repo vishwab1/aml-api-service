@@ -1,5 +1,7 @@
-import { Op } from 'sequelize';
+import { Op, Optional } from 'sequelize';
 import { Content } from '../models/content';
+import { Status } from '../enums/status';
+import _ from 'lodash';
 
 // Get a media Content by ID
 export const getContentMediaById = async (getObject: { contentId: number; mediaIds: string[] }): Promise<any> => {
@@ -19,4 +21,81 @@ export const getContentMediaById = async (getObject: { contentId: number; mediaI
   });
 
   return mediaMetaData;
+};
+
+// Create a new content
+export const createContentData = async (req: Optional<any, string> | undefined): Promise<any> => {
+  const insertContent = await Content.create(req);
+  return insertContent.dataValues;
+};
+
+// Get a single Content by ID
+export const getContentById = async (id: string, additionalConditions: object = {}): Promise<any> => {
+  // Combine base conditions with additional conditions
+  const conditions = {
+    identifier: id,
+    ...additionalConditions,
+  };
+
+  const contentDetails = await Content.findOne({
+    where: conditions,
+    attributes: { exclude: ['id'] },
+  });
+
+  return contentDetails?.dataValues;
+};
+
+// Publish content by id
+export const publishContentById = async (id: string): Promise<any> => {
+  const contentDetails = await Content.update({ status: Status.LIVE }, { where: { identifier: id }, returning: true });
+  return { contentDetails };
+};
+
+// Update content by identifier
+export const updateContent = async (questionIdentifier: string, updatedata: any): Promise<any> => {
+  // Update the question in the database
+  return await Content.update(updatedata, {
+    where: { identifier: questionIdentifier },
+  });
+};
+
+// Delete content (soft delete) by identifier
+export const deleteContentByIdentifier = async (identifier: string): Promise<any> => {
+  const contentDetails = await Content.update({ is_active: false }, { where: { identifier }, returning: true });
+  return contentDetails;
+};
+
+// Discard content (hard delete) by identifier
+export const discardContentByIdentifier = async (identifier: string): Promise<any> => {
+  const content = await Content.destroy({
+    where: { identifier },
+  });
+
+  return content;
+};
+
+// Get a list of contents with optional filters and pagination
+export const getContentList = async (req: Record<string, any>) => {
+  const limit: any = _.get(req, 'limit');
+  const offset: any = _.get(req, 'offset');
+  const { filters = {} } = req || {};
+
+  const whereClause: any = {};
+
+  whereClause.status = Status.LIVE;
+  whereClause.is_active = true;
+
+  if (filters.name) {
+    whereClause.name = {
+      [Op.or]: filters.name.map((termObj: any) => {
+        const [key, value] = Object.entries(termObj)[0];
+        return {
+          [key]: { [Op.iLike]: `%${String(value)}%` },
+        };
+      }),
+    };
+  }
+
+  const contents = await Content.findAll({ limit: limit || 100, offset: offset || 0, ...(whereClause && { where: whereClause }), attributes: { exclude: ['id'] } });
+  return contents;
 };

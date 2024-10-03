@@ -1966,6 +1966,7 @@ CREATE TABLE IF NOT EXISTS process (
 CREATE TABLE IF NOT EXISTS content (
     id SERIAL PRIMARY KEY,
     process_id UUID,
+	content_id VARCHAR,
     identifier VARCHAR NOT NULL,
     name JSONB NOT NULL,
     description JSONB,
@@ -1975,7 +1976,7 @@ CREATE TABLE IF NOT EXISTS content (
     sub_skills JSONB,
     gradient VARCHAR,
     status VARCHAR CHECK (status IN ('draft', 'live')),
-    media JSONB,
+    media JSONB[],
     created_by VARCHAR NOT NULL,
     updated_by VARCHAR,
     is_active BOOLEAN NOT NULL,

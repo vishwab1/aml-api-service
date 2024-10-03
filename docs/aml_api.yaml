@@ -25,6 +25,8 @@ tags:
     description: APIs for managing Media
   - name: Question Set
     description: APIs for managing Question.
+  - name: Content
+    description: APIs for managing Content.
 paths:
   /master/create:
     post:
@@ -5742,6 +5744,1611 @@ paths:
                       resmsgid:
                         type: string
                         example: 'efgh5678-ijkl-1234-mnop-qrst5678uvwx'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/create:
+    post:
+      tags:
+        - Content
+      summary: Create new content
+      description: This API creates new content in the system with details such as name, description, tenant, taxonomy, skills, and media.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.content.create'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  example: '2024-09-13T12:00:00Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                request:
+                  type: object
+                  properties:
+                    name:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'content 1'
+                        ta:
+                          type: string
+                          example: 'உள்ளடக்கம் 1'
+                        te:
+                          type: string
+                          example: 'సమగ్రత 1'
+                    description:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'This is the description for the content'
+                        ta:
+                          type: string
+                          example: 'இது உள்ளடக்கத்திற்கான விளக்கம்'
+                        te:
+                          type: string
+                          example: 'ఈ కంటెంట్ కోసం వివరణ'
+                    tenant:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Karnataka'
+                    repository:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Question Repository'
+                    taxonomy:
+                      type: object
+                      properties:
+                        board:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Central Board of Secondary Education'
+                        class:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Class One'
+                        l1_skill:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Addition'
+                        l2_skill:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: '1-digit Addition'
+                        l3_skill:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: '2Dx1D with carry (non-zero digits)'
+                    sub_skills:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Geometry Basics'
+                    gradient:
+                      type: string
+                      example: 'g4'
+                    media:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          fileName:
+                            type: string
+                            example: 'Mcq_uplaod_image.png'
+                          mediaType:
+                            type: string
+                            example: 'Image'
+                          mimeType:
+                            type: string
+                            example: 'image/png'
+                          src:
+                            type: string
+                            example: 'media/content'
+      responses:
+        '200':
+          description: Content Created Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:30:51+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'f1051ab2-299b-4814-8b75-62838beee0cb'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Content Successfully Created'
+                      identifier:
+                        type: string
+                        example: 'bada12a2-de6d-4458-9a3c-340203241912'
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:30:51+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'abcd5678-1234-5678-9012-3456789abcd'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:30:51+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-9012-mnop-qrstuvwx5678'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/publish/{content_id}:
+    post:
+      tags:
+        - Content
+      summary: Publish content
+      description: This API publishes existing content by its identifier.
+      parameters:
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'bada12a2-de6d-4458-9a3c-340203241912'
+          description: The unique identifier of the content to be published.
+      responses:
+        '200':
+          description: Content Published Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:32:36+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: '6ca7c05b-48cb-47f5-bc8d-c01777b682a3'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Content successfully published'
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:32:36+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'abcd5678-1234-5678-9012-3456789abcd'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid content identifier'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:32:36+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-9012-mnop-qrstuvwx5678'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/read/{content_id}:
+    get:
+      tags:
+        - Content
+      summary: Read content by identifier
+      description: Fetch the details of content based on its unique identifier.
+      parameters:
+        - name: content_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'bada12a2-de6d-4458-9a3c-340203241912'
+          description: The unique identifier of the content to be retrieved.
+      responses:
+        '200':
+          description: Content Retrieved Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:36:52+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: 'ff1d7683-6356-49ed-b12b-989031c7a131'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      identifier:
+                        type: string
+                        example: 'bada12a2-de6d-4458-9a3c-340203241912'
+                      process_id:
+                        type: string
+                        example: 'e98b7d9b-f6b8-432f-8814-7906f44fb320'
+                      name:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'content 1'
+                          ta:
+                            type: string
+                            example: 'உள்ளடக்கம் 1'
+                          te:
+                            type: string
+                            example: 'సమగ్రత 1'
+                      description:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'This is the description for the content'
+                          ta:
+                            type: string
+                            example: 'இது உள்ளடக்கத்திற்கான விளக்கம்'
+                          te:
+                            type: string
+                            example: 'ఈ కంటెంట్ కోసం వివరణ'
+                      tenant:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Karnataka'
+                              ka:
+                                type: string
+                                example: 'ತಮಿಳುನಾಡು'
+                      repository:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 2
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Question Repository'
+                              ta:
+                                type: string
+                                example: 'கேள்வி நூலகம்'
+                              te:
+                                type: string
+                                example: 'ప్రశ్న రిపోజిటరీ'
+                      taxonomy:
+                        type: object
+                        properties:
+                          board:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Central Board of Secondary Education'
+                                  hi:
+                                    type: string
+                                    example: 'केंद्रीय माध्यमिक शिक्षा बोर्ड'
+                                  kn:
+                                    type: string
+                                    example: 'ಕೇಂದ್ರ ಮಾಧ್ಯಮಿಕ ಶಿಕ್ಷಣ ಮಂಡಳಿ'
+                          class:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 6
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Class One'
+                                  ka:
+                                    type: string
+                                    example: 'ಕ್ಲಾಸ್ ಒನ್'
+                          l1_skill:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Addition'
+                                  hi:
+                                    type: string
+                                    example: 'जोड़'
+                                  kn:
+                                    type: string
+                                    example: 'ಜೋಡಣೆ'
+                          l2_skill:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 5
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: '1-digit Addition'
+                                    hi:
+                                      type: string
+                                      example: '1-अंक जोड़'
+                                    kn:
+                                      type: string
+                                      example: '1-ಅಂಕದ ಜೋಡಣೆ'
+                          l3_skill:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 120
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: '2Dx1D with carry (non-zero digits)'
+                                    hi:
+                                      type: string
+                                      example: '2D x 1D कैरी के साथ (गैर-शून्य अंकों के साथ)'
+                      sub_skills:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 4
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Geometry Basics'
+                                ka:
+                                  type: string
+                                  example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+                      gradient:
+                        type: string
+                        example: 'g4'
+                      status:
+                        type: string
+                        example: 'live'
+                      media:
+                        type: object
+                        nullable: true
+                        example: null
+                      created_by:
+                        type: string
+                        example: 'manual'
+                      updated_by:
+                        type: string
+                        nullable: true
+                        example: null
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2024-10-03T04:30:51.402Z'
+                      updated_at:
+                        type: string
+                        example: '2024-10-03T04:32:36.506Z'
+        '400':
+          description: Bad Request - Invalid Input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:36:52+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'abcd5678-1234-5678-9012-3456789abcd'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid content identifier'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    example: '2024-10-03T15:36:52+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'efgh5678-ijkl-9012-mnop-qrstuvwx5678'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/search:
+    post:
+      tags:
+        - Content
+      summary: Search for content based on filters
+      description: This endpoint allows you to search for content using various filters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.content.search'
+                  description: The identifier of the API.
+                ver:
+                  type: string
+                  example: '1.0'
+                  description: The version of the API.
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-03T12:34:56Z'
+                  description: The timestamp of the request.
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                      description: Message ID for tracking the request.
+                request:
+                  type: object
+                  properties:
+                    filters:
+                      type: object
+                      properties:
+                        name:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'content'
+                                description: Content name filter in English.
+                    limit:
+                      type: integer
+                      example: 10
+                      description: Maximum number of results to return.
+                    offset:
+                      type: integer
+                      example: 0
+                      description: The starting point of the results.
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:40:50+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: '74980653-074a-4157-9e84-a0a812230bdd'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        identifier:
+                          type: string
+                          example: 'bada12a2-de6d-4458-9a3c-340203241912'
+                        process_id:
+                          type: string
+                          example: 'e98b7d9b-f6b8-432f-8814-7906f44fb320'
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'content 1'
+                            ta:
+                              type: string
+                              example: 'உள்ளடக்கம் 1'
+                            te:
+                              type: string
+                              example: 'సమగ్రత 1'
+                        description:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'This is the description for the content'
+                            ta:
+                              type: string
+                              example: 'இது உள்ளடக்கத்திற்கான விளக்கம்'
+                            te:
+                              type: string
+                              example: 'ఈ కంటెంట్ కోసం వివరణ'
+                        tenant:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Karnataka'
+                                ka:
+                                  type: string
+                                  example: 'ತಮಿಳುನಾಡು'
+                        repository:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Question Repository'
+                                ta:
+                                  type: string
+                                  example: 'கேள்வி நூலகம்'
+                                te:
+                                  type: string
+                                  example: 'ప్రశ్న రిపోజిటరీ'
+                        taxonomy:
+                          type: object
+                          properties:
+                            board:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 1
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: 'Central Board of Secondary Education'
+                                    hi:
+                                      type: string
+                                      example: 'केंद्रीय माध्यमिक शिक्षा बोर्ड'
+                                    kn:
+                                      type: string
+                                      example: 'ಕೇಂದ್ರ ಮಾಧ್ಯಮಿಕ ಶಿಕ್ಷಣ ಮಂಡಳಿ'
+                            class:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 6
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: 'Class One'
+                                    ka:
+                                      type: string
+                                      example: 'ಕ್ಲಾಸ್ ಒನ್'
+                            l1_skill:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                  example: 1
+                                name:
+                                  type: object
+                                  properties:
+                                    en:
+                                      type: string
+                                      example: 'Addition'
+                                    hi:
+                                      type: string
+                                      example: 'जोड़'
+                                    kn:
+                                      type: string
+                                      example: 'ಜೋಡಣೆ'
+                            l2_skill:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 5
+                                  name:
+                                    type: object
+                                    properties:
+                                      en:
+                                        type: string
+                                        example: '1-digit Addition'
+                                      hi:
+                                        type: string
+                                        example: '1-अंक जोड़'
+                                      kn:
+                                        type: string
+                                        example: '1-ಅಂಕದ ಜೋಡಣೆ'
+                            l3_skill:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 120
+                                  name:
+                                    type: object
+                                    properties:
+                                      en:
+                                        type: string
+                                        example: '2Dx1D with carry (non-zero digits)'
+                                      hi:
+                                        type: string
+                                        example: '2D x 1D कैरी के साथ (गैर-शून्य अंकों के साथ)'
+                        sub_skills:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 4
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Geometry Basics'
+                                  ka:
+                                    type: string
+                                    example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+                        gradient:
+                          type: string
+                          example: 'g4'
+                        status:
+                          type: string
+                          example: 'live'
+                        media:
+                          type: string
+                          nullable: true
+                          example: null
+                        created_by:
+                          type: string
+                          example: 'manual'
+                        updated_by:
+                          type: string
+                          nullable: true
+                          example: null
+                        is_active:
+                          type: boolean
+                          example: true
+                        content_id:
+                          type: string
+                          nullable: true
+                          example: null
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2024-10-03T04:30:51.402Z'
+                        updated_at:
+                          type: string
+                          format: date-time
+                          example: '2024-10-03T04:32:36.506Z'
+        '400':
+          description: Bad Request - Invalid Input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:40:50+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid search parameters'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:40:50+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+
+  /content/update/{content_id}:
+    post:
+      tags:
+        - Content
+      summary: Update content by ID
+      description: This endpoint allows you to update content based on its unique identifier.
+      parameters:
+        - in: path
+          name: content_id
+          required: true
+          description: The unique identifier of the content to update.
+          schema:
+            type: string
+            example: 'bada12a2-de6d-4458-9a3c-340203241912'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.content.create'
+                  description: The identifier of the API.
+                ver:
+                  type: string
+                  example: '1.0'
+                  description: The version of the API.
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-13T12:00:00Z'
+                  description: The timestamp of the request.
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                      description: Message ID for tracking the request.
+                request:
+                  type: object
+                  properties:
+                    name:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'content 2'
+                          description: Content name in English.
+                        ta:
+                          type: string
+                          example: 'உள்ளடக்கம் 1'
+                          description: Content name in Tamil.
+                        te:
+                          type: string
+                          example: 'సమగ్రత 1'
+                          description: Content name in Telugu.
+                    tenant:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Karnataka'
+                    repository:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Question Repository'
+                    taxonomy:
+                      type: object
+                      properties:
+                        board:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Central Board of Secondary Education'
+                        class:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Class One'
+                        l1_skill:
+                          type: object
+                          properties:
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Addition'
+      responses:
+        '200':
+          description: Successful content update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:41:37+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'e99772b4-2c23-4f13-96e3-8d9d24340048'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Content successfully updated'
+        '400':
+          description: Bad Request - Invalid Input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:41:37+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:41:37+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/delete/{content_id}:
+    post:
+      tags:
+        - Content
+      summary: Delete content by ID
+      description: This endpoint allows you to delete content based on its unique identifier.
+      parameters:
+        - in: path
+          name: content_id
+          required: true
+          description: The unique identifier of the content to delete.
+          schema:
+            type: string
+            example: 'bada12a2-de6d-4458-9a3c-340203241912'
+      responses:
+        '200':
+          description: Successful content deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:45:55+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: '11ebf8c1-34d8-4449-80e1-28a5ffb2d56a'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Content deleted successfully'
+        '400':
+          description: Bad Request - Invalid Content ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:45:55+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid content ID'
+        '404':
+          description: Not Found - Content ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:45:55+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'NOT_FOUND'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Content not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:45:55+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-789'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /content/discard/{content_id}:
+    post:
+      tags:
+        - Content
+      summary: Discard content by ID
+      description: This endpoint allows you to discard content based on its unique identifier.
+      parameters:
+        - in: path
+          name: content_id
+          required: true
+          description: The unique identifier of the content to discard.
+          schema:
+            type: string
+            example: 'bada12a2-de6d-4458-9a3c-340203241912'
+      responses:
+        '200':
+          description: Successful content discard
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:49:33+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: 'd9ad25d2-0230-4d73-a1c7-afa6dc5f1c3e'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Content discarded successfully'
+        '400':
+          description: Bad Request - Invalid Content ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:49:33+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid content ID'
+        '404':
+          description: Not Found - Content ID does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:49:33+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'NOT_FOUND'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Content not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.content.discard'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T15:49:33+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-789'
                   responseCode:
                     type: string
                     example: 'SERVER_ERROR'

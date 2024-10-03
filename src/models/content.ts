@@ -19,7 +19,7 @@ export const Content = AppDataSource.define(
     },
     content_id: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: DataTypes.JSONB,
@@ -54,8 +54,8 @@ export const Content = AppDataSource.define(
       allowNull: false,
     },
     media: {
-      type: DataTypes.JSONB,
-      allowNull: false,
+      type: DataTypes.ARRAY(DataTypes.JSONB),
+      allowNull: true,
     },
     created_by: {
       type: DataTypes.STRING,
