@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 // Get a media Content by ID
 export const getContentMediaById = async (getObject: { contentId: number; mediaIds: string[] }): Promise<any> => {
-  const whereClause: any = { id: getObject.contentId };
+  const whereClause: any = { identifier: getObject.contentId };
   if (getObject.mediaIds) {
     const mediaConditions = getObject.mediaIds.map((id) => ({ id }));
 
