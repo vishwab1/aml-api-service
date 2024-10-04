@@ -24,9 +24,6 @@
     "request": {
       "type": "object",
       "properties": {
-        "content_id": {
-          "type": "string"
-        },
         "name": {
           "type": "object",
           "description": "The name of the content in multiple languages.",
