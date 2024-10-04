@@ -25,8 +25,8 @@
       "type": "object",
       "properties": {
         "contentId": {
-          "type": "number",
-          "description": "Id of the content"
+          "type": "string",
+          "description": "Identifier of the content"
         },
         "mediaIds": {
           "type": "array",
