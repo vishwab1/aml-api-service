@@ -1,4 +1,4 @@
-import { Optional } from 'sequelize';
+import { Op, Optional } from 'sequelize';
 import * as _ from 'lodash';
 import { Question } from '../models/question';
 import { Status } from '../enums/status';
@@ -67,4 +67,25 @@ export const getQuestionList = async (req: Record<string, any>) => {
   filters.status = Status.LIVE;
   const questions = await Question.findAll({ limit: limit || 100, offset: offset || 0, ...(filters && { where: filters }), attributes: { exclude: ['id'] }, raw: true });
   return questions;
+};
+
+export const getQuestionsByIdentifiers = async (identifiers: string[]): Promise<any> => {
+  return Question.findAll({
+    where: {
+      identifier: {
+        [Op.in]: identifiers,
+      },
+    },
+    attributes: { exclude: ['id'] },
+    raw: true,
+  });
+};
+
+export const getQuestionsCountForQuestionSet = async (questionSetId: string): Promise<number> => {
+  return Question.count({
+    where: {
+      question_set_id: questionSetId,
+      status: Status.LIVE,
+    },
+  });
 };

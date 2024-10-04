@@ -129,3 +129,15 @@ export const getQuestionSetList = async (req: Record<string, any>) => {
 
   return questionSets;
 };
+
+export const getQuestionSetsByIdentifiers = async (identifiers: string[]): Promise<any> => {
+  return QuestionSet.findAll({
+    where: {
+      identifier: {
+        [Op.in]: identifiers,
+      },
+    },
+    attributes: { exclude: ['id'] },
+    raw: true,
+  });
+};
