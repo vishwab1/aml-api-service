@@ -33,6 +33,13 @@ import updateQuestionSetById from '../controllers/questionSetUpdate/questionSetU
 import deleteQuestionSetById from '../controllers/questionSetDelete/questionSetDelete';
 import discardQuestionSetById from '../controllers/questionSetDiscard/questionSetDiscard';
 import { searchQuestionSets } from '../controllers/questionSetSearch/questionSetSearch';
+import createContent from '../controllers/contentCreate/contentCreate';
+import contentReadById from '../controllers/contentRead/contentRead';
+import publishContent from '../controllers/contentPublish/contentPublish';
+import contentUpdate from '../controllers/contentUpdate/contentUpdate';
+import deleteContentById from '../controllers/contentDelete/contentDelete';
+import { searchContents } from '../controllers/contentSearch/contentSearch';
+import discardContentById from '../controllers/contentDiscard/contentDiscard';
 
 export const router = express.Router();
 
@@ -101,3 +108,17 @@ router.post('/question-set/delete/:question_set_id', setDataToRequestObject('api
 router.post('/question-set/discard/:question_set__id', setDataToRequestObject('api.questionSet.discard'), discardQuestionSetById);
 
 router.post('/question-set/search', setDataToRequestObject('api.questionSet.search'), searchQuestionSets);
+
+router.post('/content/create', setDataToRequestObject('api.content.create'), createContent);
+
+router.get('/content/read/:content_id', setDataToRequestObject('api.content.read'), contentReadById);
+
+router.post('/content/publish/:content_id', setDataToRequestObject('api.content.publish'), publishContent);
+
+router.post('/content/update/:content_id', setDataToRequestObject('api.content.update'), contentUpdate);
+
+router.post('/content/delete/:content_id', setDataToRequestObject('api.content.delete'), deleteContentById);
+
+router.post('/content/discard/:content_id', setDataToRequestObject('api.content.discard'), discardContentById);
+
+router.post('/content/search', setDataToRequestObject('api.content.search'), searchContents);

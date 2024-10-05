@@ -594,7 +594,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.questionSet.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n        \"title\":[{\"en\": \"Question Set 1\"}],\n        \"question_type\":[\"Mcq\"]\n    \n\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "raw": "{\n  \"id\": \"api.questionSet.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n        \"question_type\":[\"Grid-1\"]\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -602,6 +602,101 @@
               }
             },
             "url": "http://localhost:3001/api/v1/question-set/search"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.content.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"content 1\",\n      \"ta\": \"உள்ளடக்கம் 1\",\n      \"te\": \"సమగ్రత 1\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the content\",\n      \"ta\": \"இது உள்ளடக்கத்திற்கான விளக்கம்\",\n      \"te\": \"ఈ కంటెంట్ కోసం వివరణ\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"gradient\": \"g4\",\n    \"media\": [\n      {\n        \"fileName\": \"Mcq_uplaod_image.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      },\n      {\n        \"fileName\": \"Mcq_uplaod_image1.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/content/create"
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.content.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"content 2\",\n      \"ta\": \"உள்ளடக்கம் 1\",\n      \"te\": \"సమగ్రత 1\"\n    },\n\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/content/update/f1fe7d73-2d3d-4b7f-b1c1-82d2cb7c4c4b"
+          },
+          "response": []
+        },
+        {
+          "name": "publish",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/content/publish/bada12a2-de6d-4458-9a3c-340203241912"
+          },
+          "response": []
+        },
+        {
+          "name": "discard",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/content/discard/f1fe7d73-2d3d-4b7f-b1c1-82d2cb7c4c4b"
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/content/delete/b78069c5-c381-4ce1-9f21-8ff934f93512"
+          },
+          "response": []
+        },
+        {
+          "name": "read",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/content/read/93063adf-a273-46b0-b49d-64af6920cc7f"
+          },
+          "response": []
+        },
+        {
+          "name": "search",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.content.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n  \n        \"name\":[{\"en\":\"cont\"}]\n\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/content/search"
           },
           "response": []
         }
