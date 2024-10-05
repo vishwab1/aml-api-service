@@ -1922,28 +1922,29 @@ CREATE TABLE repository (
   identifier VARCHAR NOT NULL,
   description JSONB,
   tenant JSONB,
-  sub_skills JSONB,
   status VARCHAR(10) NOT NULL CHECK (status IN ('draft', 'live')), 
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_by VARCHAR NOT NULL,
+  updated_by VARCHAR,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO repository (name, identifier, description, status, is_active)
+INSERT INTO repository (name, identifier, description, tenant, status, is_active, created_by)
 VALUES (
   '{
-    "en": "Question Repository",
-    "ta": "கேள்வி நூலகம்",
-    "te": "ప్రశ్న రిపోజిటరీ"
+    "en": "Question Repository"
   }',
   'd8d0b0b7-5938-42e2-8393-001919b140c2',  -- Replace with a unique identifier
   '{
-    "en": "This repository contains various question types.",
-    "ta": "இந்த நூலகம் பல்வேறு கேள்வி வகைகளை கொண்டுள்ளது.",
-    "te": "ఈ రిపోజిటరీలో వివిధ ప్రశ్నల రకాలున్నాయి."
+    "en": "This repository contains various question types."
   }',
+   '{
+     "en":"Karnataka"
+    }',
   'live',  -- Status can be 'draft' or 'live'
-  TRUE
+  TRUE,
+  'user123'
 );
 
 CREATE TABLE IF NOT EXISTS process (
@@ -1976,7 +1977,7 @@ CREATE TABLE IF NOT EXISTS content (
     taxonomy JSONB NOT NULL,
     sub_skills JSONB,
     gradient VARCHAR,
-    status VARCHAR(10) NOT NULL CHECK (status IN ('draft', 'live')),
+    status VARCHAR(10) NOT NULL CHECK (status IN ('draft', 'live')), 
     media JSONB,
     created_by VARCHAR NOT NULL,
     updated_by VARCHAR,
@@ -2001,7 +2002,7 @@ CREATE TABLE IF NOT EXISTS content_stage (
     sub_skills VARCHAR[],
     gradient VARCHAR,
     media_files JSONB,
-    status ENUM('progress', 'errored', 'success'),
+	status VARCHAR(10) CHECK (status IN ('progress', 'errored', 'success')), 
     error_info JSON,
     created_by VARCHAR NOT NULL,
     updated_by VARCHAR,
@@ -2031,7 +2032,7 @@ CREATE TABLE IF NOT EXISTS question_set_stage (
     group_name VARCHAR,
     instruction_media VARCHAR[],
     instruction_text VARCHAR,
-    status ENUM('progress', 'errored', 'success'),
+	status VARCHAR(10) CHECK (status IN ('progress', 'errored', 'success')), 
     error_info JSON,
     created_by VARCHAR NOT NULL,
     updated_by VARCHAR,
@@ -2054,7 +2055,7 @@ CREATE TABLE IF NOT EXISTS question (
     taxonomy JSONB NOT NULL,
     gradient VARCHAR,
     hints JSONB,
-    status ENUM('draft', 'live') NOT NULL,
+    status VARCHAR(10) NOT NULL CHECK (status IN ('draft', 'live')), 
     media JSONB,
     question_body JSONB NOT NULL,
     sub_skills JSONB,
@@ -2068,6 +2069,7 @@ CREATE TABLE IF NOT EXISTS question (
 CREATE TABLE IF NOT EXISTS question_stage (
     id SERIAL PRIMARY KEY,
     process_id UUID NOT NULL,
+    question_id VARCHAR,
     question_text VARCHAR,
     question_set_id VARCHAR,
     sequence INTEGER NOT NULL,
@@ -2089,7 +2091,7 @@ CREATE TABLE IF NOT EXISTS question_stage (
     sub_skill_x_plus_0 VARCHAR[],
     sub_skill_x_plus_x VARCHAR[],
     media_files JSONB,
-    status VARCHAR CHECK (status IN ('progress', 'errored', 'success')),
+	status VARCHAR(10) CHECK (status IN ('progress', 'errored', 'success')), 
     error_info JSON,
     created_by VARCHAR NOT NULL,
     updated_by VARCHAR,

@@ -21,10 +21,6 @@ export const Repository = AppDataSource.define(
       type: DataTypes.JSONB,
       allowNull: true,
     },
-    sub_skills: {
-      type: DataTypes.JSONB,
-      allowNull: true,
-    },
     tenant: {
       type: DataTypes.JSONB,
       allowNull: true,
@@ -37,6 +33,14 @@ export const Repository = AppDataSource.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
+    },
+    created_by: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    updated_by: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {

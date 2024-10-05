@@ -40,6 +40,13 @@ import contentUpdate from '../controllers/contentUpdate/contentUpdate';
 import deleteContentById from '../controllers/contentDelete/contentDelete';
 import { searchContents } from '../controllers/contentSearch/contentSearch';
 import discardContentById from '../controllers/contentDiscard/contentDiscard';
+import createRepository from '../controllers/repositoryCreate/repositoryCreate';
+import repositoryReadById from '../controllers/repositoryRead/repositoryRead';
+import publishRepository from '../controllers/repositoryPublish/repositoryPublish';
+import repositoryUpdate from '../controllers/repositoryUpdate/repositoryUpdate';
+import deleteRepositoryById from '../controllers/repositoryDelete/repositoryDelete';
+import discardRepositoryById from '../controllers/repositoryDiscard/repositoryDiscard';
+import { searchRepositories } from '../controllers/repositorySearch/repositorySearch';
 
 export const router = express.Router();
 
@@ -122,3 +129,17 @@ router.post('/content/delete/:content_id', setDataToRequestObject('api.content.d
 router.post('/content/discard/:content_id', setDataToRequestObject('api.content.discard'), discardContentById);
 
 router.post('/content/search', setDataToRequestObject('api.content.search'), searchContents);
+
+router.post('/repository/create', setDataToRequestObject('api.repository.create'), createRepository);
+
+router.get('/repository/read/:repository_id', setDataToRequestObject('api.repository.read'), repositoryReadById);
+
+router.post('/repository/publish/:repository_id', setDataToRequestObject('api.repository.publish'), publishRepository);
+
+router.post('/repository/update/:repository_id', setDataToRequestObject('api.repository.update'), repositoryUpdate);
+
+router.post('/repository/delete/:repository_id', setDataToRequestObject('api.repository.delete'), deleteRepositoryById);
+
+router.post('/repository/discard/:repository_id', setDataToRequestObject('api.repository.discard'), discardRepositoryById);
+
+router.post('/repository/search', setDataToRequestObject('api.repository.search'), searchRepositories);

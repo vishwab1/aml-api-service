@@ -16,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.tenant.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"Tamil Nadu\",\n      \"ka\": \"ತಮಿಳುನಾಡು\"\n    },\n    \"type\": {\n      \"en\": \"Education\",\n      \"ka\": \"ಶಿಕ್ಷಣ\"\n    },\n    \"board_id\": [1]\n  }\n}\n",
+              "raw": "{\n  \"id\": \"api.tenant.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"Karnataka\",\n      \"hi\": \"कर्नाटका\"\n    },\n    \"type\": {\n      \"en\": \"Education\",\n      \"hi\": \"शिक्षा\"\n    },\n    \"board_id\": [1]\n  }\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -291,7 +291,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.question.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"aa083e25-09a6-4e52-95d5-1e780906d886\"\n  },\n  \"request\": {\n    \"question_set_id\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\",\n    \"question_type\": \"Mcq\",\n    \"operation\": \"Addition\",\n    \"name\": {\n      \"en\": \"This is a question for Division\",\n      \"ka\": \"ಇದು ವಿಭಜನೆಯ ಪ್ರಶ್ನೆ\",\n      \"hi\": \"यह विभाजन के लिए प्रश्न है\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the question\"\n    },\n    \"sequence_no\":1,\n    \"hints\": {\n      \"en\": [\n        \"This is a hint for the question\"\n      ]\n    },\n    \"tenant\": {\n     \"name\": {\"en\":\"Tamil Nadu\"}\n    },\n    \"repository\": {\n      \"name\": {\n\"en\": \"Question Repository\"\n\n}\n    },\n    \"taxonomy\": {\n      \"board\": {\"name\":{\"en\": \"Central Board of Secondary Education\"}},\n      \"class\": {\"name\":{\"en\":\"Class One\"}},\n      \"l1_skill\": {\"name\":{\"en\":\"Addition\"}} ,\n      \"l2_skill\": [{\"name\":{\"en\":\"1-digit Addition\"}}] ,\n       \"l3_skill\": [{\"name\":{\"en\":\"2Dx1D with carry (non-zero digits)\"}}]\n    },\n    \"gradient\": \"g4\",\n    \"benchmark_time\":40,\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"media\": [{\n      \"fileName\": \"Mcq_uplaod_image.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    },\n{\n      \"fileName\": \"Mcq_uplaod_image1.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    }\n],\n\n  \"question_body\": {\n            \"options\": {\n                \"mcq_question_image\": \"image_url.jpg\"\n            },\n            \"correct_option\": \"Option A\",\n            \"wrongAnswers\": [\n                {\n                    \"carry\": [\n                        12,\n                        2\n                    ]\n                }\n            ]\n        }\n  }\n}\n",
+              "raw": "{\n  \"id\": \"api.question.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"aa083e25-09a6-4e52-95d5-1e780906d886\"\n  },\n  \"request\": {\n    \"question_set_id\": \"dd3ee947-a88d-4fba-90a8-035ea7faeb1a\",\n    \"question_type\": \"Mcq\",\n    \"operation\": \"Addition\",\n    \"name\": {\n      \"en\": \"This is a question for Division\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the question\"\n    },\n    \"sequence_no\":1,\n    \"hints\": {\n      \"en\": [\n        \"This is a hint for the question\"\n      ]\n    },\n    \"tenant\": {\n     \"name\": {\"en\":\"Karnataka\"}\n    },\n    \"repository\": {\n      \"name\": {\n\"en\": \"Question Repository\"\n\n}\n    },\n    \"taxonomy\": {\n      \"board\": {\"name\":{\"en\": \"Central Board of Secondary Education\"}},\n      \"class\": {\"name\":{\"en\":\"one\"}},\n      \"l1_skill\": {\"name\":{\"en\":\"Addition\"}} ,\n      \"l2_skill\": [{\"name\":{\"en\":\"1-digit Addition\"}}] ,\n       \"l3_skill\": [{\"name\":{\"en\":\"2Dx1D with carry (non-zero digits)\"}}]\n    },\n    \"gradient\": \"g4\",\n    \"benchmark_time\":40,\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"media\": [{\n      \"fileName\": \"Mcq_uplaod_image.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    },\n{\n      \"fileName\": \"Mcq_uplaod_image1.png\",\n      \"mediaType\": \"Image\",\n      \"mimeType\": \"image/png\",\n      \"src\": \"media/content\"\n    }\n],\n\n  \"question_body\": {\n            \"options\": {\n                \"mcq_question_image\": \"image_url.jpg\"\n            },\n            \"correct_option\": \"Option A\",\n            \"wrongAnswers\": [\n                {\n                    \"carry\": [\n                        12,\n                        2\n                    ]\n                }\n            ]\n        }\n  }\n}\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -495,7 +495,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.questionSet.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\"\n  },\n  \"request\": {\n    \"title\": {\n      \"en\": \"Question Set 3\"\n    },\n    \"description\": {\n      \"en\": \"This is a question description\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"sequence\": 1,\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"content_id\":[\"b68dc3a5-f37f-4d69-b4f3-555408c2fab8\"],\n    \"purpose\": \"Practice\",\n    \"is_atomic\": false,\n    \"gradient\": \"g1\",\n    \"group_name\": 1,\n    \"instruction_text\": \"text\"\n  }\n}",
+              "raw": "{\n  \"id\": \"api.questionSet.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"b68dc3a5-f37f-4d69-b4f3-555408c2fab2\"\n  },\n  \"request\": {\n    \"title\": {\n      \"en\": \"Question Set 1\"\n    },\n    \"description\": {\n      \"en\": \"This is a question description\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"sequence\": 1,\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"one\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"content_id\":[\"b68dc3a5-f37f-4d69-b4f3-555408c2fab8\"],\n    \"purpose\": \"Practice\",\n    \"is_atomic\": false,\n    \"gradient\": \"g1\",\n    \"group_name\": 1,\n    \"instruction_text\": \"text\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -617,7 +617,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"id\": \"api.content.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"content 1\",\n      \"ta\": \"உள்ளடக்கம் 1\",\n      \"te\": \"సమగ్రత 1\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the content\",\n      \"ta\": \"இது உள்ளடக்கத்திற்கான விளக்கம்\",\n      \"te\": \"ఈ కంటెంట్ కోసం వివరణ\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"Class One\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"gradient\": \"g4\",\n    \"media\": [\n      {\n        \"fileName\": \"Mcq_uplaod_image.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      },\n      {\n        \"fileName\": \"Mcq_uplaod_image1.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      }\n    ]\n  }\n}",
+              "raw": "{\n  \"id\": \"api.content.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"content 1\"\n    },\n    \"description\": {\n      \"en\": \"This is the description for the content\"\n    },\n    \"tenant\": {\n      \"name\": {\n        \"en\": \"Karnataka\"\n      }\n    },\n    \"repository\": {\n      \"name\": {\n        \"en\": \"Question Repository\"\n      }\n    },\n    \"taxonomy\": {\n      \"board\": {\n        \"name\": {\n          \"en\": \"Central Board of Secondary Education\"\n        }\n      },\n      \"class\": {\n        \"name\": {\n          \"en\": \"one\"\n        }\n      },\n      \"l1_skill\": {\n        \"name\": {\n          \"en\": \"Addition\"\n        }\n      },\n      \"l2_skill\": [\n        {\n          \"name\": {\n            \"en\": \"1-digit Addition\"\n          }\n        }\n      ],\n      \"l3_skill\": [\n        {\n          \"name\": {\n            \"en\": \"2Dx1D with carry (non-zero digits)\"\n          }\n        }\n      ]\n    },\n    \"sub_skills\": [\n      {\n        \"name\": {\n          \"en\": \"Geometry Basics\"\n        }\n      }\n    ],\n    \"gradient\": \"g4\",\n    \"media\": [\n      {\n        \"fileName\": \"Mcq_uplaod_image.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      },\n      {\n        \"fileName\": \"Mcq_uplaod_image1.png\",\n        \"mediaType\": \"Image\",\n        \"mimeType\": \"image/png\",\n        \"src\": \"media/content\"\n      }\n    ]\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -642,7 +642,7 @@
                 }
               }
             },
-            "url": "http://localhost:3001/api/v1/content/update/f1fe7d73-2d3d-4b7f-b1c1-82d2cb7c4c4b"
+            "url": "http://localhost:3001/api/v1/content/update/bada12a2-de6d-4458-9a3c-340203241912"
           },
           "response": []
         },
@@ -660,7 +660,7 @@
           "request": {
             "method": "POST",
             "header": [],
-            "url": "http://localhost:3001/api/v1/content/discard/f1fe7d73-2d3d-4b7f-b1c1-82d2cb7c4c4b"
+            "url": "http://localhost:3001/api/v1/content/discard/bada12a2-de6d-4458-9a3c-340203241912"
           },
           "response": []
         },
@@ -669,7 +669,7 @@
           "request": {
             "method": "POST",
             "header": [],
-            "url": "http://localhost:3001/api/v1/content/delete/b78069c5-c381-4ce1-9f21-8ff934f93512"
+            "url": "http://localhost:3001/api/v1/content/delete/bada12a2-de6d-4458-9a3c-340203241912"
           },
           "response": []
         },
@@ -697,6 +697,101 @@
               }
             },
             "url": "http://localhost:3001/api/v1/content/search"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "repository",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.repository.create\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n  \"en\": \"Question Repository\"\n\n},\n    \"description\": {\n      \"en\": \"This repository contains various Question types.\"\n    },\n        \"tenant\": {\n     \"name\": {\"en\":\"Karnataka\"}\n    }\n\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/repository/create"
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.repository.update\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-13T12:00:00Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"name\": {\n      \"en\": \"Content Repository\"\n    },\n    \"description\": {\n      \"en\": \"This repository contains various content types1.\",\n      \"ta\": \"இந்த நூலகம் பல்வேறு உள்ளடக்க வகைகளை கொண்டுள்ளது.\",\n      \"te\": \"ఈ రిపోజిటరీలో వివిధ కంటెంట్ రకాలున్నాయి.\"\n    }\n\n  }\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/repository/update/4d43c58c-8232-4ea4-8ae5-4a2732bab1be"
+          },
+          "response": []
+        },
+        {
+          "name": "publish",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/repository/publish/4d43c58c-8232-4ea4-8ae5-4a2732bab1be"
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/repository/delete/4d43c58c-8232-4ea4-8ae5-4a2732bab1be"
+          },
+          "response": []
+        },
+        {
+          "name": "discard",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/repository/discard/4d43c58c-8232-4ea4-8ae5-4a2732bab1be"
+          },
+          "response": []
+        },
+        {
+          "name": "read",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:3001/api/v1/repository/read/4d43c58c-8232-4ea4-8ae5-4a2732bab1be"
+          },
+          "response": []
+        },
+        {
+          "name": "search",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"api.repository.search\",\n  \"ver\": \"1.0\",\n  \"ts\": \"2024-09-03T12:34:56Z\",\n  \"params\": {\n    \"msgid\": \"123e4567-e89b-12d3-a456-426614174000\"\n  },\n  \"request\": {\n    \"filters\": {\n        \"name\":[{\"en\":\"Conten\"}]\n\n    },\n    \"limit\": 10,\n    \"offset\": 0\n}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3001/api/v1/repository/search"
           },
           "response": []
         }
