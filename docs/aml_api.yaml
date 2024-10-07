@@ -3,7 +3,11 @@ info:
   version: 1.0.0
   title: AML Service APIs
   description: API for managing master data like board, class, and subskills.
-
+servers:
+  - url: http://localhost:3001/api/v1
+    description: Local server
+  - url: https://api.example.com
+    description: Production server
 tags:
   - name: Master
     description: APIs for managing master data (board, class, and subskills).
@@ -24,9 +28,11 @@ tags:
   - name: media
     description: APIs for managing Media
   - name: Question Set
-    description: APIs for managing Question.
+    description: APIs for managing Question Set.
   - name: Content
     description: APIs for managing Content.
+  - name: Repository
+    description: APIs for managing Repository.
 paths:
   /master/create:
     post:
@@ -2277,7 +2283,6 @@ paths:
                 err:
                   err: 'TENANT_UPDATE_FAILURE'
                   errmsg: 'Error in tenant update'
-
   /tenant/read/{tenant_id}:
     get:
       tags:
@@ -4270,7 +4275,6 @@ paths:
                 err:
                   err: null
                   errmsg: null
-
   /media/get/presigned-url:
     post:
       tags:
@@ -6825,7 +6829,6 @@ paths:
                       error:
                         type: string
                         example: 'An unexpected error occurred'
-
   /content/update/{content_id}:
     post:
       tags:
@@ -7349,6 +7352,1070 @@ paths:
                       resmsgid:
                         type: string
                         example: 'error-resmsgid-789'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /repository/create:
+    post:
+      tags:
+        - Repository
+      summary: Create a new repository
+      description: This endpoint allows you to create a new content repository with specified details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.repository.create'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-13T12:00:00Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                request:
+                  type: object
+                  properties:
+                    name:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'Content Repository'
+                        ka:
+                          type: string
+                          example: 'ಕಂಟೆಂಟ್ ರಿಪೊಸಿಟರಿ'
+                    description:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'This repository contains various Content types.'
+                        ka:
+                          type: string
+                          example: 'ಈ ರಿಪೊಸಿಟರಿಯಲ್ಲಿ ವಿವಿಧ ಕಂಟೆಂಟ್ ಪ್ರಕಾರಗಳಿವೆ.'
+                    tenant:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Karnataka'
+                            ka:
+                              type: string
+                              example: 'ಕರ್ನಾಟಕ'
+                    sub_skills:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Geometry Basics'
+                              ka:
+                                type: string
+                                example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+      responses:
+        '200':
+          description: Successful repository creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T16:58:06+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: '62f05d04-85a8-4113-848a-5e0db190eae4'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Repository Successfully Created'
+                      identifier:
+                        type: string
+                        example: 'e172bc7e-9247-43fa-bff1-30fa78eb280e'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T16:58:06+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.create'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T16:58:06+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /repository/publish/{repository_id}:
+    post:
+      tags:
+        - Repository
+      summary: Publish an existing repository
+      description: This endpoint allows you to publish a content repository using its identifier.
+      parameters:
+        - name: repository_id
+          in: path
+          required: true
+          description: The unique identifier of the repository to be published
+          schema:
+            type: string
+            example: 'e172bc7e-9247-43fa-bff1-30fa78eb280e'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.repository.publish'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-10-03T17:00:53+05:30'
+                params:
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: 'SUCCESS'
+                    resmsgid:
+                      type: string
+                      example: 'c55bfd81-6dc5-4f0c-a9c6-3a1b3fbe24dc'
+      responses:
+        '200':
+          description: Successful repository publishing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:00:53+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: 'c55bfd81-6dc5-4f0c-a9c6-3a1b3fbe24dc'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Repository Successfully Published'
+        '404':
+          description: Not Found - Repository does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:00:53+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'NOT_FOUND'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Repository not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.publish'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:00:53+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /repository/read/{repository_id}:
+    get:
+      tags:
+        - Repository
+      summary: Read an existing repository
+      description: This endpoint allows you to read details of a content repository using its identifier.
+      parameters:
+        - name: repository_id
+          in: path
+          required: true
+          description: The unique identifier of the repository to be read
+          schema:
+            type: string
+            example: 'e172bc7e-9247-43fa-bff1-30fa78eb280e'
+      responses:
+        '200':
+          description: Successful repository read
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:05:42+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      resmsgid:
+                        type: string
+                        example: '49e11cc3-874e-47f4-9c60-4466ebddccaf'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      name:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'Content Repository'
+                          ta:
+                            type: string
+                            example: 'கேள்வி நூலகம்'
+                          te:
+                            type: string
+                            example: 'ప్రశ్న రిపోజిటరీ'
+                      identifier:
+                        type: string
+                        example: 'e172bc7e-9247-43fa-bff1-30fa78eb280e'
+                      description:
+                        type: object
+                        properties:
+                          en:
+                            type: string
+                            example: 'This repository contains various Content types.'
+                          ta:
+                            type: string
+                            example: 'இந்த நூலகம் பல்வேறு உள்ளடக்க வகைகளை கொண்டுள்ளது.'
+                          te:
+                            type: string
+                            example: 'ఈ రిపోజిటరీలో వివిధ కంటెంట్ రకాలున్నాయి.'
+                      sub_skills:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 4
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Geometry Basics'
+                                ka:
+                                  type: string
+                                  example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+                      tenant:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Karnataka'
+                              ka:
+                                type: string
+                                example: 'ತಮಿಳುನಾಡು'
+                      status:
+                        type: string
+                        example: 'live'
+                      is_active:
+                        type: boolean
+                        example: true
+                      created_by:
+                        type: string
+                        example: 'manual'
+                      updated_by:
+                        type: string
+                        nullable: true
+                        example: null
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: '2024-10-03T11:28:06.960Z'
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: '2024-10-03T11:30:53.929Z'
+        '404':
+          description: Not Found - Repository does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:05:42+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'NOT_FOUND'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Repository not found'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.read'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-03T17:05:42+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /repository/update/{repository_id}:
+    post:
+      tags:
+        - Repository
+      summary: Update an existing repository
+      description: This endpoint allows you to update the details of an existing repository.
+      parameters:
+        - name: repository_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '6fe20f63-b810-49ec-9338-62ffc16a651e'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.repository.update'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-13T12:00:00Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                request:
+                  type: object
+                  properties:
+                    name:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'Content Repository'
+                    description:
+                      type: object
+                      properties:
+                        en:
+                          type: string
+                          example: 'This repository contains various content types1.'
+                        ta:
+                          type: string
+                          example: 'இந்த நூலகம் பல்வேறு உள்ளடக்க வகைகளை கொண்டுள்ளது.'
+                        te:
+                          type: string
+                          example: 'ఈ రిపోజిటరీలో వివిధ కంటెంట్ రకాలున్నాయి.'
+                    sub_skills:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Geometry Basics'
+      responses:
+        '200':
+          description: Successful repository update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'd91540b5-e3c9-4395-a205-802136140829'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Repository successfully updated'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.update'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+  /repository/delete/{repository_id}:
+    post:
+      tags:
+        - Repository
+      summary: Permanently delete a repository
+      description: This endpoint allows you to permanently delete an existing repository.
+      parameters:
+        - name: repository_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: '6fe20f63-b810-49ec-9338-62ffc16a651e'
+      responses:
+        '200':
+          description: Successful repository deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: 'd91540b5-e3c9-4395-a205-802136140829'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Repository successfully deleted'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid repository ID'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.delete'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:36:11+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
+                  responseCode:
+                    type: string
+                    example: 'SERVER_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'An unexpected error occurred'
+
+  /api/v1/repository/search:
+    post:
+      tags:
+        - Repository
+      summary: Search repositories
+      description: This endpoint allows searching repositories based on filters like name, with support for pagination.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 'api.repository.search'
+                ver:
+                  type: string
+                  example: '1.0'
+                ts:
+                  type: string
+                  format: date-time
+                  example: '2024-09-03T12:34:56Z'
+                params:
+                  type: object
+                  properties:
+                    msgid:
+                      type: string
+                      example: '123e4567-e89b-12d3-a456-426614174000'
+                request:
+                  type: object
+                  properties:
+                    filters:
+                      type: object
+                      properties:
+                        name:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              en:
+                                type: string
+                                example: 'Content Repository'
+                    limit:
+                      type: integer
+                      example: 10
+                    offset:
+                      type: integer
+                      example: 0
+      responses:
+        '200':
+          description: Successful repository search
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:53:40+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'SUCCESS'
+                      msgid:
+                        type: string
+                        example: '123e4567-e89b-12d3-a456-426614174000'
+                      resmsgid:
+                        type: string
+                        example: '5ca70ac6-5d75-429e-9089-d47fd6da5186'
+                  responseCode:
+                    type: string
+                    example: 'OK'
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'Content Repository'
+                        identifier:
+                          type: string
+                          example: 'b9537216-dc68-4f87-862d-bb08c21bbbec'
+                        description:
+                          type: object
+                          properties:
+                            en:
+                              type: string
+                              example: 'This repository contains various content types1.'
+                            ta:
+                              type: string
+                              example: 'இந்த நூலகம் பல்வேறு உள்ளடக்க வகைகளை கொண்டுள்ளது.'
+                            te:
+                              type: string
+                              example: 'ఈ రిపోజిటరీలో వివిధ కంటెంట్ రకాలున్నాయి.'
+                        sub_skills:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 4
+                              name:
+                                type: object
+                                properties:
+                                  en:
+                                    type: string
+                                    example: 'Geometry Basics'
+                                  ka:
+                                    type: string
+                                    example: 'ಜ್ಯಾಮಿತಿ ಮೂಲಭೂತಗಳು'
+                        tenant:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            name:
+                              type: object
+                              properties:
+                                en:
+                                  type: string
+                                  example: 'Karnataka'
+                                hi:
+                                  type: string
+                                  example: 'कर्नाटका'
+                        status:
+                          type: string
+                          example: 'live'
+                        is_active:
+                          type: boolean
+                          example: true
+                        created_by:
+                          type: string
+                          example: 'manual'
+                        updated_by:
+                          type: string
+                          nullable: true
+                          example: null
+                        created_at:
+                          type: string
+                          format: date-time
+                          example: '2024-10-04T05:44:31.692Z'
+                        updated_at:
+                          type: string
+                          format: date-time
+                          example: '2024-10-04T07:06:11.975Z'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:53:40+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-123'
+                  responseCode:
+                    type: string
+                    example: 'CLIENT_ERROR'
+                  result:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: 'Invalid input data'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 'api.repository.search'
+                  ver:
+                    type: string
+                    example: '1.0'
+                  ts:
+                    type: string
+                    format: date-time
+                    example: '2024-10-04T12:53:40+05:30'
+                  params:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: 'ERROR'
+                      resmsgid:
+                        type: string
+                        example: 'error-resmsgid-456'
                   responseCode:
                     type: string
                     example: 'SERVER_ERROR'
