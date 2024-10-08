@@ -19,6 +19,7 @@ export = {
       identifier: {
         allowNull: false,
         type: DataTypes.STRING,
+        unique: true,
       },
       learner_id: {
         allowNull: false,
@@ -29,15 +30,11 @@ export = {
         type: DataTypes.JSONB,
       },
       class: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
-      questions_count: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-      },
       l1_skill: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       l2_skill: {
@@ -51,6 +48,10 @@ export = {
       sub_skills: {
         allowNull: true,
         type: DataTypes.JSONB,
+      },
+      questions_count: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
       },
       score: {
         allowNull: false,

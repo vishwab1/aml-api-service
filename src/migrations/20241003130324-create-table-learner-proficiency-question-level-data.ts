@@ -19,6 +19,7 @@ export = {
       identifier: {
         allowNull: false,
         type: DataTypes.STRING,
+        unique: true,
       },
       learner_id: {
         allowNull: false,

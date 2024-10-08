@@ -12,7 +12,7 @@
     "build": "tsc",
     "start": "node --inspect dist/app.js",
     "prestart": "npm run build",
-    "start:dev": "ts-node-dev --respawn --transpile-only --env-file=.env  --watch './src/**/*.ts' src/app.ts",
+    "start:dev": "ts-node-dev --inspect --respawn --transpile-only --env-file=.env  --watch './src/**/*.ts' src/app.ts",
     "start:dev:win": "ts-node-dev --respawn --transpile-only --env-file=.env --watch './src/**/*.ts' src/app.ts",
     "lint": "eslint .",
     "test": "mocha --exit",

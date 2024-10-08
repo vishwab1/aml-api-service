@@ -40,7 +40,7 @@
                 "type": "number"
               }
             },
-            "required": ["question_set_id", "question_id", "score"],
+            "required": ["question_id", "learner_response"],
             "additionalProperties": false
           }
         }

@@ -43,6 +43,13 @@ export const getRecordsForLearnerByQuestionSetId = async (learnerId: string, que
   });
 };
 
+export const getQuestionLevelDataRecordsForLearner = async (learnerId: string): Promise<any> => {
+  return LearnerProficiencyQuestionLevelData.findAll({
+    where: { learner_id: learnerId },
+    raw: true,
+  });
+};
+
 export const getQuestionSetLevelDataByLearnerIdAndQuestionSetId = async (learnerId: string, questionSetId: string): Promise<any> => {
   return LearnerProficiencyQuestionSetLevelData.findOne({
     where: { learner_id: learnerId, question_set_id: questionSetId },
