@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["api.learner.proficiency-data.sync"]
+    },
+    "ver": {
+      "type": "string"
+    },
+    "ts": {
+      "type": "string"
+    },
+    "params": {
+      "type": "object",
+      "properties": {
+        "msgid": {
+          "type": "string"
+        }
+      },
+      "required": ["msgid"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "learner_id": {
+          "type": "string"
+        },
+        "questions_data": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "question_id": {
+                "type": "string"
+              },
+              "learner_response": {
+                "type": "number"
+              }
+            },
+            "required": ["question_set_id", "question_id", "score"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["learner_id", "questions_data"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["id", "ver", "ts", "params", "request"],
+  "additionalProperties": false
+}
