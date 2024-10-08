@@ -20,11 +20,11 @@ export const LearnerProficiencyAggregateData = AppDataSource.define(
     },
     class: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     l1_skill: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     l2_skill: {
       type: DataTypes.STRING,

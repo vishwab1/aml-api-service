@@ -79,10 +79,6 @@ export const QuestionSet = AppDataSource.define(
       allowNull: false,
       defaultValue: true,
     },
-    question_set_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     created_by: {
       type: DataTypes.STRING,
       allowNull: false,
