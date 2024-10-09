@@ -16,6 +16,13 @@ interface Taxonomy {
   l3_skill: { id: number; name: { [key: string]: string } }[];
 }
 
+interface QuestionBody {
+  options: { [key: string]: any }; // Use 'any' if options can have varied structures
+  correct_option: string; // This holds the correct answer option
+  answer: { [key: string]: any }; // Dynamic structure for the answer
+  wrongAnswers: string[]; // Array of wrong answer strings
+}
+
 export class Question extends Model {
   declare id: number;
   declare identifier: string;
@@ -33,7 +40,7 @@ export class Question extends Model {
   declare hints?: { [key: string]: string } | null;
   declare status: 'draft' | 'live';
   declare media?: Array<{ src: string; fileName: string; mimeType: string; mediaType: string }> | null;
-  declare question_body: { [key: string]: string } | null;
+  declare question_body: QuestionBody | null;
   declare sub_skills?: Array<{ id: number; name: { [key: string]: string } }> | null;
   declare created_by: string;
   declare updated_by?: string | null;

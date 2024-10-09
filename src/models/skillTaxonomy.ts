@@ -1,18 +1,38 @@
 import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export class SubSkillMaster extends Model {
+export class SkillTaxonomy extends Model {
   declare id: number;
   declare identifier: string;
-  declare name: { [key: string]: string };
-  declare description?: { [key: string]: string } | null;
+  declare taxonomy_name: string;
+  declare taxonomy_id: string;
+  declare l1_id?: number; // Optional, as it can be null
+  declare l1_identifier: string;
+  declare l1_sequence?: number; // Optional, as it can be null
+  declare l1_skill: { [key: string]: string }; // Adjusted for multilingual support
+  declare l1_skill_description: { [key: string]: string } | null; // Adjusted for multilingual support
+  declare prerequisites?: string[]; // Optional array of strings
+  declare children: {
+    l2_id: number;
+    children: {
+      l3_id: number;
+      l3_skill: { [key: string]: string };
+      l3_sequence: number;
+      l3_identifier: string;
+      l3_skill_description: { [key: string]: string } | null;
+    }[];
+    l2_skill: { [key: string]: string };
+    l2_sequence: number;
+    l2_identifier: string;
+    l2_skill_description: { [key: string]: string } | null;
+  }[]; // Adjusted for hierarchical structure
   declare status: 'draft' | 'live';
   declare is_active: boolean;
   declare created_by: string;
-  declare updated_by?: string | null;
+  declare updated_by?: string; // Optional, as it can be null
 }
 
-SubSkillMaster.init(
+SkillTaxonomy.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,46 +43,67 @@ SubSkillMaster.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    name: {
+    taxonomy_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    taxonomy_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    l1_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true, // Can be null
+    },
+    l1_identifier: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    l1_sequence: {
+      type: DataTypes.INTEGER,
+      allowNull: true, // Can be null
+    },
+    l1_skill: {
       type: DataTypes.JSONB,
       allowNull: false,
-      unique: true,
-      comment: 'Multilingual field for skill name',
     },
-    description: {
+    l1_skill_description: {
       type: DataTypes.JSONB,
       allowNull: true,
-      comment: 'A short description of the skill',
+    },
+    prerequisites: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true, // Can be null
+    },
+    children: {
+      type: DataTypes.JSONB,
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
-      comment: 'The status of the sub-skill',
+      defaultValue: 'draft',
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
-      comment: 'Indicates whether the sub-skill is active or not',
     },
     created_by: {
       type: DataTypes.STRING,
       allowNull: false,
-      comment: 'The user who created this sub-skill',
     },
     updated_by: {
       type: DataTypes.STRING,
-      allowNull: true,
-      comment: 'The user who last updated this sub-skill',
+      allowNull: true, // Can be null
     },
   },
   {
     sequelize: AppDataSource,
-    modelName: 'SubSkillMaster',
-    tableName: 'sub_skill_master',
+    modelName: 'SkillTaxonomy',
+    tableName: 'skill_taxonomy',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    comment: 'Table to store sub-skill related data',
   },
 );
