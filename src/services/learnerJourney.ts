@@ -14,7 +14,7 @@ export const updateLearnerJourney = async (identifier: string, req: UpdateLearne
   return { updatedLearnerJourney };
 };
 
-export const readLearnerJourney = async (learnerId: string): Promise<{ learnerJourney: any }> => {
+export const readLearnerJourney = async (learnerId: string): Promise<{ learnerJourney: LearnerJourney | null }> => {
   const learnerJourney = await LearnerJourney.findOne({
     where: { learner_id: learnerId },
     order: [['updated_at', 'desc']],

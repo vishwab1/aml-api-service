@@ -1,9 +1,22 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 import { LearnerJourneyStatus } from '../enums/learnerJourneyStatus';
 
-export const LearnerJourney = AppDataSource.define(
-  'learner_journey',
+export class LearnerJourney extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare learner_id: string;
+  declare question_set_id: string;
+  declare completed_question_ids: string[];
+  declare status: LearnerJourneyStatus;
+  declare start_time: Date;
+  declare end_time: Date;
+  declare attempts_count: number;
+  declare created_by: string;
+  declare updated_by: string;
+}
+
+LearnerJourney.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -55,6 +68,8 @@ export const LearnerJourney = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'LearnerJourney',
     tableName: 'learner_journey',
     timestamps: true,
     createdAt: 'created_at',

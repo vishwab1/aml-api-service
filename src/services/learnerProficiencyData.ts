@@ -3,7 +3,7 @@ import { LearnerProficiencyQuestionLevelData } from '../models/learnerProficienc
 import { LearnerProficiencyAggregateData } from '../models/learnerProficiencyAggregateData';
 import { LearnerProficiencyQuestionSetLevelData } from '../models/learnerProficiencyQuestionSetLevelData';
 
-export const getQuestionLevelDataByLearnerIdAndQuestionId = async (learnerId: string, questionId: string): Promise<any> => {
+export const getQuestionLevelDataByLearnerIdAndQuestionId = async (learnerId: string, questionId: string): Promise<LearnerProficiencyQuestionLevelData | null> => {
   return LearnerProficiencyQuestionLevelData.findOne({
     where: { learner_id: learnerId, question_id: questionId },
     attributes: { exclude: ['id'] },
@@ -11,10 +11,8 @@ export const getQuestionLevelDataByLearnerIdAndQuestionId = async (learnerId: st
   });
 };
 
-export const createLearnerProficiencyQuestionLevelData = async (req: Optional<any, string> | undefined): Promise<any> => {
-  const res = await LearnerProficiencyQuestionLevelData.create(req);
-  const { dataValues } = res;
-  return { dataValues };
+export const createLearnerProficiencyQuestionLevelData = async (req: Optional<any, string> | undefined): Promise<LearnerProficiencyQuestionLevelData> => {
+  return LearnerProficiencyQuestionLevelData.create(req);
 };
 
 export const updateLearnerProficiencyQuestionLevelData = async (identifier: string, req: any): Promise<any> => {
@@ -25,7 +23,7 @@ export const updateLearnerProficiencyQuestionLevelData = async (identifier: stri
   return { updatedLearnerData };
 };
 
-export const readLearnerAggregateData = async (learnerId: string): Promise<{ learnerAggregateData: any }> => {
+export const readLearnerAggregateData = async (learnerId: string): Promise<{ learnerAggregateData: LearnerProficiencyAggregateData[] }> => {
   const learnerAggregateData = await LearnerProficiencyAggregateData.findAll({
     where: { learner_id: learnerId },
     order: [['updated_at', 'desc']],
@@ -36,21 +34,21 @@ export const readLearnerAggregateData = async (learnerId: string): Promise<{ lea
   return { learnerAggregateData };
 };
 
-export const getRecordsForLearnerByQuestionSetId = async (learnerId: string, questionSetId: string): Promise<any> => {
+export const getRecordsForLearnerByQuestionSetId = async (learnerId: string, questionSetId: string): Promise<LearnerProficiencyQuestionLevelData[]> => {
   return LearnerProficiencyQuestionLevelData.findAll({
     where: { learner_id: learnerId, question_set_id: questionSetId },
     raw: true,
   });
 };
 
-export const getQuestionLevelDataRecordsForLearner = async (learnerId: string): Promise<any> => {
+export const getQuestionLevelDataRecordsForLearner = async (learnerId: string): Promise<LearnerProficiencyQuestionLevelData[]> => {
   return LearnerProficiencyQuestionLevelData.findAll({
     where: { learner_id: learnerId },
     raw: true,
   });
 };
 
-export const getQuestionSetLevelDataByLearnerIdAndQuestionSetId = async (learnerId: string, questionSetId: string): Promise<any> => {
+export const getQuestionSetLevelDataByLearnerIdAndQuestionSetId = async (learnerId: string, questionSetId: string): Promise<LearnerProficiencyQuestionSetLevelData | null> => {
   return LearnerProficiencyQuestionSetLevelData.findOne({
     where: { learner_id: learnerId, question_set_id: questionSetId },
     attributes: { exclude: ['id'] },
@@ -58,10 +56,8 @@ export const getQuestionSetLevelDataByLearnerIdAndQuestionSetId = async (learner
   });
 };
 
-export const createLearnerProficiencyQuestionSetLevelData = async (req: Optional<any, string> | undefined): Promise<any> => {
-  const res = await LearnerProficiencyQuestionSetLevelData.create(req);
-  const { dataValues } = res;
-  return { dataValues };
+export const createLearnerProficiencyQuestionSetLevelData = async (req: Optional<any, string> | undefined): Promise<LearnerProficiencyQuestionSetLevelData> => {
+  return LearnerProficiencyQuestionSetLevelData.create(req);
 };
 
 export const updateLearnerProficiencyQuestionSetLevelData = async (identifier: string, req: any): Promise<any> => {
