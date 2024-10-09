@@ -1,8 +1,19 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const SkillMaster = AppDataSource.define(
-  'skill_master',
+export class SkillMaster extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare name: { [key: string]: string };
+  declare description: { [key: string]: string } | null;
+  declare type: 'l1_skill' | 'l2_skill' | 'l3_skill';
+  declare is_active: boolean;
+  declare status: 'draft' | 'live';
+  declare created_by: string;
+  declare updated_by: string | null;
+}
+
+SkillMaster.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -24,7 +35,7 @@ export const SkillMaster = AppDataSource.define(
       comment: 'A short description of the skill',
     },
     type: {
-      type: DataTypes.ENUM('l1_skill', 'l2_skill', 'l3_skill'), // Enum field for type
+      type: DataTypes.ENUM('l1_skill', 'l2_skill', 'l3_skill'),
       allowNull: false,
       comment: 'The type/category of the skill',
     },
@@ -52,6 +63,8 @@ export const SkillMaster = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'SkillMaster',
     tableName: 'skill_master',
     timestamps: true,
     createdAt: 'created_at',

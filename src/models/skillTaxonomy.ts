@@ -1,8 +1,18 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const SkillTaxonomy = AppDataSource.define(
-  'skill_taxonomy',
+export class SubSkillMaster extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare name: { [key: string]: string };
+  declare description?: { [key: string]: string } | null;
+  declare status: 'draft' | 'live';
+  declare is_active: boolean;
+  declare created_by: string;
+  declare updated_by?: string | null;
+}
+
+SubSkillMaster.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,64 +23,46 @@ export const SkillTaxonomy = AppDataSource.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    taxonomy_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    taxonomy_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    l1_id: {
-      type: DataTypes.INTEGER,
-    },
-    l1_identifier: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    l1_sequence: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    l1_skill: {
+    name: {
       type: DataTypes.JSONB,
       allowNull: false,
+      unique: true,
+      comment: 'Multilingual field for skill name',
     },
-    l1_skill_description: {
+    description: {
       type: DataTypes.JSONB,
       allowNull: true,
-    },
-    prerequisites: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
-    },
-    children: {
-      type: DataTypes.JSONB,
-      allowNull: false,
+      comment: 'A short description of the skill',
     },
     status: {
       type: DataTypes.ENUM('draft', 'live'),
       allowNull: false,
-      defaultValue: 'draft',
+      comment: 'The status of the sub-skill',
     },
     is_active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,
+      comment: 'Indicates whether the sub-skill is active or not',
     },
     created_by: {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: 'The user who created this sub-skill',
     },
     updated_by: {
       type: DataTypes.STRING,
       allowNull: true,
+      comment: 'The user who last updated this sub-skill',
     },
   },
   {
-    tableName: 'skill_taxonomy',
+    sequelize: AppDataSource,
+    modelName: 'SubSkillMaster',
+    tableName: 'sub_skill_master',
     timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
+    comment: 'Table to store sub-skill related data',
   },
 );

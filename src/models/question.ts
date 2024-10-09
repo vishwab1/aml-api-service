@@ -1,8 +1,47 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const Question = AppDataSource.define(
-  'question',
+// Define interfaces for the structures used in the Question model
+interface Repository {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Taxonomy {
+  // Define the structure of your taxonomy here, for example:
+  board: { id: number; name: { [key: string]: string } };
+  class: { id: number; name: { [key: string]: string } };
+  l1_skill: { id: number; name: { [key: string]: string } };
+  l2_skill: { id: number; name: { [key: string]: string } }[];
+  l3_skill: { id: number; name: { [key: string]: string } }[];
+}
+
+export class Question extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare process_id?: string | null;
+  declare question_set_id?: string | null;
+  declare benchmark_time: number;
+  declare question_type: string;
+  declare operation: string;
+  declare name: { [key: string]: string };
+  declare description?: { [key: string]: string } | null;
+  declare tenant?: { id: number; name: { [key: string]: string } } | null;
+  declare repository: Repository; // Using the Repository interface
+  declare taxonomy: Taxonomy; // Using the Taxonomy interface
+  declare gradient?: string | null;
+  declare hints?: { [key: string]: string } | null;
+  declare status: 'draft' | 'live';
+  declare media?: Array<{ src: string; fileName: string; mimeType: string; mediaType: string }> | null;
+  declare question_body: { [key: string]: string } | null;
+  declare sub_skills?: Array<{ id: number; name: { [key: string]: string } }> | null;
+  declare created_by: string;
+  declare updated_by?: string | null;
+  declare is_active: boolean;
+}
+
+// Initialize the Question model
+Question.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -35,7 +74,7 @@ export const Question = AppDataSource.define(
     },
     name: {
       type: DataTypes.JSONB,
-      allowNull: true,
+      allowNull: false,
     },
     description: {
       type: DataTypes.JSONB,
@@ -66,7 +105,7 @@ export const Question = AppDataSource.define(
       allowNull: false,
     },
     media: {
-      type: DataTypes.ARRAY(DataTypes.JSONB),
+      type: DataTypes.JSONB,
       allowNull: true,
     },
     question_body: {
@@ -92,6 +131,8 @@ export const Question = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'Question',
     tableName: 'question',
     timestamps: true,
     createdAt: 'created_at',

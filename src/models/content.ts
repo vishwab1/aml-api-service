@@ -1,8 +1,49 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const Content = AppDataSource.define(
-  'content',
+interface Skill {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Class {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Board {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Taxonomy {
+  board: Board;
+  class: Class;
+  l1_skill: Skill;
+  l2_skill: Skill[];
+  l3_skill: Skill[];
+}
+
+export class Content extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare process_id?: string | null;
+  declare name: { [key: string]: string };
+  declare description?: { [key: string]: string } | null;
+  declare tenant?: { id: number; name: { [key: string]: string } } | null;
+  declare repository?: { id: number; name: { [key: string]: string } } | null;
+  declare taxonomy: Taxonomy;
+  declare sub_skills?: Array<{ id: number; name: { [key: string]: string } }> | null;
+  declare gradient?: string | null;
+  declare status: 'draft' | 'live';
+  declare media?: Array<{ src: string; fileName: string; mimeType: string; mediaType: string }> | null;
+  declare content_id?: string | null;
+  declare created_by: string;
+  declare updated_by?: string | null;
+  declare is_active: boolean;
+}
+
+Content.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -36,6 +77,7 @@ export const Content = AppDataSource.define(
     taxonomy: {
       type: DataTypes.JSONB,
       allowNull: false,
+      comment: 'Taxonomy information including board, class, and skills',
     },
     sub_skills: {
       type: DataTypes.JSONB,
@@ -72,6 +114,8 @@ export const Content = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'Content',
     tableName: 'content',
     timestamps: true,
     createdAt: 'created_at',
