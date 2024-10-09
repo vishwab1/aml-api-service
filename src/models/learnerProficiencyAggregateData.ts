@@ -1,8 +1,23 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const LearnerProficiencyAggregateData = AppDataSource.define(
-  'learner_proficiency_aggregate_data',
+export class LearnerProficiencyAggregateData extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare learner_id: string;
+  declare class: string;
+  declare l1_skill: string;
+  declare l2_skill: string;
+  declare l3_skill: string;
+  declare taxonomy: { board: string; class: string };
+  declare sub_skills: any;
+  declare questions_count: number;
+  declare score: number;
+  declare created_by: string;
+  declare updated_by: string;
+}
+
+LearnerProficiencyAggregateData.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -60,6 +75,8 @@ export const LearnerProficiencyAggregateData = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'LearnerProficiencyAggregateData',
     tableName: 'learner_proficiency_aggregate_data',
     timestamps: true,
     createdAt: 'created_at',

@@ -36,6 +36,9 @@
               "question_id": {
                 "type": "string"
               },
+              "question_set_id": {
+                "type": "string"
+              },
               "learner_response": {
                 "type": "number"
               }

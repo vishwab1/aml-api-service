@@ -34,7 +34,7 @@ const learnerJourneyUpdate = async (req: Request, res: Response) => {
 
   const { learnerJourney } = await readLearnerJourney(dataBody.learner_id);
 
-  const startTime = dataBody.start_time ? dataBody.start_time : learnerJourney.start_time;
+  const startTime = dataBody.start_time ? dataBody.start_time : learnerJourney!.start_time;
 
   if (startTime && dataBody.end_time && moment(startTime).isAfter(moment(dataBody.end_time))) {
     const code = 'LEARNER_JOURNEY_INVALID_INPUT';
@@ -42,9 +42,9 @@ const learnerJourneyUpdate = async (req: Request, res: Response) => {
     throw amlError(code, isRequestValid.message, 'BAD_REQUEST', 400);
   }
 
-  await updateLearnerJourney(learnerJourney.identifier, {
+  await updateLearnerJourney(learnerJourney!.identifier, {
     ...dataBody,
-    completed_question_ids: _.uniq([...(learnerJourney.completed_question_ids || []), ...(dataBody.completed_question_ids || [])]),
+    completed_question_ids: _.uniq([...(learnerJourney!.completed_question_ids || []), ...(dataBody.completed_question_ids || [])]),
   });
 
   ResponseHandler.successResponse(req, res, { status: httpStatus.OK, data: { message: 'learner journey updated successfully' } });

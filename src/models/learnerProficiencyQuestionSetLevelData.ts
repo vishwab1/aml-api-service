@@ -1,8 +1,20 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const LearnerProficiencyQuestionSetLevelData = AppDataSource.define(
-  'learner_proficiency_question_set_level_data',
+export class LearnerProficiencyQuestionSetLevelData extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare learner_id: string;
+  declare question_set_id: string;
+  declare taxonomy: { board: string; class: string; l1_skill: string; l2_skill: string; l3_skill: string };
+  declare sub_skills: any;
+  declare score: number;
+  declare attempts_count: number;
+  declare created_by: string;
+  declare updated_by: string;
+}
+
+LearnerProficiencyQuestionSetLevelData.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,11 +43,11 @@ export const LearnerProficiencyQuestionSetLevelData = AppDataSource.define(
       allowNull: true,
     },
     score: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
       allowNull: false,
     },
     attempts_count: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 1,
     },
@@ -49,6 +61,8 @@ export const LearnerProficiencyQuestionSetLevelData = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'LearnerProficiencyQuestionSetLevelData',
     tableName: 'learner_proficiency_question_set_level_data',
     timestamps: true,
     createdAt: 'created_at',
