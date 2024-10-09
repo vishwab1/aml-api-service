@@ -5,10 +5,11 @@ export class boardMaster extends Model {
   declare id: number;
   declare identifier: string;
   declare name: { [key: string]: string };
-  declare class_ids: {
-    ids: number[];
-    l1_skill_ids: number[];
-  } | null;
+  declare class_ids: Array<{
+    id: string;
+    sequence_no: number;
+    l1_skill_ids: string[];
+  }> | null;
   declare skill_taxonomy_id: string | null;
   declare description: { [key: string]: string } | null;
   declare status: 'draft' | 'live';
@@ -33,7 +34,7 @@ boardMaster.init(
       allowNull: false,
     },
     class_ids: {
-      type: DataTypes.JSON,
+      type: DataTypes.JSONB, // Storing array of objects as JSONB
       allowNull: true,
     },
     skill_taxonomy_id: {
