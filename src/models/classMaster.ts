@@ -1,8 +1,19 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const classMaster = AppDataSource.define(
-  'class_master',
+export class classMaster extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare name: { [key: string]: string };
+  declare prerequisites: string[] | null;
+  declare description: { [key: string]: string } | null;
+  declare status: 'draft' | 'live';
+  declare is_active: boolean;
+  declare created_by: string;
+  declare updated_by: string | null;
+}
+
+classMaster.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -43,6 +54,8 @@ export const classMaster = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'classMaster',
     tableName: 'class_master',
     timestamps: true,
     createdAt: 'created_at',

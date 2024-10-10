@@ -69,26 +69,27 @@
                 "type": "string"
               },
               "class_ids": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sequence_no": {
                       "type": "integer"
                     },
-                    "minItems": 1,
-                    "uniqueItems": true
+                    "l1_skill_ids": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 1,
+                      "uniqueItems": true
+                    }
                   },
-                  "l1_skill_ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "minItems": 1,
-                    "uniqueItems": true
-                  }
-                },
-                "additionalProperties": false
+                  "additionalProperties": false
+                }
               }
             },
             "required": ["name", "description"],

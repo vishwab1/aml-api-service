@@ -42,7 +42,7 @@ export const getSkillById = async (skillId: string): Promise<any> => {
 export const checkSkillsExistByIds = async (skillIds: number[]): Promise<boolean> => {
   const skills = await SkillMaster.findAll({
     where: {
-      id: skillIds,
+      identifier: skillIds,
       type: SkillType.L1_SKILL,
     },
     attributes: ['id'],

@@ -33,24 +33,27 @@
           "description": "JSON object for name translations, at least one language key must be present"
         },
         "class_ids": {
-          "type": "object",
-          "properties": {
-            "ids": {
-              "type": "array",
-              "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence_no": {
                 "type": "integer"
               },
-              "uniqueItems": true
+              "l1_skill_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
             },
-            "l1_skill_ids": {
-              "type": "array",
-              "items": {
-                "type": "integer"
-              },
-              "uniqueItems": true
-            }
-          },
-          "additionalProperties": false
+            "additionalProperties": false
+          }
         },
         "skill_taxonomy_id": {
           "type": "string"

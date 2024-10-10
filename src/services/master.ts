@@ -6,7 +6,7 @@ import { Op } from 'sequelize';
 import * as uuid from 'uuid';
 import _ from 'lodash';
 import { SkillMaster } from '../models/skill';
-import { checkClassIdsExists } from './class';
+import { getClassById } from './class';
 import { checkSkillTaxonomyIdExists } from './skillTaxonomy';
 import { amlError } from '../types/amlError';
 import { checkSkillsExistByIds } from './skill';
@@ -103,23 +103,33 @@ const handleBoardInsertion = async (boardData: any[]) => {
         }
       }
 
-      // Validate class_ids array
-      const classIds = _.get(board, 'class_ids.ids', []);
+      const classIds = _.get(board, 'class_ids', []);
       if (!_.isEmpty(classIds)) {
-        const isClassIdsExists = await checkClassIdsExists(classIds);
-        if (!isClassIdsExists) {
-          const code = 'CLASS_ID_NOT_EXISTS';
-          throw amlError(code, 'Class Ids do not exist', 'NOT_FOUND', 404);
-        }
-      }
+        // Check each class_id object
+        for (const classId of classIds) {
+          const { id, l1_skill_ids } = classId;
 
-      // Validate l1_ids array
-      const l1SkillIds = _.get(board, 'class_ids.l1_skill_ids', []);
-      if (!_.isEmpty(l1SkillIds)) {
-        const isL1Exists = await checkSkillsExistByIds(l1SkillIds); // Check for 'l1_skill' type
-        if (!isL1Exists) {
-          const code = 'L1_SKILL_NOT_EXISTS';
-          throw amlError(code, 'One or more L1 skills do not exist or are not of type l1_skill', 'NOT_FOUND', 404);
+          // Validate class id
+          if (!id) {
+            const code = 'CLASS_ID_MISSING';
+            throw amlError(code, 'Class Id is missing', 'BAD_REQUEST', 400);
+          }
+
+          // Validate class existence
+          const isClassIdExists = await getClassById(id);
+          if (!isClassIdExists) {
+            const code = 'CLASS_ID_NOT_EXISTS';
+            throw amlError(code, 'Class Id does not exist', 'NOT_FOUND', 404);
+          }
+
+          // Validate l1_skill_ids array
+          if (l1_skill_ids) {
+            const isL1Exists = await checkSkillsExistByIds(l1_skill_ids); // Check for 'l1_skill' type
+            if (!isL1Exists) {
+              const code = 'L1_SKILL_NOT_EXISTS';
+              throw amlError(code, 'One or more L1 skills do not exist or are not of type l1_skill', 'NOT_FOUND', 404);
+            }
+          }
         }
       }
 

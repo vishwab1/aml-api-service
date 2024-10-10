@@ -1,8 +1,55 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const QuestionSet = AppDataSource.define(
-  'question_set',
+// Define interfaces for the structures used in the QuestionSet
+interface Skill {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Class {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Board {
+  id: number;
+  name: { [key: string]: string };
+}
+
+interface Taxonomy {
+  board: Board;
+  class: Class;
+  l1_skill: Skill;
+  l2_skill: Skill[];
+  l3_skill: Skill[];
+}
+
+export class QuestionSet extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare process_id?: string | null;
+  declare title: { [key: string]: string };
+  declare description?: { [key: string]: string } | null;
+  declare repository?: { id: number; name: { [key: string]: string } } | null;
+  declare sequence: number;
+  declare tenant?: { id: number; name: { [key: string]: string } } | null;
+  declare taxonomy: Taxonomy; // Using the detailed Taxonomy interface
+  declare sub_skills?: Array<{ id: number; name: { [key: string]: string } }> | null;
+  declare purpose?: string | null;
+  declare is_atomic: boolean;
+  declare gradient?: string | null;
+  declare group_name?: number | null;
+  declare content_id?: string[] | null;
+  declare instruction_text?: string | null;
+  declare status: 'draft' | 'live';
+  declare is_active: boolean;
+  declare created_by: string;
+  declare updated_by?: string | null;
+}
+
+// Initialize the QuestionSet model
+QuestionSet.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -40,6 +87,7 @@ export const QuestionSet = AppDataSource.define(
     taxonomy: {
       type: DataTypes.JSONB,
       allowNull: false,
+      comment: 'Taxonomy information including board, class, and skills',
     },
     sub_skills: {
       type: DataTypes.JSONB,
@@ -89,6 +137,8 @@ export const QuestionSet = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'QuestionSet',
     tableName: 'question_set',
     timestamps: true,
     createdAt: 'created_at',

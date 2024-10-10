@@ -12,10 +12,13 @@ export const board_update_request = {
         en: 'Board Name',
         fr: 'Nom du Tableau',
       },
-      class_ids: {
-        ids: [3, 4],
-        l1_skill_ids: [1, 2],
-      },
+      class_ids: [
+        {
+          id: '9b50a7e7-fdec-4fd7-bf63-84b3e62e4248',
+          sequence_no: 1,
+          l1_skill_ids: ['9b50a7e7-fdec-4fd7-bf63-84b3e62e334f'],
+        },
+      ],
       skill_taxonomy_id: 'amltaxonomy',
       description: {
         en: 'This is the English description',

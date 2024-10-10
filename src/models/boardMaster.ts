@@ -1,8 +1,24 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { AppDataSource } from '../config';
 
-export const boardMaster = AppDataSource.define(
-  'board_master',
+export class boardMaster extends Model {
+  declare id: number;
+  declare identifier: string;
+  declare name: { [key: string]: string };
+  declare class_ids: Array<{
+    id: string;
+    sequence_no: number;
+    l1_skill_ids: string[];
+  }> | null;
+  declare skill_taxonomy_id: string | null;
+  declare description: { [key: string]: string } | null;
+  declare status: 'draft' | 'live';
+  declare is_active: boolean;
+  declare created_by: string;
+  declare updated_by: string | null;
+}
+
+boardMaster.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,7 +34,7 @@ export const boardMaster = AppDataSource.define(
       allowNull: false,
     },
     class_ids: {
-      type: DataTypes.JSON,
+      type: DataTypes.JSONB, // Storing array of objects as JSONB
       allowNull: true,
     },
     skill_taxonomy_id: {
@@ -47,6 +63,8 @@ export const boardMaster = AppDataSource.define(
     },
   },
   {
+    sequelize: AppDataSource,
+    modelName: 'boardMaster',
     tableName: 'board_master',
     timestamps: true,
     createdAt: 'created_at',
