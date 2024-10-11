@@ -17,10 +17,11 @@ interface Taxonomy {
 }
 
 interface QuestionBody {
+  numbers: { n1: number | null; n2: number | null }; // Correct union type syntax
   options: { [key: string]: any }; // Use 'any' if options can have varied structures
   correct_option: string; // This holds the correct answer option
-  answer: { [key: string]: any }; // Dynamic structure for the answer
-  wrongAnswers: string[]; // Array of wrong answer strings
+  answers: { [key: string]: any }; // Dynamic structure for the answer
+  wrong_answer: { value: number[]; subskillname: string }[]; // Array of objects with 'value' and 'subskillname'
 }
 
 export class Question extends Model {
